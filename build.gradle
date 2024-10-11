@@ -3,6 +3,7 @@ plugins {
 	id 'fabric-loom' version '1.8.8'
 	id 'maven-publish'
 	id 'java'
+    id "com.github.johnrengelman.processes" version "0.5.0"
 }
 
 version = project.mod_version
@@ -86,6 +87,21 @@ jar {
 	}
 }
 
+task loadEnv {
+    doLast {
+        file('.env').withReader { reader ->
+            reader.eachLine { line ->
+                def (key, value) = line.split('=')
+                project.ext[key] = value
+            }
+        }
+    }
+}
+
+tasks.named('publish').configure {
+    dependsOn loadEnv
+}
+
 publishing {
 	publications {
 		create("mavenJava", MavenPublication) {
@@ -93,4 +109,15 @@ publishing {
 			from components.java
 		}
 	}
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/XDPXI/XDLib")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+            }
+        }
+    }
 }
