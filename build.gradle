@@ -1,6 +1,6 @@
 plugins {
 	id 'signing'
-	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'fabric-loom' version '1.8.8'
 	id 'maven-publish'
 	id 'java'
 }
