@@ -39,7 +39,7 @@ public class TitleScreenMixin {
     private static boolean changelogEveryStartup = false;
 
     @Unique
-    private static int version = 7;
+    private static int version = 8;
 
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {

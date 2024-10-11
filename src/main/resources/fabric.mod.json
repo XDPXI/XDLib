@@ -62,7 +62,7 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.modrinth": "https://modrinth.com/mod/xdlib"
+        "modmenu.modrinth": "https://modrinth.com/plugin/xdlib"
       },
       "update_checker": true
     },

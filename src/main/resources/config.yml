@@ -5,7 +5,11 @@
 #   > <   | |  | | | |      | | | '_ \
 #  / . \  | |__| | | |____  | | | |_) |
 # /_/ \_\ |_____/  |______| |_| |_.__/
+#
 #----------------------------------------------------------------
+# Enables the plugin
+enabled: true
+#
 # Shows a welcome message to new players
 welcomeMessage: true
 #
@@ -14,4 +18,7 @@ customJoinMessages: true
 #
 # Changed the message looks
 customChatMessages: true
+#
+# Enables the TPA command for any player to run
+tpaCommand: true
 #----------------------------------------------------------------

@@ -80,7 +80,7 @@ public class TerminalScreen extends Screen {
             } catch (Exception e) {
                 LOGGER.error("Error executing script: " + e.getMessage());
             }
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             LOGGER.error("Error executing script: " + e.getMessage());
         }
     }

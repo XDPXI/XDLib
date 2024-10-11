@@ -16,9 +16,6 @@ public class joinLeaveListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.setJoinMessage(ChatColor.GREEN + ">>> " + ChatColor.WHITE + event.getPlayer().getName());
-        if (!event.getPlayer().hasPlayedBefore() && plugin.getConfig().getBoolean("welcomeMessage")) {
-            event.getPlayer().sendMessage(ChatColor.GOLD + "Welcome " + ChatColor.GREEN + event.getPlayer().getName() + ChatColor.GOLD + " to the server!");
-        }
     }
 
     @EventHandler

@@ -1,9 +1,9 @@
 plugins {
 	id 'signing'
-	id 'fabric-loom' version '1.8.8'
+	id 'fabric-loom' version '1.8-SNAPSHOT'
 	id 'maven-publish'
 	id 'java'
-    id "com.github.johnrengelman.processes" version "0.5.0"
+	id "com.github.johnrengelman.processes" version "0.5.0"
 }
 
 version = project.mod_version
@@ -49,11 +49,12 @@ dependencies {
 	modImplementation("maven.modrinth:sodium:${project.sodium_version}")
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}"){exclude(group: "net.fabricmc.fabric-api")}
 	include(implementation("com.github.MinnDevelopment:java-discord-rpc:2.0.2"))
+	implementation("org.json:json:20240303")
 	implementation("com.formdev:flatlaf:3.5.1")
 	implementation("org.commonmark:commonmark:0.23.0")
 	implementation("org.projectlombok:lombok:1.18.34")
 	implementation("org.beanshell:bsh:3.0.0-SNAPSHOT")
-	implementation("com.moandjiezana.toml:toml4j:0.7.2")
+	implementation("io.hotmoka:toml4j:0.7.3")
 }
 
 processResources {
@@ -88,18 +89,18 @@ jar {
 }
 
 task loadEnv {
-    doLast {
-        file('.env').withReader { reader ->
-            reader.eachLine { line ->
-                def (key, value) = line.split('=')
-                project.ext[key] = value
-            }
-        }
-    }
+	doLast {
+		file('.env').withReader { reader ->
+			reader.eachLine { line ->
+				def (key, value) = line.split('=')
+				project.ext[key] = value
+			}
+		}
+	}
 }
 
 tasks.named('publish').configure {
-    dependsOn loadEnv
+	dependsOn loadEnv
 }
 
 publishing {
@@ -110,14 +111,14 @@ publishing {
 		}
 	}
 
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/XDPXI/XDLib")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
-            }
-        }
-    }
+	repositories {
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/XDPXI/XDLib")
+			credentials {
+				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+				password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+			}
+		}
+	}
 }

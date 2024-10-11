@@ -1,24 +1,42 @@
 package dev.xdpxi.xdlib.plugin;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import dev.xdpxi.xdlib.api.plugin.pluginManager;
+import org.bukkit.command.*;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class xdlib extends JavaPlugin {
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.UUID;
+
+public final class xdlib extends JavaPlugin implements CommandExecutor {
     private welcomeListener WelcomeListener;
     private chatListener ChatListener;
     private joinLeaveListener JoinLeaveListener;
+    private final HashMap<UUID, UUID> teleportRequests = new HashMap<>();
 
     @Override
     public void onEnable() {
+        getLogger().info("[XDLib] - Enabling...");
+
         setConfig();
+
         this.getCommand("xdlib").setTabCompleter(new tabCompleter());
+
+        updateChecker checker = new updateChecker(this);
+        checker.checkForUpdate();
+
         getLogger().info("[XDLib] - Enabled!");
     }
 
     private void setConfig() {
         saveDefaultConfig();
+
+        boolean enabled = getConfig().getBoolean("enabled");
+        if (!enabled) {
+            getLogger().info("[XDLib] - Plugin Disabled in Config!");
+            pluginManager.disablePlugin("xdlib");
+        }
 
         boolean welcomeMessage = getConfig().getBoolean("welcomeMessage");
         if (WelcomeListener != null) {
@@ -46,6 +64,18 @@ public final class xdlib extends JavaPlugin {
             JoinLeaveListener = new joinLeaveListener(this);
             getServer().getPluginManager().registerEvents(JoinLeaveListener, this);
         }
+
+        boolean tpa = getConfig().getBoolean("tpaCommand");
+        if (isCommandAvailable("tpa")) {
+            unregisterCommand("tpa");
+        }
+        if (tpa) {
+            tpaCommand tpaCommand = new tpaCommand();
+            this.getCommand("tpa").setExecutor(tpaCommand);
+            this.getCommand("tpa").setTabCompleter(new tabCompleter());
+        }
+
+        getLogger().info("[XDLib] - Config Loaded!");
     }
 
     @Override
@@ -77,5 +107,25 @@ public final class xdlib extends JavaPlugin {
             return true;
         }
         return false;
+    }
+
+    private void unregisterCommand(String commandName) {
+        try {
+            Field commandMapField = getServer().getClass().getDeclaredField("commandMap");
+            commandMapField.setAccessible(true);
+            CommandMap commandMap = (CommandMap) commandMapField.get(getServer());
+
+            PluginCommand command = getCommand(commandName);
+            if (command != null) {
+                command.unregister(commandMap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isCommandAvailable(String commandName) {
+        PluginCommand command = getServer().getPluginCommand(commandName);
+        return command != null;
     }
 }

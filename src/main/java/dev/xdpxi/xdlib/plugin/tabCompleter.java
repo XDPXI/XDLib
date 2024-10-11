@@ -16,6 +16,11 @@ public class tabCompleter implements TabCompleter {
                 return Arrays.asList("reload", "help");
             }
         }
+        if (command.getName().equalsIgnoreCase("tpa")) {
+            if (args.length == 1) {
+                return Arrays.asList("accept", "decline", "ask");
+            }
+        }
         return new ArrayList<>();
     }
 }
