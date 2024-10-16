@@ -33,7 +33,10 @@ public class custom {
             }
         });
     }
-    public static void AddToItemGroup(String itemGroupID, String modID, List<Item> itemsToAdd) { ItemGroup(itemGroupID, modID, null, itemsToAdd); }
+
+    public static void AddToItemGroup(String itemGroupID, String modID, List<Item> itemsToAdd) {
+        ItemGroup(itemGroupID, modID, null, itemsToAdd);
+    }
 
     public static Item Item(String itemID, String modID, RegistryKey<ItemGroup> itemGroup) {
         itemID = itemID.toLowerCase();
@@ -46,6 +49,7 @@ public class custom {
         }
         return item;
     }
+
     public static Item Item(String itemID, String modID) {
         return Item(itemID, modID, null);
     }
@@ -63,6 +67,7 @@ public class custom {
         }
         return blockItem;
     }
+
     public static BlockItem Block(String blockID, String modID) {
         return Block(blockID, modID, null);
     }
@@ -79,7 +84,9 @@ public class custom {
         return weapon;
     }
 
-    public static Item Weapon(String weaponID, String modID, ToolMaterial material) { return Weapon(weaponID, modID, material, null); }
+    public static Item Weapon(String weaponID, String modID, ToolMaterial material) {
+        return Weapon(weaponID, modID, material, null);
+    }
 
     public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart, RegistryKey<ItemGroup> itemGroup) {
         armorID = armorID.toLowerCase();
@@ -92,5 +99,8 @@ public class custom {
         }
         return armor;
     }
-    public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart) { return Armor(armorID, modID, armorType, armorPart, null); }
+
+    public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart) {
+        return Armor(armorID, modID, armorType, armorPart, null);
+    }
 }

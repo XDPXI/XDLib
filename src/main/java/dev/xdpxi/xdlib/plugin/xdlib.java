@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public final class xdlib extends JavaPlugin implements CommandExecutor {
+    private final HashMap<UUID, UUID> teleportRequests = new HashMap<>();
     private welcomeListener WelcomeListener;
     private chatListener ChatListener;
     private joinLeaveListener JoinLeaveListener;
-    private final HashMap<UUID, UUID> teleportRequests = new HashMap<>();
 
     @Override
     public void onEnable() {
