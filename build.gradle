@@ -1,9 +1,5 @@
 plugins {
-	id 'signing'
 	id 'fabric-loom' version '1.8.10'
-	id 'maven-publish'
-	id 'java'
-	id "com.github.johnrengelman.processes" version "0.5.0"
 }
 
 version = project.mod_version
@@ -40,14 +36,14 @@ fabricApi {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:${project.minecraft_version}")
-	mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+	minecraft("com.mojang:minecraft:1.21")
+	mappings("net.fabricmc:yarn:1.21+build.9:v2")
 	compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-	modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
-	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
-	modImplementation("maven.modrinth:sodium:${project.sodium_version}")
-	modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}"){exclude(group: "net.fabricmc.fabric-api")}
+	modImplementation("net.fabricmc:fabric-loader:0.16.7")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21")
+	modImplementation("com.terraformersmc:modmenu:11.0.2")
+	modImplementation("maven.modrinth:sodium:mc1.21-0.6.0-beta.2-fabric")
+	modImplementation("me.shedaniel.cloth:cloth-config-fabric:15.0.140"){exclude(group: "net.fabricmc.fabric-api")}
 	include(implementation("com.github.MinnDevelopment:java-discord-rpc:2.0.2"))
 	implementation("org.json:json:20240303")
 	implementation("com.formdev:flatlaf:3.5.1")
@@ -85,40 +81,5 @@ java {
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
-	}
-}
-
-task loadEnv {
-	doLast {
-		file('.env').withReader { reader ->
-			reader.eachLine { line ->
-				def (key, value) = line.split('=')
-				project.ext[key] = value
-			}
-		}
-	}
-}
-
-tasks.named('publish').configure {
-	dependsOn loadEnv
-}
-
-publishing {
-	publications {
-		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
-			from components.java
-		}
-	}
-
-	repositories {
-		maven {
-			name = "GitHubPackages"
-			url = uri("https://maven.pkg.github.com/XDPXI/XDLib")
-			credentials {
-				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-				password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
-			}
-		}
 	}
 }
