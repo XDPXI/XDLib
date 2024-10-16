@@ -6,6 +6,8 @@
 > :white_check_mark: : Supported
 > 
 > :construction: : Working on
+>
+> :warning: : Final Major Release
 > 
 > :x: : Not Supported
 
