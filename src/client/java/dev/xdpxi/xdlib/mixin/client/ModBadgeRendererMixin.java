@@ -25,12 +25,12 @@ public abstract class ModBadgeRendererMixin {
     private static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
     @Unique
     private static boolean clothConfig = loader.isModLoaded("cloth-config");
-    @Shadow
+    @Shadow(remap = false)
     protected Mod mod;
     @Unique
     boolean customBadges = true;
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract void drawBadge(DrawContext DrawContext, OrderedText text, int outlineColor, int fillColor, int mouseX, int mouseY);
 
     @Inject(method = "draw", at = @At("TAIL"))
