@@ -4,6 +4,8 @@
 
 > [!NOTE]
 > :white_check_mark: : Supported
+>
+> :hammer_and_wrench: : Development
 > 
 > :construction: : Working on
 >
