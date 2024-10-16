@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,10 +68,11 @@ public class config<T extends Configurable> {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
                 switch (fileType) {
                     case TOML:
-                        configInstance = (T) new Toml().read(reader).to(configInstance.getClass());
+                        Toml toml = new Toml();
+                        configInstance = (T) toml.read(reader).to(configInstance.getClass());
                         break;
                     case JSON:
-                        configInstance = GSON.fromJson(reader, (Class<T>) configInstance.getClass());
+                        configInstance = GSON.fromJson(reader, (Class<T>) getGenericType());
                         break;
                 }
             } catch (IOException ignored) {
@@ -80,6 +82,10 @@ public class config<T extends Configurable> {
 
     public T getConfig() {
         return configInstance;
+    }
+
+    private Class<?> getGenericType() {
+        return (Class<?>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     private enum FileType {JSON, TOML}

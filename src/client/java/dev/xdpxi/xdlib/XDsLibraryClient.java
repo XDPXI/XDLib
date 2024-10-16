@@ -139,7 +139,7 @@ public class XDsLibraryClient implements ClientModInitializer {
             configServerName = clientSettings.configServerName;
             configServerAddress = clientSettings.configServerAddress;
         }
-        LOGGER.info("[XDLib] - Applying Config...");
+        LOGGER.info("[XDLib] - Applying config...");
         if (discordRPC) {
             if (osName.contains("win")) {
                 DiscordRPCHandler.init();
@@ -153,7 +153,7 @@ public class XDsLibraryClient implements ClientModInitializer {
         if (sodiumIntegration) {
             CustomOptions.integrate();
         }
-        LOGGER.info("[XDLib] - Applied Config!");
+        LOGGER.info("[XDLib] - Applied config!");
 
         if (clothConfig) {
             configHelper.registerSaveListener(discordRPC, sodiumIntegration);

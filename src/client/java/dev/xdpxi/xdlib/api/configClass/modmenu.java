@@ -29,17 +29,17 @@ public class modmenu implements ModMenuApi {
             public void init() {
                 int yOffset = this.height / 6 + 24;
 
-                this.addDrawableChild(ButtonWidget.builder(Text.of("Save Config"), (button) -> {
+                this.addDrawableChild(ButtonWidget.builder(Text.of("Save config"), (button) -> {
                     config.saveConfig();
                     this.client.getToastManager().add(
-                            SystemToast.create(this.client, SystemToast.Type.WORLD_BACKUP, Text.of("Config Saved!"), null)
+                            SystemToast.create(this.client, SystemToast.Type.WORLD_BACKUP, Text.of("config Saved!"), null)
                     );
                 }).dimensions(this.width / 2 - 100, yOffset, 200, 20).build());
 
-                this.addDrawableChild(ButtonWidget.builder(Text.of("Reset Config"), (button) -> {
+                this.addDrawableChild(ButtonWidget.builder(Text.of("Reset config"), (button) -> {
                     config.loadConfig();  // Assuming loadConfig resets it
                     this.client.getToastManager().add(
-                            SystemToast.create(this.client, SystemToast.Type.WORLD_BACKUP, Text.of("Config Reset!"), null)
+                            SystemToast.create(this.client, SystemToast.Type.WORLD_BACKUP, Text.of("config Reset!"), null)
                     );
                 }).dimensions(this.width / 2 - 100, yOffset + 25, 200, 20).build());
 
