@@ -73,6 +73,8 @@ public class configHelper {
         }
     }
 
+    public static boolean isChangelogScreenDisabled() { return getConfig().main.disableChangelog; }
+
     public static boolean isTitlePopupsDisabled() {
         return getConfig().main.disableTitlePopups;
     }

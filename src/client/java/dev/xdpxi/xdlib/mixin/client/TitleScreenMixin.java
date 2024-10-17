@@ -41,6 +41,14 @@ public class TitleScreenMixin {
     @Unique
     private static int version = 8;
 
+    @Unique
+    private static boolean isChangelogDisabled() {
+        if (clothConfig) {
+            return configHelper.isChangelogScreenDisabled();
+        }
+        return false;
+    }
+
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
         changelogConfig config = new changelogConfig();
@@ -53,7 +61,7 @@ public class TitleScreenMixin {
             changelogEveryStartup = settings.changelogEveryStartup;
         }
 
-        if ((firstStartup || changelogEveryStartup) && !Shown) {
+        if (((firstStartup || changelogEveryStartup) && !Shown) && !isChangelogDisabled()) {
             CompletableFuture.supplyAsync(() -> {
                 try {
                     Thread.sleep(2000);
@@ -77,20 +85,25 @@ public class TitleScreenMixin {
             }, MinecraftClient.getInstance());
         } else {
             if (!Shown) {
-                CompletableFuture.supplyAsync(() -> {
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return 0;
-                }).thenAcceptAsync(result -> {
-                    Shown = true;
-                    MinecraftClient client = MinecraftClient.getInstance();
-                    Screen currentScreen = client.currentScreen;
-                    client.execute(() -> client.setScreen(new support(Text.empty(), currentScreen)));
-                }, MinecraftClient.getInstance());
+                showPopups();
             }
         }
+    }
+
+    @Unique
+    private void showPopups() {
+        CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return 0;
+        }).thenAcceptAsync(result -> {
+            Shown = true;
+            MinecraftClient client = MinecraftClient.getInstance();
+            Screen currentScreen = client.currentScreen;
+            client.execute(() -> client.setScreen(new support(Text.empty(), currentScreen)));
+        }, MinecraftClient.getInstance());
     }
 }
