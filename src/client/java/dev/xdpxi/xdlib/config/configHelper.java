@@ -73,6 +73,8 @@ public class configHelper {
         }
     }
 
+    public static String getCustomLoadingBarText() { return getConfig().main.customLoadingText; }
+
     public static boolean isChangelogScreenDisabled() { return getConfig().main.disableChangelog; }
 
     public static boolean isTitlePopupsDisabled() {
