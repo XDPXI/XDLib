@@ -10,8 +10,6 @@ public class main implements ConfigData {
     public boolean customBadges = true;
     @Comment("Show Changelog On Every Startup")
     public boolean changelogEveryStartup = false;
-    @Comment("Custom Loading Bar Text")
-    public String customLoadingText = "Launching Minecraft...";
     @Comment("Disable Changelog Screen")
     public boolean disableChangelog = false;
     @Comment("Disable Title Screen Popups")

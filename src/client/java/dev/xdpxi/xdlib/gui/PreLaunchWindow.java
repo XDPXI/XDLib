@@ -44,7 +44,7 @@ public class PreLaunchWindow {
         JProgressBar progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);
         progressBar.setStringPainted(true);
-        progressBar.setString(getText());
+        progressBar.setString("Launching Minecraft...");
         progressBar.setBackground(new Color(60, 63, 65));
         progressBar.setForeground(new Color(3, 169, 244));
         mainPanel.add(progressBar, BorderLayout.CENTER);
@@ -66,12 +66,5 @@ public class PreLaunchWindow {
 
     public static void main(String[] args) {
         display();
-    }
-
-    private static String getText() {
-        if (loader.isModLoaded("cloth-config")) {
-            return configHelper.getCustomLoadingBarText();
-        }
-        return "Launching Minecraft...";
     }
 }

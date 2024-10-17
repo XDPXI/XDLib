@@ -2,7 +2,6 @@
   "text.autoconfig.xdlib.option.main.contributeToPlayerCount": "Contribute To Player Count",
   "text.autoconfig.xdlib.option.main.customBadges": "Add Custom Modmenu Badges",
   "text.autoconfig.xdlib.option.main.changelogEveryStartup": "Show Changelog On Every Startup",
-  "text.autoconfig.xdlib.option.main.customLoadingText": "Custom Loading Bar Text",
   "text.autoconfig.xdlib.option.main.disableChangelog": "Disable Changelog",
   "text.autoconfig.xdlib.option.main.disableTitlePopups": "Disable Title Screen Warnings",
   "text.autoconfig.xdlib.option.compatibility.discordRPC": "Discord RPC",
