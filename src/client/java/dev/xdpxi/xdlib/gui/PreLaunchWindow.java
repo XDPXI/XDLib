@@ -1,8 +1,6 @@
 package dev.xdpxi.xdlib.gui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import dev.xdpxi.xdlib.api.loader;
-import dev.xdpxi.xdlib.config.configHelper;
 
 import javax.swing.*;
 import java.awt.*;
