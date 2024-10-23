@@ -26,6 +26,8 @@ public class XDLibInstaller {
     private static final String QUILT_API_BASE_URL = "https://cdn.modrinth.com/data/qvIfYCYJ/versions/";
 
     private static final String CLOTH_CONFIG_BASE_URL = "https://cdn.modrinth.com/data/9s6osm5g/versions/";
+    private static final String CLOTH_CONFIG_URL_2_FABRIC = "JbVSQUVw/cloth-config-16.0.141-fabric.jar";
+    private static final String CLOTH_CONFIG_URL_2_NEO = "uYoucpky/cloth-config-16.0.141-neoforge.jar";
     private static final String CLOTH_CONFIG_URL_FABRIC = "HpMb5wGb/cloth-config-15.0.140-fabric.jar";
     private static final String CLOTH_CONFIG_URL_NEO = "izKINKFg/cloth-config-15.0.140-neoforge.jar";
 
@@ -33,19 +35,21 @@ public class XDLibInstaller {
     private static final String CONNECTER_1211 = "https://cdn.modrinth.com/data/u58R1TMW/versions/x3AHjKpg/connector-2.0.0-beta.3%2B1.21.1-full.jar";
 
     private static final String FORGIFIED_121 = "https://cdn.modrinth.com/data/Aqlf1Shp/versions/K5REyk0w/forgified-fabric-api-0.101.2%2B2.0.10%2B1.21.jar";
-    private static final String FORGIFIED_1211 = "https://cdn.modrinth.com/data/Aqlf1Shp/versions/Jfn0eaw3/forgified-fabric-api-0.104.0%2B2.0.14%2B1.21.1.jar";
+    private static final String FORGIFIED_1211 = "https://cdn.modrinth.com/data/Aqlf1Shp/versions/2bxEYAKi/forgified-fabric-api-0.104.0%2B2.0.15%2B1.21.1.jar";
 
     private static final String CONNECTEREXTRAS_121 = "https://cdn.modrinth.com/data/FYpiwiBR/versions/WUktoh8L/ConnectorExtras-1.12.0%2B1.21.jar";
     private static final String CONNECTEREXTRAS_1211 = "https://cdn.modrinth.com/data/FYpiwiBR/versions/dgLCqZyo/ConnectorExtras-1.12.1%2B1.21.1.jar";
 
-    private static final String FABRIC_QUILT_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/api/1.21/fabric.jar";
-    private static final String NEO_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/api/1.21/neo.jar";
-    private static final String SPIGOT_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/api/1.21/spigot.jar";
+    private static final String FABRIC_QUILT_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/fabric.jar";
+    private static final String NEO_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/neo.jar";
+    private static final String BUKKIT_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/bukkit.jar";
+    private static final String VELO_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/velo.jar";
+    private static final String BUNGEE_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/bungee.jar";
 
-    private static final String FABRIC_QUILT_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/api/1.20/fabric.jar";
-    private static final String SPIGOT_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/api/1.20/spigot.jar";
-    private static final String NEOFORGE_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/api/1.20/neo.jar";
-    private static final String FORGE_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/api/1.20/forge.jar";
+    private static final String FABRIC_QUILT_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.20/fabric.jar";
+    private static final String BUKKIT_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.20/bukkit.jar";
+    private static final String NEOFORGE_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.20/neo.jar";
+    private static final String FORGE_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.20/forge.jar";
 
     public static void main(String[] args) {
         try {
@@ -59,7 +63,7 @@ public class XDLibInstaller {
         frame.setUndecorated(true);
         frame.setShape(new RoundRectangle2D.Double(0, 0, frame.getWidth(), frame.getHeight(), 20, 20));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setCustomIcon(frame, "https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/icon.png");
+        setCustomIcon(frame, "https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/icon.png");
 
         addDraggableFeature(frame);
 
@@ -90,7 +94,7 @@ public class XDLibInstaller {
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.setOpaque(false);
 
-        String[] options = {"Select Loader", "Fabric", "Quilt", "Spigot", "NeoForge", "Forge"};
+        String[] options = {"Select Loader", "Fabric", "Quilt", "Bukkit", "Velocity", "Bungeecord", "NeoForge", "Forge"};
         JComboBox<String> dropdown = new JComboBox<>(options);
         dropdown.setPreferredSize(new Dimension(370, 30));
 
@@ -130,7 +134,7 @@ public class XDLibInstaller {
 
                 if (result == JFileChooser.APPROVE_OPTION) {
                     Path downloadDirectory = fileChooser.getSelectedFile().toPath();
-                    String folderName = selectedLoader.equals("Spigot") ? "plugins" : "mods";
+                    String folderName = selectedLoader.equals("Bukkit") ? "plugins" : "mods";
                     Path folderPath = downloadDirectory.resolve(folderName);
 
                     try {
@@ -145,6 +149,8 @@ public class XDLibInstaller {
                                 if (selectedLoader.equals("Fabric") || selectedLoader.equals("Quilt")) {
                                     if (selectedVersion.equals("1.21") || selectedVersion.equals("1.21.1")) {
                                         downloadFile(CLOTH_CONFIG_BASE_URL + CLOTH_CONFIG_URL_FABRIC, folderPath, "cloth-config-15.0.140-fabric.jar", progressBar);
+                                    } else if (selectedVersion.equals("1.21.2")) {
+                                        downloadFile(CLOTH_CONFIG_BASE_URL + CLOTH_CONFIG_URL_2_FABRIC, folderPath, "cloth-config-16.0.141-fabric.jar", progressBar);
                                     }
                                 }
                                 if (selectedLoader.equals("NeoForge")) {
@@ -153,12 +159,13 @@ public class XDLibInstaller {
                                         downloadFile(CONNECTER_121, folderPath, "connector-2.0.0-beta.1+1.21-full.jar", progressBar);
                                         downloadFile(FORGIFIED_121, folderPath, "forgified-fabric-api-0.101.2+2.0.10+1.21.jar", progressBar);
                                         downloadFile(CONNECTEREXTRAS_121, folderPath, "ConnectorExtras-1.12.0+1.21.jar", progressBar);
-                                    }
-                                    if (selectedVersion.equals("1.21.1")) {
+                                    } else if (selectedVersion.equals("1.21.1")) {
                                         downloadFile(CLOTH_CONFIG_BASE_URL + CLOTH_CONFIG_URL_NEO, folderPath, "cloth-config-15.0.140-neoforge.jar", progressBar);
                                         downloadFile(CONNECTER_1211, folderPath, "connector-2.0.0-beta.3+1.21.1-full.jar", progressBar);
-                                        downloadFile(FORGIFIED_1211, folderPath, "forgified-fabric-api-0.104.0+2.0.14+1.21.1.jar", progressBar);
+                                        downloadFile(FORGIFIED_1211, folderPath, "forgified-fabric-api-0.104.0+2.0.15+1.21.1.jar", progressBar);
                                         downloadFile(CONNECTEREXTRAS_1211, folderPath, "ConnectorExtras-1.12.1+1.21.1.jar", progressBar);
+                                    } else if (selectedVersion.equals("1.21.2")) {
+                                        downloadFile(CLOTH_CONFIG_BASE_URL + CLOTH_CONFIG_URL_2_FABRIC, folderPath, "cloth-config-16.0.141-fabric.jar", progressBar);
                                     }
                                 }
                                 JOptionPane.showMessageDialog(frame, "Download completed!");
@@ -181,7 +188,7 @@ public class XDLibInstaller {
         bottomPanel.setOpaque(false);
 
         JPanel paddingPanel = new JPanel();
-        paddingPanel.setPreferredSize(new Dimension(frame.getWidth(), 20)); // Adjust space as needed
+        paddingPanel.setPreferredSize(new Dimension(frame.getWidth(), 20));
         bottomPanel.add(paddingPanel, BorderLayout.NORTH);
 
         bottomPanel.add(centerPanel, BorderLayout.NORTH);
@@ -221,19 +228,23 @@ public class XDLibInstaller {
         switch (loader) {
             case "Fabric":
             case "Quilt":
-                if (version.equals("1.21") || version.equals("1.21.1")) {
+                if (version.equals("1.21") || version.equals("1.21.1") || version.equals("1.21.2")) {
                     return FABRIC_QUILT_21_URL;
                 } else {
                     return FABRIC_QUILT_URL;
                 }
-            case "Spigot":
-                if (version.equals("1.21") || version.equals("1.21.1")) {
-                    return SPIGOT_21_URL;
+            case "Velocity":
+                return VELO_URL;
+            case "Bungeecord":
+                return BUNGEE_URL;
+            case "Bukkit":
+                if (version.equals("1.21") || version.equals("1.21.1") || version.equals("1.21.2")) {
+                    return BUKKIT_21_URL;
                 } else {
-                    return SPIGOT_URL;
+                    return BUKKIT_URL;
                 }
             case "NeoForge":
-                if (version.equals("1.21") || version.equals("1.21.1")) {
+                if (!version.equals("1.20.4")) {
                     return NEO_21_URL;
                 } else {
                     return NEOFORGE_URL;
@@ -269,7 +280,9 @@ public class XDLibInstaller {
                     case "1.21":
                         return FABRIC_API_BASE_URL + "oGwyXeEI/fabric-api-0.102.0%2B1.21.jar";
                     case "1.21.1":
-                        return FABRIC_API_BASE_URL + "WTaAx4ah/fabric-api-0.105.0%2B1.21.1.jar";
+                        return FABRIC_API_BASE_URL + "iFnYBUfS/fabric-api-0.106.0%2B1.21.1.jar";
+                    case "1.21.2":
+                        return FABRIC_API_BASE_URL + "UEjZZNue/fabric-api-0.106.1%2B1.21.2.jar";
                     default:
                         return null;
                 }
@@ -302,6 +315,7 @@ public class XDLibInstaller {
         versionDropdown.removeAllItems();
         switch (selectedLoader) {
             case "Fabric":
+                versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
                 versionDropdown.addItem("1.20.4");
@@ -317,7 +331,18 @@ public class XDLibInstaller {
                 versionDropdown.addItem("1.20.1");
                 versionDropdown.addItem("1.20");
                 break;
-            case "Spigot":
+            case "Velocity":
+                versionDropdown.addItem("1.21.2");
+                versionDropdown.addItem("1.21.1");
+                versionDropdown.addItem("1.21");
+                break;
+            case "Bungeecord":
+                versionDropdown.addItem("1.21.2");
+                versionDropdown.addItem("1.21.1");
+                versionDropdown.addItem("1.21");
+                break;
+            case "Bukkit":
+                versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
                 versionDropdown.addItem("1.20.6");
@@ -334,6 +359,7 @@ public class XDLibInstaller {
                 versionDropdown.addItem("1.19");
                 break;
             case "NeoForge":
+                //versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
                 versionDropdown.addItem("1.20.4");
@@ -403,11 +429,11 @@ public class XDLibInstaller {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(new Color(60, 63, 65)); // Background color
-                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius); // Fill the button background
+                g2d.setColor(new Color(60, 63, 65));
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
                 g2d.setColor(outlineColor);
-                g2d.setStroke(new BasicStroke(2)); // Outline width
-                g2d.drawRoundRect(1, 1, getWidth() - 2, getHeight() - 2, cornerRadius, cornerRadius); // Draw rounded outline
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawRoundRect(1, 1, getWidth() - 2, getHeight() - 2, cornerRadius, cornerRadius);
                 g2d.dispose();
                 super.paintComponent(g);
             }
