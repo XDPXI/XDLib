@@ -13,7 +13,7 @@ base {
 
 repositories {
 	mavenCentral()
-	flatDir { dirs "libs" }
+	flatDir { dirs "gradle\\deps" }
 	maven { url "https://jitpack.io/" }
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://api.modrinth.com/maven" }
