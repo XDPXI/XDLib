@@ -48,7 +48,7 @@ dependencies {
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:15.0.140"){exclude(group: "net.fabricmc.fabric-api")}
 	include(implementation("com.github.MinnDevelopment:java-discord-rpc:2.0.2"))
 	implementation("org.json:json:20240303")
-	implementation("com.formdev:flatlaf:3.5.1")
+	implementation("com.formdev:flatlaf:3.5.2")
 	implementation("org.commonmark:commonmark:0.23.0")
 	implementation("org.projectlombok:lombok:1.18.34")
 	implementation("org.beanshell:bsh:3.0.0-SNAPSHOT")
