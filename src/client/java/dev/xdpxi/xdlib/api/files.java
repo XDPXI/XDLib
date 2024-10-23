@@ -93,9 +93,13 @@ public class files {
 
             ZipEntry entry;
             while ((entry = zipIn.getNextEntry()) != null) {
-                filePath = outputDir + "/" + entry.getName();
-                if (!entry.isDirectory()) {
-                    try (FileOutputStream fos = new FileOutputStream(filePath)) {
+                Path normalizedPath = Paths.get(outputDir).resolve(entry.getName()).normalize();
+                if (!normalizedPath.startsWith(Paths.get(outputDir))) {
+                    throw new IOException("Bad zip entry: " + entry.getName());
+                }
+               filePath = normalizedPath.toString();
+               if (!entry.isDirectory()) {
+                   try (FileOutputStream fos = new FileOutputStream(filePath)) {
                         byte[] buffer = new byte[1024];
                         int len;
                         while ((len = zipIn.read(buffer)) > 0) {
