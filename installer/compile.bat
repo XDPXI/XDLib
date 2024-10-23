@@ -33,5 +33,6 @@ if %errorlevel% neq 0 (
 echo Cleaning up...
 del %CLASS_FILES%
 del %MANIFEST_FILE%
+
 echo Done!
 pause
