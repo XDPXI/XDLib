@@ -10,6 +10,7 @@ public class compatibility implements ConfigData {
     @ConfigEntry.Gui.RequiresRestart
     @Comment("Enable Discord RPC (Restart Required)")
     public boolean discordRPC;
+
     @Comment("Add ZtrolixLibs to Sodium Video Settings (Not Working)")
     public boolean sodiumIntegration = false;
 

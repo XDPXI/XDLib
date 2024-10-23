@@ -3,7 +3,6 @@ package dev.xdpxi.xdlib.plugin;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public final class bungee extends Plugin {
-
     @Override
     public void onEnable() {
         getLogger().info("[XDLib] - Enabling...");

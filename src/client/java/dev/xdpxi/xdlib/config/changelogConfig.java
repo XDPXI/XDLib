@@ -1,7 +1,7 @@
 package dev.xdpxi.xdlib.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.tomlj.Toml;
+import org.tomlj.TomlTable;
 
 import java.io.File;
 import java.io.FileReader;
@@ -9,13 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class changelogConfig {
-    private static final String CONFIG_FILE_NAME = "xdlib-changelog.json";
-    private final Gson gson;
+    private static final String CONFIG_FILE_NAME = "version.toml";
     private final File configFile;
 
     public changelogConfig() {
-        gson = new GsonBuilder().setPrettyPrinting().create();
-        File configDir = new File("config");
+        File configDir = new File("config\\xdlib");
 
         if (!configDir.exists()) {
             configDir.mkdirs();
@@ -32,30 +30,35 @@ public class changelogConfig {
             if (!configFile.exists()) {
                 configFile.createNewFile();
             }
-            FileWriter writer = new FileWriter(configFile);
-            gson.toJson(configData, writer);
-            writer.close();
+            String tomlString = String.format("version = %d", configData.getVersion());
+            try (FileWriter writer = new FileWriter(configFile)) {
+                writer.write(tomlString);
+            }
         } catch (IOException ignored) {
         }
     }
 
     public ConfigData read() {
         try (FileReader reader = new FileReader(configFile)) {
-            return gson.fromJson(reader, ConfigData.class);
+            TomlTable table = Toml.parse(reader);
+            int version = table.getLong("version").intValue();
+            ConfigData configData = new ConfigData();
+            configData.setVersion(version);
+            return configData;
         } catch (IOException ignored) {
             return null;
         }
     }
 
     public static class ConfigData {
-        private int versionInt = 0;
+        private int version = 0;
 
-        public int getVersionInt() {
-            return versionInt;
+        public int getVersion() {
+            return version;
         }
 
-        public void setVersionInt(int var) {
-            versionInt = var;
+        public void setVersion(int var) {
+            version = var;
         }
     }
 }

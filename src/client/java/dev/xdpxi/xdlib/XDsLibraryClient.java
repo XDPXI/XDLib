@@ -132,7 +132,11 @@ public class XDsLibraryClient implements ClientModInitializer {
     public void onInitializeClient() {
         String osName = System.getProperty("os.name").toLowerCase();
         if (clothConfig) {
-            configHelper.registerConfig();
+            try {
+                configHelper.registerConfig();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             configHelper.ConfigSettings clientSettings = configHelper.zlibsClientConfig();
             discordRPC = clientSettings.discordRPC;
             sodiumIntegration = clientSettings.sodiumIntegration;

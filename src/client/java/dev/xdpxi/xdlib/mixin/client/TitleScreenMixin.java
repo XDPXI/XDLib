@@ -39,7 +39,7 @@ public class TitleScreenMixin {
     private static boolean changelogEveryStartup = false;
 
     @Unique
-    private static int version = 8;
+    private static int version = 9;
 
     @Unique
     private static boolean isChangelogDisabled() {
@@ -53,7 +53,7 @@ public class TitleScreenMixin {
     public void onInit(CallbackInfo ci) {
         changelogConfig config = new changelogConfig();
         changelogConfig.ConfigData loadedData = config.read();
-        int configVersion = loadedData.getVersionInt();
+        int configVersion = loadedData.getVersion();
         boolean firstStartup = version != configVersion;
 
         if (clothConfig) {
@@ -75,7 +75,7 @@ public class TitleScreenMixin {
                     configHelper.updateTitleScreenMixinConfig(false, changelogEveryStartup);
                 }
                 changelogConfig.ConfigData configData = config.read();
-                configData.setVersionInt(version);
+                configData.setVersion(version);
                 config.write(configData);
 
                 MinecraftClient client = MinecraftClient.getInstance();
