@@ -52,7 +52,7 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:11.0.3")
 	modImplementation("maven.modrinth:sodium:mc1.21-0.6.0-beta.2-fabric")
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:16.0.141"){exclude(group: "net.fabricmc.fabric-api")}
-	include(implementation("dev.xdpxi:dependencies:1.0.0"))
+	include(implementation("dev.xdpxi:dependencies:1.0.1"))
 	implementation("club.minnced:discord-rpc-release:v3.4.0")
 	implementation("com.github.MinnDevelopment:java-discord-rpc:2.0.2")
 	implementation("org.tomlj:tomlj:1.1.1")
