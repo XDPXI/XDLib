@@ -1,7 +1,7 @@
 plugins {
 	id 'eclipse'
 	id 'fabric-loom' version '1.8.10'
-	id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.8'
+	id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
 }
 
 version = project.mod_version
