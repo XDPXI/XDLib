@@ -93,31 +93,10 @@ public class CustomScreen extends Screen {
         MutableText text = Text.literal("Changelog:\n\n")
                 .setStyle(Style.EMPTY.withColor(Formatting.WHITE).withBold(true));
 
-        text.append(Text.literal("- Cleaned Code\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Cleaned Workspace\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'CustomPlugins'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'CustomConfigSerializer'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'Files' API\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'Dependencies'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'DisableChangelogScreen'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'Velocity' Support\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'Security' ReadMe\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'Bungeecord' Support\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Added 'ConfigMigration' *for new configs\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Fabric-Loom' -> '1.8.10'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Config'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Cloth-Config' -> '16.0.141'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'ChangelogConfig' -> 'Toml'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Commonmark' -> '0.24.0'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Flatlaf' -> '3.5.2'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Modmenu' -> '11.0.3'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'PaperAPI' -> '1.21.1-R0.1-SNAPSHOT'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Gradle' -> '8.10.2'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Moved 'libs' -> 'gradle/deps'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Fixed Security Issues\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Fixed Gradle Imports\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Fixed Gradle\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Fixed '@shadow' Bug\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
+        text.append(Text.literal("- Added '1.21.3' Support\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
+        text.append(Text.literal("- Updated 'Spigot' -> '1.21.3-R0.1-SNAPSHOT'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
+        text.append(Text.literal("- Updated 'Velocity' -> '3.4.0-SNAPSHOT'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
+        text.append(Text.literal("- Updated 'Idea-EXT' -> '1.1.9'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
 
         return text;
     }

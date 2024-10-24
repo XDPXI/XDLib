@@ -228,7 +228,7 @@ public class XDLibInstaller {
         switch (loader) {
             case "Fabric":
             case "Quilt":
-                if (version.equals("1.21") || version.equals("1.21.1") || version.equals("1.21.2")) {
+                if (version.equals("1.21") || version.equals("1.21.1") || version.equals("1.21.2") || version.equals("1.21.3")) {
                     return FABRIC_QUILT_21_URL;
                 } else {
                     return FABRIC_QUILT_URL;
@@ -238,7 +238,7 @@ public class XDLibInstaller {
             case "Bungeecord":
                 return BUNGEE_URL;
             case "Bukkit":
-                if (version.equals("1.21") || version.equals("1.21.1") || version.equals("1.21.2")) {
+                if (version.equals("1.21") || version.equals("1.21.1") || version.equals("1.21.2") || version.equals("1.21.3")) {
                     return BUKKIT_21_URL;
                 } else {
                     return BUKKIT_URL;
@@ -283,6 +283,8 @@ public class XDLibInstaller {
                         return FABRIC_API_BASE_URL + "iFnYBUfS/fabric-api-0.106.0%2B1.21.1.jar";
                     case "1.21.2":
                         return FABRIC_API_BASE_URL + "UEjZZNue/fabric-api-0.106.1%2B1.21.2.jar";
+                    case "1.21.3":
+                        return FABRIC_API_BASE_URL + "dhD4I4lJ/fabric-api-0.106.1%2B1.21.3.jar";
                     default:
                         return null;
                 }
@@ -315,6 +317,7 @@ public class XDLibInstaller {
         versionDropdown.removeAllItems();
         switch (selectedLoader) {
             case "Fabric":
+                versionDropdown.addItem("1.21.3");
                 versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
@@ -332,16 +335,19 @@ public class XDLibInstaller {
                 versionDropdown.addItem("1.20");
                 break;
             case "Velocity":
+                versionDropdown.addItem("1.21.3");
                 versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
                 break;
             case "Bungeecord":
+                versionDropdown.addItem("1.21.3");
                 versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
                 break;
             case "Bukkit":
+                versionDropdown.addItem("1.21.3");
                 versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
@@ -359,6 +365,7 @@ public class XDLibInstaller {
                 versionDropdown.addItem("1.19");
                 break;
             case "NeoForge":
+                //versionDropdown.addItem("1.21.3");
                 //versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
