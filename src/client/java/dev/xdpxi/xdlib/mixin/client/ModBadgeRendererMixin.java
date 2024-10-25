@@ -61,7 +61,8 @@ public abstract class ModBadgeRendererMixin {
             }
             try {
                 FabricLoader.getInstance().getModContainer(mod.getId()).orElse(null)
-                        .getMetadata().getCustomValue("xdlib").getAsArray().forEach(customValue -> {
+                        .getMetadata().getCustomValue("xdlib").getAsObject()
+                        .get("badges").getAsArray().forEach(customValue -> {
                             var obj = customValue.getAsObject();
                             var name = obj.get("name").getAsString();
                             var outline = obj.get("outlineColor").getAsNumber().intValue();
