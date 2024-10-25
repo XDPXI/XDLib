@@ -130,6 +130,39 @@ public class XDsLibraryClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        //new updateChecker();
+
+        config();
+
+        continueSaver();
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.player != null) {
+                StatusEffectInstance darknessEffect = client.player.getStatusEffect(StatusEffects.DARKNESS);
+                if (darknessEffect != null) {
+                    client.player.removeStatusEffect(StatusEffects.DARKNESS);
+                }
+            }
+        });
+
+        if (isWindows() && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT && isNoEarlyLoaders()) {
+            ClientLifecycleEvents.CLIENT_STARTED.register(client -> PreLaunchWindow.remove());
+        }
+
+        if (WorldCloudHeights.isEmpty()) {
+            WorldCloudHeights.put("minecraft:overworld", 182.0F);
+        }
+
+        /*
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (Screen.hasControlDown() && Screen.hasAltDown() && Screen.hasShiftDown()) {
+                client.setScreen(new TerminalScreen());
+            }
+        });
+        */
+    }
+
+    private void config() {
         String osName = System.getProperty("os.name").toLowerCase();
         if (clothConfig) {
             try {
@@ -162,18 +195,9 @@ public class XDsLibraryClient implements ClientModInitializer {
         if (clothConfig) {
             configHelper.registerSaveListener(discordRPC, sodiumIntegration);
         }
+    }
 
-        /*
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            dispatcher.register(ClientCommandManager.literal("xdlib").executes(context -> {
-                context.getSource().sendFeedback(Text.literal("-------------------------------"));
-                context.getSource().sendFeedback(Text.literal("          Welcome to XDLib!"));
-                context.getSource().sendFeedback(Text.literal("-------------------------------"));
-                return 1;
-            }));
-        });
-        */
-
+    public void continueSaver() {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             if (client.isIntegratedServerRunning()) {
                 lastLocal = true;
@@ -204,30 +228,5 @@ public class XDsLibraryClient implements ClientModInitializer {
                 }
             }
         });
-
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player != null) {
-                StatusEffectInstance darknessEffect = client.player.getStatusEffect(StatusEffects.DARKNESS);
-                if (darknessEffect != null) {
-                    client.player.removeStatusEffect(StatusEffects.DARKNESS);
-                }
-            }
-        });
-
-        if (isWindows() && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT && isNoEarlyLoaders()) {
-            ClientLifecycleEvents.CLIENT_STARTED.register(client -> PreLaunchWindow.remove());
-        }
-
-        if (WorldCloudHeights.isEmpty()) {
-            WorldCloudHeights.put("minecraft:overworld", 182.0F);
-        }
-
-        /*
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (Screen.hasControlDown() && Screen.hasAltDown() && Screen.hasShiftDown()) {
-                client.setScreen(new TerminalScreen());
-            }
-        });
-        */
     }
 }
