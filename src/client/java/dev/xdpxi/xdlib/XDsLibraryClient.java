@@ -130,8 +130,6 @@ public class XDsLibraryClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        //new updateChecker();
-
         config();
 
         continueSaver();
