@@ -9,4 +9,12 @@ public class chatUtils {
             player.sendMessage(message);
         }
     }
+
+    public static void sendMessageToOps(String message) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.isOp()) {
+                player.sendMessage(message);
+            }
+        }
+    }
 }
