@@ -64,6 +64,11 @@ public class support extends Screen {
                         new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, Text.of("XD's Library"), Text.of("Recommends the use of 'cloth-config'"))
                 );
             }
+            if (updateChecker.isUpdate()) {
+                this.client.getToastManager().add(
+                        new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, Text.of("XD's Library"), Text.of("An update is available!"))
+                );
+            }
         }
     }
 

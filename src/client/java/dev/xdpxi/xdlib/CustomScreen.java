@@ -59,6 +59,11 @@ public class CustomScreen extends Screen {
                         new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, Text.of("XD's Library"), Text.of("Recommends the use of 'cloth-config'"))
                 );
             }
+            if (updateChecker.isUpdate()) {
+                this.client.getToastManager().add(
+                        new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, Text.of("XD's Library"), Text.of("An update is available!"))
+                );
+            }
         }
     }
 
@@ -93,10 +98,7 @@ public class CustomScreen extends Screen {
         MutableText text = Text.literal("Changelog:\n\n")
                 .setStyle(Style.EMPTY.withColor(Formatting.WHITE).withBold(true));
 
-        text.append(Text.literal("- Added '1.21.3' Support\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Spigot' -> '1.21.3-R0.1-SNAPSHOT'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Velocity' -> '3.4.0-SNAPSHOT'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
-        text.append(Text.literal("- Updated 'Idea-EXT' -> '1.1.9'\n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
+        text.append(Text.literal("- \n").setStyle(Style.EMPTY.withColor(Formatting.GRAY).withBold(false)));
 
         return text;
     }
