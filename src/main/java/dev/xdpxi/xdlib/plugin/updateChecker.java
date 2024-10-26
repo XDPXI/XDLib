@@ -34,7 +34,7 @@ public class updateChecker {
             in.close();
 
             String latestVersion = parseLatestVersion(response.toString());
-            String currentVersion = plugin.getDescription().getVersion() + "-bukkit";
+            String currentVersion = plugin.getDescription().getVersion() + "-plugin";
 
             if (isVersionLower(currentVersion, latestVersion)) {
                 plugin.getLogger().info("[XDLib] - An update is available!");

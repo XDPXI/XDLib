@@ -15,7 +15,7 @@ import static dev.xdpxi.xdlib.XDsLibrary.LOGGER;
 
 public class updateChecker {
     private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer("xdlib").orElse(null);
-    private static final String currentVersion = modContainer.getMetadata().getVersion().getFriendlyString() + "-fabric";
+    private static final String currentVersion = modContainer.getMetadata().getVersion().getFriendlyString() + "-mod";
     private static boolean isUpdate = false;
 
     public static void checkForUpdate() {
