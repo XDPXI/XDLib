@@ -6,7 +6,7 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import org.slf4j.Logger;
 
-@Plugin(id = "xdlib", name = "XDLib", version = "2.3.1", description = "This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!", url = "https://xdpxi.vercel.app/mc/xdlib", authors = {"XDPXI"})
+@Plugin(id = "xdlib", name = "XDLib", version = "2.4.0", description = "This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!", url = "https://xdpxi.vercel.app/mc/xdlib", authors = {"XDPXI"})
 public class velocity {
     @Inject
     private Logger logger;
