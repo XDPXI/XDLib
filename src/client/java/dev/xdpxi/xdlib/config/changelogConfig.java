@@ -52,11 +52,9 @@ public class changelogConfig {
 
     public static class ConfigData {
         private int version = 0;
-
         public int getVersion() {
             return version;
         }
-
         public void setVersion(int var) {
             version = var;
         }

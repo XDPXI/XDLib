@@ -22,15 +22,8 @@ import java.util.concurrent.CompletableFuture;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin {
-    @Shadow
-    @Final
-    private static Logger LOGGER;
-
     @Unique
     private static boolean Shown = false;
-
-    @Unique
-    private static boolean ShownConfig = false;
 
     @Unique
     private static boolean clothConfig = loader.isModLoaded("cloth-config");
@@ -39,7 +32,7 @@ public class TitleScreenMixin {
     private static boolean changelogEveryStartup = false;
 
     @Unique
-    private static int version = 9;
+    private static int version = 10;
 
     @Unique
     private static boolean isChangelogDisabled() {
