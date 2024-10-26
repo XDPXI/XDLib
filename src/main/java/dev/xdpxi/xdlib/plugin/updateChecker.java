@@ -12,6 +12,7 @@ import java.net.URL;
 
 public class updateChecker {
     private final xdlib plugin;
+    private static boolean update = false;
 
     public updateChecker(xdlib plugin) {
         this.plugin = plugin;
@@ -38,8 +39,10 @@ public class updateChecker {
             if (isVersionLower(currentVersion, latestVersion)) {
                 plugin.getLogger().info("[XDLib] - An update is available!");
                 chatUtils.sendMessageToOps(ChatColor.GOLD + "[XDLib] - An update is available!");
+                update = true;
             } else {
                 plugin.getLogger().info("[XDLib] - No update available!");
+                update = false;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,5 +73,9 @@ public class updateChecker {
             }
         }
         return false;
+    }
+
+    public static boolean isUpdate() {
+        return update;
     }
 }

@@ -1,6 +1,7 @@
 package dev.xdpxi.xdlib.plugin;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -16,6 +17,13 @@ public class joinLeaveListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.setJoinMessage(ChatColor.GREEN + ">>> " + ChatColor.WHITE + event.getPlayer().getName());
+
+        Player player = event.getPlayer();
+        if (player.isOp()) {
+            if (updateChecker.isUpdate()) {
+                player.sendMessage(ChatColor.RED + "[" + ChatColor.GOLD + "XDLib" + ChatColor.RED + "]" + ChatColor.DARK_GRAY + " - " + ChatColor.YELLOW + "An update is available!");
+            }
+        }
     }
 
     @EventHandler
