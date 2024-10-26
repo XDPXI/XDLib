@@ -154,6 +154,8 @@ public class XDsLibrary implements ModInitializer {
             LOGGER.debug("[XDLib] - Running on an unsupported OS: {}", osName);
         }
 
+        updateChecker.checkForUpdate();
+
         ModNetworkHandler.registerServer();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, registrationEnvironment) -> {
             dispatcher.register(literal("link")
