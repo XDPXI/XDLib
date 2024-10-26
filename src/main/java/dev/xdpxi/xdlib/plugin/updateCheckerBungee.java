@@ -33,10 +33,10 @@ public class updateCheckerBungee {
             in.close();
 
             String latestVersion = parseLatestVersion(response.toString());
+            String currentVersion = plugin.getDescription().getVersion() + "-bungee";
 
-            if (isVersionLower(plugin.getDescription().getVersion(), latestVersion)) {
+            if (isVersionLower(currentVersion, latestVersion)) {
                 plugin.getLogger().info("[XDLib] - An update is available!");
-                chatUtils.sendMessageToAll(ChatColor.GOLD + "[XDLib] - An update is available!");
             } else {
                 plugin.getLogger().info("[XDLib] - No update available!");
             }
