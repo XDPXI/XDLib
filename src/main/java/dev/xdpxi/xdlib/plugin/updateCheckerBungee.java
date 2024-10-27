@@ -1,7 +1,5 @@
 package dev.xdpxi.xdlib.plugin;
 
-import dev.xdpxi.xdlib.api.plugin.chatUtils;
-import org.bukkit.ChatColor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,6 +13,10 @@ public class updateCheckerBungee {
 
     public updateCheckerBungee(bungee plugin) {
         this.plugin = plugin;
+    }
+
+    public static String textParser(String input) {
+        return input.replaceAll("[-a-zA-Z]", "");
     }
 
     public void checkForUpdate() {
@@ -33,7 +35,9 @@ public class updateCheckerBungee {
             in.close();
 
             String latestVersion = parseLatestVersion(response.toString());
+            latestVersion = textParser(latestVersion);
             String currentVersion = plugin.getDescription().getVersion();
+            currentVersion = textParser(currentVersion);
 
             if (isVersionLower(currentVersion, latestVersion)) {
                 plugin.getLogger().info("[XDLib] - An update is available!");

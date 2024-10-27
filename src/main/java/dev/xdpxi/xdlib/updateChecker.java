@@ -15,8 +15,11 @@ import static dev.xdpxi.xdlib.XDsLibrary.LOGGER;
 
 public class updateChecker {
     private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer("xdlib").orElse(null);
-    private static final String currentVersion = modContainer.getMetadata().getVersion().getFriendlyString();
     private static boolean isUpdate = false;
+
+    public static String textParser(String input) {
+        return input.replaceAll("[-a-zA-Z]", "");
+    }
 
     public static void checkForUpdate() {
         try {
@@ -34,6 +37,9 @@ public class updateChecker {
             in.close();
 
             String latestVersion = parseLatestVersion(response.toString());
+            latestVersion = textParser(latestVersion);
+            String currentVersion = modContainer.getMetadata().getVersion().getFriendlyString();
+            currentVersion = textParser(currentVersion);
 
             if (isVersionLower(currentVersion, latestVersion)) {
                 LOGGER.warn("[XDLib] - An update is available!");

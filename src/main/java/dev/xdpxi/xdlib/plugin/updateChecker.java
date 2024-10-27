@@ -18,6 +18,10 @@ public class updateChecker {
         this.plugin = plugin;
     }
 
+    public static String textParser(String input) {
+        return input.replaceAll("[-a-zA-Z]", "");
+    }
+
     public void checkForUpdate() {
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL("https://api.modrinth.com/v2/project/xdlib/version").openConnection();
@@ -34,7 +38,9 @@ public class updateChecker {
             in.close();
 
             String latestVersion = parseLatestVersion(response.toString());
+            latestVersion = textParser(latestVersion);
             String currentVersion = plugin.getDescription().getVersion();
+            currentVersion = textParser(currentVersion);
 
             if (isVersionLower(currentVersion, latestVersion)) {
                 plugin.getLogger().info("[XDLib] - An update is available!");
