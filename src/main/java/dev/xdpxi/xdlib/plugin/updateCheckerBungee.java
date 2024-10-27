@@ -33,7 +33,7 @@ public class updateCheckerBungee {
             in.close();
 
             String latestVersion = parseLatestVersion(response.toString());
-            String currentVersion = plugin.getDescription().getVersion() + "-proxy";
+            String currentVersion = plugin.getDescription().getVersion();
 
             if (isVersionLower(currentVersion, latestVersion)) {
                 plugin.getLogger().info("[XDLib] - An update is available!");
