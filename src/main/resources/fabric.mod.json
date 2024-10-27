@@ -68,10 +68,11 @@
       "update_checker": true
     },
     "xdlib": {
-      "modrinth": "xdlib",
+      "modrinthID": "xdlib",
+      "type": "release",
       "badges": [
         {
-          "name": "Client or Server",
+          "name": "Library",
           "fillColor": -16172759,
           "outlineColor": -15698860
         }
