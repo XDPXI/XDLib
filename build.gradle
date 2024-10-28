@@ -49,7 +49,7 @@ dependencies {
 	compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 	annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 	modImplementation("net.fabricmc:fabric-loader:0.16.8")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:0.107.0+")
 	modImplementation("com.terraformersmc:modmenu:11.0.3")
 	modImplementation("maven.modrinth:sodium:mc1.21-0.6.0-beta.2-fabric")
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:16.0.141"){exclude(group: "net.fabricmc.fabric-api")}
