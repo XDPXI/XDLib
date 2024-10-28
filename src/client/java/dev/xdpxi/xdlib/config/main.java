@@ -14,6 +14,10 @@ public class main implements ConfigData {
     public boolean changelogEveryStartup = false;
 
     @ConfigEntry.Gui.RequiresRestart
+    @Comment("Enable Discord RPC (Restart Required)")
+    public boolean discordRPC;
+
+    @ConfigEntry.Gui.RequiresRestart
     @Comment("Disable Custom XDLib Plugins (Restart Required)")
     public boolean disablePlugins = false;
 
@@ -22,4 +26,9 @@ public class main implements ConfigData {
 
     @Comment("Disable Title Screen Popups")
     public boolean disableTitlePopups = false;
+
+    public main() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        discordRPC = osName.contains("win");
+    }
 }

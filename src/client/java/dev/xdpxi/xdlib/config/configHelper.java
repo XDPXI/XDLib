@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.xdpxi.xdlib.DiscordRPCHandler;
 import dev.xdpxi.xdlib.api.files;
-import dev.xdpxi.xdlib.sodium.CustomOptions;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -115,8 +114,7 @@ public class configHelper {
     public static ConfigSettings zlibsClientConfig() {
         ZLibsConfig config = AutoConfig.getConfigHolder(ZLibsConfig.class).getConfig();
         return new ConfigSettings(
-                config.compatibility.discordRPC,
-                config.compatibility.sodiumIntegration,
+                config.main.discordRPC,
                 config.lastServer.serverName,
                 config.lastServer.serverAddress
         );
@@ -140,9 +138,6 @@ public class configHelper {
         } else {
             DiscordRPCHandler.shutdown();
         }
-        if (sodiumIntegration) {
-            CustomOptions.integrate();
-        }
     }
 
     public static boolean isChangelogScreenDisabled() { return getConfig().main.disableChangelog; }
@@ -152,7 +147,7 @@ public class configHelper {
     }
 
     public static boolean isDiscordRPCEnabled() {
-        return getConfig().compatibility.discordRPC;
+        return getConfig().main.discordRPC;
     }
 
     public static class ConfigSettings {
@@ -176,6 +171,9 @@ public class configHelper {
             this.sodiumIntegration = sodiumIntegration;
             this.configServerName = configServerName;
             this.configServerAddress = configServerAddress;
+        }
+
+        public ConfigSettings(boolean discordRPC, String serverName, String serverAddress) {
         }
     }
 }

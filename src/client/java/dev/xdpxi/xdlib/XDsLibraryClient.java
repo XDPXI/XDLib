@@ -5,7 +5,6 @@ import dev.xdpxi.xdlib.api.loader;
 import dev.xdpxi.xdlib.config.ZLibsConfig;
 import dev.xdpxi.xdlib.config.configHelper;
 import dev.xdpxi.xdlib.gui.PreLaunchWindow;
-import dev.xdpxi.xdlib.sodium.CustomOptions;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -184,9 +183,6 @@ public class XDsLibraryClient implements ClientModInitializer {
             } else {
                 LOGGER.warn("[XDLib] - Discord RPC: Running on an unsupported OS: " + osName);
             }
-        }
-        if (sodiumIntegration) {
-            CustomOptions.integrate();
         }
         LOGGER.info("[XDLib] - Applied config!");
 
