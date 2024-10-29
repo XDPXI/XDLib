@@ -21,7 +21,6 @@ import java.nio.file.StandardCopyOption;
 public class configHelper {
     public static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
     private static boolean discordRPC = true;
-    private static boolean sodiumIntegration = true;
 
     private static void migration() throws IOException {
         Path configDir = FabricLoader.getInstance().getConfigDir().resolve("xdlib");
@@ -95,12 +94,10 @@ public class configHelper {
 
     public static void registerSaveListener(boolean drpc, boolean si) {
         discordRPC = drpc;
-        sodiumIntegration = si;
 
         ConfigHolder<ZLibsConfig> holder = AutoConfig.getConfigHolder(ZLibsConfig.class);
         holder.registerSaveListener((configHolder, config) -> {
             discordRPC = drpc;
-            sodiumIntegration = si;
             applyConfig();
             return ActionResult.SUCCESS;
         });
