@@ -21,3 +21,4 @@ replay_*.log
 *.hprof
 *.jfr
 .env
+plugins/src/
