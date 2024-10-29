@@ -3,8 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "[ISSUE] Name the Issue"
 labels: Bug
-assignees: Ztrolix
-
+assignees: XDPXI
 ---
 
 **Describe the bug**
