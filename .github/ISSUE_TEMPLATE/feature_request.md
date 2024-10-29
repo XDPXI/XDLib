@@ -3,8 +3,7 @@ name: Feature request
 about: Suggest an idea for this project
 title: "[REQUEST] What Feature"
 labels: Feature Request
-assignees: Ztrolix
-
+assignees: XDPXI
 ---
 
 **Is your feature request related to a problem? Please describe.**
