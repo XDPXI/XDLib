@@ -47,7 +47,6 @@
     "SoundSystemMixin",
     "TitleFixMixin",
     "TitleScreenMixin",
-    "WindowMixin",
     "WorldIconAccessor",
     "WorldListWidgetWorldEntryMixin",
     "WorldMixin"
