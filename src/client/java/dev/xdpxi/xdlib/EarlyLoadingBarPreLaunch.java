@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.api.mod.files;
+import dev.xdpxi.xdlib.api.files;
 import dev.xdpxi.xdlib.gui.PreLaunchWindow;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
