@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.mod;
 
 public class convert {
     public static String toString(String convert) {

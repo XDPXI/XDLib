@@ -1,7 +1,7 @@
 package dev.xdpxi.xdlib.mixin.client;
 
 import dev.xdpxi.xdlib.CustomScreen;
-import dev.xdpxi.xdlib.api.loader;
+import dev.xdpxi.xdlib.api.mod.loader;
 import dev.xdpxi.xdlib.config.changelogConfig;
 import dev.xdpxi.xdlib.config.configHelper;
 import dev.xdpxi.xdlib.support;
@@ -9,10 +9,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.text.Text;
-import org.slf4j.Logger;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

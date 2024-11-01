@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api.render.popupClass;
+package dev.xdpxi.xdlib.api.mod.render.popupClass;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;

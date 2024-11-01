@@ -2,7 +2,7 @@ package dev.xdpxi.xdlib;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import dev.xdpxi.xdlib.api.loader;
+import dev.xdpxi.xdlib.api.mod.loader;
 import dev.xdpxi.xdlib.config.ZLibsConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

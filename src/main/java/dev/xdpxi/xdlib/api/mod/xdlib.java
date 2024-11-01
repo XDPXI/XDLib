@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.mod;
 
 public class xdlib {
     public static String modID = "";

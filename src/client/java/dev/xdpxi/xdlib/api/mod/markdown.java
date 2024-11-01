@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.mod;
 
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;

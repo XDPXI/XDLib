@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.mod;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

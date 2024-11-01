@@ -3,7 +3,7 @@ package dev.xdpxi.xdlib.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.xdpxi.xdlib.DiscordRPCHandler;
-import dev.xdpxi.xdlib.api.files;
+import dev.xdpxi.xdlib.api.mod.files;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;

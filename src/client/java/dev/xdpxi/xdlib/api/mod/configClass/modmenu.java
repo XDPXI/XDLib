@@ -1,8 +1,8 @@
-package dev.xdpxi.xdlib.api.configClass;
+package dev.xdpxi.xdlib.api.mod.configClass;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import dev.xdpxi.xdlib.api.config;
+import dev.xdpxi.xdlib.api.mod.config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;

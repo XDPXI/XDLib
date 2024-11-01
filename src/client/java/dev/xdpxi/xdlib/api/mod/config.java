@@ -1,10 +1,10 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.mod;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
-import dev.xdpxi.xdlib.api.configClass.Configurable;
+import dev.xdpxi.xdlib.api.mod.configClass.Configurable;
 
 import java.io.File;
 import java.io.FileReader;

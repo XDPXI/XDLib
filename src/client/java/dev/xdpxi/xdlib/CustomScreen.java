@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.api.loader;
+import dev.xdpxi.xdlib.api.mod.loader;
 import dev.xdpxi.xdlib.config.configHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;

@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.mod;
 
 import dev.xdpxi.xdlib.XDsLibraryClient;
 

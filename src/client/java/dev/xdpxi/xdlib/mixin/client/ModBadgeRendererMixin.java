@@ -2,7 +2,7 @@ package dev.xdpxi.xdlib.mixin.client;
 
 import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModBadgeRenderer;
-import dev.xdpxi.xdlib.api.loader;
+import dev.xdpxi.xdlib.api.mod.loader;
 import dev.xdpxi.xdlib.config.ZLibsConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.DrawContext;

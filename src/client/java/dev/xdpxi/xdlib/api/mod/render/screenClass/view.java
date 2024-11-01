@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api.render.screenClass;
+package dev.xdpxi.xdlib.api.mod.render.screenClass;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;

@@ -2,7 +2,7 @@ package dev.xdpxi.xdlib.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.xdpxi.xdlib.api.files;
+import dev.xdpxi.xdlib.api.mod.files;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;

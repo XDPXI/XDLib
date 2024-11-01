@@ -1,7 +1,7 @@
 package dev.xdpxi.xdlib;
 
 import com.google.common.io.Files;
-import dev.xdpxi.xdlib.api.loader;
+import dev.xdpxi.xdlib.api.mod.loader;
 import dev.xdpxi.xdlib.config.ZLibsConfig;
 import dev.xdpxi.xdlib.config.configHelper;
 import dev.xdpxi.xdlib.gui.PreLaunchWindow;
