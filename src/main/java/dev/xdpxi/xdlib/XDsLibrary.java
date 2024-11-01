@@ -142,6 +142,32 @@ public class XDsLibrary implements ModInitializer {
         }
     }
 
+    public static void registerItems() {
+        Item xdlibItem = custom.Item("xdlib_item", MOD_ID);
+        List<Item> items = List.of(xdlibItem);
+        custom.ItemGroup("xdlib_group", MOD_ID, xdlibItem, items);
+    }
+
+    private static void registerGameRules() {
+        VAULT_BLOCK_COOLDOWN = GameRuleRegistry.register("vaultBlockCooldown", GameRules.Category.MISC, GameRuleFactory.createIntRule(720_000, 1));
+        OMINOUS_VAULT_BLOCK_COOLDOWN = GameRuleRegistry.register("ominousVaultBlockCooldown", GameRules.Category.MISC, GameRuleFactory.createIntRule(864_000, 1));
+    }
+
+    private static void registerCommands() {
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, registrationEnvironment) -> {
+            dispatcher.register(literal("link")
+                    .then(argument("message", message())
+                            .executes(ctx -> broadcast(ctx.getSource(), getMessage(ctx, "message").getString())))
+            );
+            dispatcher.register(literal("linkwhisper")
+                    .then(argument("player", EntityArgumentType.player())
+                            .then(argument("message", message())
+                                    .executes(ctx -> whisper(ctx.getSource(), getMessage(ctx, "message").getString(), EntityArgumentType.getPlayer(ctx, "player")))))
+            );
+        });
+    }
+
+
     @Override
     public void onInitialize() {
         LOGGER.info("[XDLib] - Loading...");
@@ -155,49 +181,10 @@ public class XDsLibrary implements ModInitializer {
         }
 
         updateChecker.checkForUpdate();
-
+        registerItems();
         ModNetworkHandler.registerServer();
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, registrationEnvironment) -> {
-            dispatcher.register(literal("link")
-                    .then(argument("message", message())
-                            .executes(ctx -> broadcast(ctx.getSource(), getMessage(ctx, "message").getString())))
-            );
-            dispatcher.register(literal("linkwhisper")
-                    .then(argument("player", EntityArgumentType.player())
-                            .then(argument("message", message())
-                                    .executes(ctx -> whisper(ctx.getSource(), getMessage(ctx, "message").getString(), EntityArgumentType.getPlayer(ctx, "player")))))
-            );
-        });
-        VAULT_BLOCK_COOLDOWN = GameRuleRegistry.register("vaultBlockCooldown", GameRules.Category.MISC, GameRuleFactory.createIntRule(720_000, 1));
-        OMINOUS_VAULT_BLOCK_COOLDOWN = GameRuleRegistry.register("ominousVaultBlockCooldown", GameRules.Category.MISC, GameRuleFactory.createIntRule(864_000, 1));
-
-        Item xdlib_item = custom.Item("xdlib_item", MOD_ID);
-        List<Item> items = List.of(
-                xdlib_item
-        );
-        custom.ItemGroup("xdlib_group", MOD_ID, xdlib_item, items);
-
-        ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, parameters) -> {
-            String stringMessage = message.getContent().getString();
-            String namePrefix = "<" + sender.getName().getString() + "> ";
-
-            switch (stringMessage) {
-                case "{pos}" -> {
-                    return broadcastToPlayers(sender, namePrefix + getPos(sender));
-                }
-                case "{biome}" -> {
-                    return broadcastToPlayers(sender, namePrefix + getBiome(sender));
-                }
-                case "{dim}" -> {
-                    return broadcastToPlayers(sender, namePrefix + getDim(sender));
-                }
-                case "{loc}" -> {
-                    String all = namePrefix + getPos(sender) + " (" + getBiome(sender) + ") " + "(" + getDim(sender) + ")";
-                    return broadcastToPlayers(sender, all);
-                }
-            }
-            return true;
-        });
+        registerGameRules();
+        registerCommands();
 
         ServerTickEvents.END_WORLD_TICK.register(this::postWorldTick);
 
