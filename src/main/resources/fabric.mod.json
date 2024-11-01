@@ -56,7 +56,7 @@
     "cloth-config": ">=15.0.127"
   },
   "breaks": {
-    "minecraft": ">1.21.2",
+    "minecraft": ">1.21.3",
     "cloth-config": "<15.0.127"
   },
   "custom": {
