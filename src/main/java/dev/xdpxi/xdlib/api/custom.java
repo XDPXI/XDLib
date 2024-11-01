@@ -20,13 +20,14 @@ public class custom {
         itemGroupID = itemGroupID.toLowerCase();
         modID = modID.toLowerCase();
         RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(modID, itemGroupID));
-        if (itemIconID != null) {
-            ItemGroup ITEM_GROUP = FabricItemGroup.builder()
-                    .displayName(Text.translatable("itemGroup." + modID + "." + itemGroupID))
-                    .icon(() -> new ItemStack(itemIconID))
-                    .build();
-            Registry.register(Registries.ITEM_GROUP, ITEM_GROUP_KEY, ITEM_GROUP);
-        }
+
+        ItemGroup ITEM_GROUP = FabricItemGroup.builder()
+                .displayName(Text.translatable("itemGroup." + modID + "." + itemGroupID))
+                .icon(() -> new ItemStack(itemIconID != null ? itemIconID : Items.STONE))
+                .build();
+
+        Registry.register(Registries.ITEM_GROUP, ITEM_GROUP_KEY, ITEM_GROUP);
+
         ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP_KEY).register(itemGroup -> {
             for (Item item : itemsToAdd) {
                 itemGroup.add(item);
@@ -39,14 +40,20 @@ public class custom {
     }
 
     public static Item Item(String itemID, String modID, RegistryKey<ItemGroup> itemGroup) {
+        if (itemID == null || modID == null) {
+            throw new IllegalArgumentException("itemID or modID is null");
+        }
         itemID = itemID.toLowerCase();
         modID = modID.toLowerCase();
-        Item.Settings settings = new Item.Settings();
         Identifier identifier = Identifier.of(modID, itemID);
-        Item item = Registry.register(Registries.ITEM, identifier, new Item(settings));
+
+        Item item = new Item(new Item.Settings());
+        Registry.register(Registries.ITEM, identifier, item);
+
         if (itemGroup != null) {
             ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(item));
         }
+
         return item;
     }
 
@@ -57,14 +64,18 @@ public class custom {
     public static BlockItem Block(String blockID, String modID, RegistryKey<ItemGroup> itemGroup) {
         blockID = blockID.toLowerCase();
         modID = modID.toLowerCase();
-        Block block = new Block(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(1.5F, 6.0F));
         Identifier blockIdentifier = Identifier.of(modID, blockID);
+
+        Block block = new Block(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(1.5F, 6.0F));
         Block registeredBlock = Registry.register(Registries.BLOCK, blockIdentifier, block);
         BlockItem blockItem = new BlockItem(registeredBlock, new Item.Settings());
+
         Registry.register(Registries.ITEM, blockIdentifier, blockItem);
+
         if (itemGroup != null) {
             ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(blockItem));
         }
+
         return blockItem;
     }
 
@@ -75,12 +86,15 @@ public class custom {
     public static Item Weapon(String weaponID, String modID, ToolMaterial material, RegistryKey<ItemGroup> itemGroup) {
         weaponID = weaponID.toLowerCase();
         modID = modID.toLowerCase();
-        Item.Settings settings = new Item.Settings().maxDamage(material.getDurability());
         Identifier identifier = Identifier.of(modID, weaponID);
-        SwordItem weapon = Registry.register(Registries.ITEM, identifier, new SwordItem(material, settings));
+
+        SwordItem weapon = new SwordItem(material, new Item.Settings().maxDamage(material.getDurability()));
+        Registry.register(Registries.ITEM, identifier, weapon);
+
         if (itemGroup != null) {
             ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(weapon));
         }
+
         return weapon;
     }
 
@@ -91,12 +105,15 @@ public class custom {
     public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart, RegistryKey<ItemGroup> itemGroup) {
         armorID = armorID.toLowerCase();
         modID = modID.toLowerCase();
-        Item.Settings settings = new Item.Settings();
         Identifier identifier = Identifier.of(modID, armorID);
-        ArmorItem armor = Registry.register(Registries.ITEM, identifier, new ArmorItem(armorType, armorPart, settings));
+
+        ArmorItem armor = new ArmorItem(armorType, armorPart, new Item.Settings());
+        Registry.register(Registries.ITEM, identifier, armor);
+
         if (itemGroup != null) {
             ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(armor));
         }
+
         return armor;
     }
 
