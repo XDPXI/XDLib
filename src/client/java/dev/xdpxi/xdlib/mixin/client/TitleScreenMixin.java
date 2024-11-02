@@ -1,9 +1,8 @@
 package dev.xdpxi.xdlib.mixin.client;
 
 import dev.xdpxi.xdlib.CustomScreen;
-import dev.xdpxi.xdlib.api.mod.loader;
 import dev.xdpxi.xdlib.config.changelogConfig;
-import dev.xdpxi.xdlib.config.configHelper;
+import dev.xdpxi.xdlib.config.configManager;
 import dev.xdpxi.xdlib.support;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -23,21 +22,7 @@ public class TitleScreenMixin {
     private static boolean Shown = false;
 
     @Unique
-    private static boolean clothConfig = loader.isModLoaded("cloth-config");
-
-    @Unique
-    private static boolean changelogEveryStartup = false;
-
-    @Unique
     private static int version = 10;
-
-    @Unique
-    private static boolean isChangelogDisabled() {
-        if (clothConfig) {
-            return configHelper.isChangelogScreenDisabled();
-        }
-        return false;
-    }
 
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
@@ -45,13 +30,10 @@ public class TitleScreenMixin {
         changelogConfig.ConfigData loadedData = config.read();
         int configVersion = loadedData.getVersion();
         boolean firstStartup = version != configVersion;
+        boolean changelogEveryStartup = configManager.configData.isChangelogEveryStartup();
+        boolean disableChangelog = configManager.configData.isDisableChangelog();
 
-        if (clothConfig) {
-            configHelper.ConfigSettings settings = configHelper.titleScreenMixinConfig();
-            changelogEveryStartup = settings.changelogEveryStartup;
-        }
-
-        if (((firstStartup || changelogEveryStartup) && !Shown) && !isChangelogDisabled()) {
+        if (((firstStartup || changelogEveryStartup) && !Shown) && !disableChangelog) {
             CompletableFuture.supplyAsync(() -> {
                 try {
                     Thread.sleep(2000);
@@ -61,9 +43,7 @@ public class TitleScreenMixin {
                 return 0;
             }).thenAcceptAsync(result -> {
                 Shown = true;
-                if (clothConfig) {
-                    configHelper.updateTitleScreenMixinConfig(false, changelogEveryStartup);
-                }
+
                 changelogConfig.ConfigData configData = config.read();
                 configData.setVersion(version);
                 config.write(configData);

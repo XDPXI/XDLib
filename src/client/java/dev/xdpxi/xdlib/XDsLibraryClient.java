@@ -1,26 +1,20 @@
 package dev.xdpxi.xdlib;
 
-import com.google.common.io.Files;
-import dev.xdpxi.xdlib.api.mod.loader;
-import dev.xdpxi.xdlib.config.ZLibsConfig;
-import dev.xdpxi.xdlib.config.configHelper;
+import dev.xdpxi.xdlib.config.configManager;
 import dev.xdpxi.xdlib.gui.PreLaunchWindow;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.resource.InputSupplier;
-import net.minecraft.util.WorldSavePath;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +22,6 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,20 +29,12 @@ import java.util.Map;
 
 public class XDsLibraryClient implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
-    private static final boolean clothConfig = loader.isModLoaded("cloth-config");
     private static final float ADDITIONAL_CLOUD_HEIGHT = 3.0F;
     private static final float GRADIENT_HEIGHT = 6.0F;
     private static final float INVERTED_GRADIENT_HEIGHT = 1.0F / GRADIENT_HEIGHT;
     public static int duration = -1;
     public static List<HostileEntity> list = new ArrayList<>();
-    public static boolean lastLocal = true;
-    public static String serverName = "";
-    public static String serverAddress = "";
     public static Map<String, Float> WorldCloudHeights = new HashMap<>();
-    boolean discordRPC = true;
-    boolean sodiumIntegration = true;
-    String configServerName = "";
-    String configServerAddress = "";
 
     public static boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("windows");
@@ -129,9 +113,7 @@ public class XDsLibraryClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        config();
-
-        continueSaver();
+        configManager.registerConfig();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
@@ -149,78 +131,5 @@ public class XDsLibraryClient implements ClientModInitializer {
         if (WorldCloudHeights.isEmpty()) {
             WorldCloudHeights.put("minecraft:overworld", 182.0F);
         }
-
-        /*
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (Screen.hasControlDown() && Screen.hasAltDown() && Screen.hasShiftDown()) {
-                client.setScreen(new TerminalScreen());
-            }
-        });
-        */
-    }
-
-    private void config() {
-        String osName = System.getProperty("os.name").toLowerCase();
-        if (clothConfig) {
-            try {
-                configHelper.registerConfig();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            configHelper.ConfigSettings clientSettings = configHelper.zlibsClientConfig();
-            discordRPC = clientSettings.discordRPC;
-            sodiumIntegration = clientSettings.sodiumIntegration;
-            configServerName = clientSettings.configServerName;
-            configServerAddress = clientSettings.configServerAddress;
-        }
-        LOGGER.info("[XDLib] - Applying config...");
-        if (discordRPC) {
-            if (osName.contains("win")) {
-                DiscordRPCHandler.init();
-                ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
-                    DiscordRPCHandler.shutdown();
-                });
-            } else {
-                LOGGER.warn("[XDLib] - Discord RPC: Running on an unsupported OS: " + osName);
-            }
-        }
-        LOGGER.info("[XDLib] - Applied config!");
-
-        if (clothConfig) {
-            configHelper.registerSaveListener(discordRPC, sodiumIntegration);
-        }
-    }
-
-    public void continueSaver() {
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            if (client.isIntegratedServerRunning()) {
-                lastLocal = true;
-                String levelName = client.getServer().getSaveProperties().getLevelName();
-                Path pathtoSave = Path.of(Files.simplifyPath(client.getServer().getSavePath(WorldSavePath.ROOT).toString()));
-                String folderName = pathtoSave.normalize().toFile().getName();
-                serverName = levelName;
-                serverAddress = folderName;
-            } else {
-                ServerInfo serverInfo = client.getCurrentServerEntry();
-                lastLocal = false;
-                serverName = serverInfo.name;
-                serverAddress = serverInfo.address;
-            }
-            configServerName = serverName;
-            configServerAddress = serverAddress;
-            if (clothConfig) {
-                try {
-                    Class<?> autoConfigClass = Class.forName("me.shedaniel.autoconfig.AutoConfig");
-                    Method getConfigHolderMethod = autoConfigClass.getMethod("getConfigHolder", Class.class);
-                    Object configHolder = getConfigHolderMethod.invoke(null, ZLibsConfig.class);
-                    ZLibsConfig config = (ZLibsConfig) configHolder.getClass().getMethod("getConfig").invoke(configHolder);
-                    config.lastServer.serverAddress = configServerAddress;
-                    config.lastServer.serverName = configServerName;
-                    configHolder.getClass().getMethod("save").invoke(configHolder);
-                } catch (Exception e) {
-                    System.err.println("Error saving AutoConfig: " + e.getMessage());
-                }
-            }
-        });
     }
 }

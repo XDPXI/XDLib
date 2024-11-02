@@ -4,7 +4,7 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import dev.xdpxi.xdlib.api.mod.loader;
-import dev.xdpxi.xdlib.config.configHelper;
+import dev.xdpxi.xdlib.config.configManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,10 +48,8 @@ public class DiscordRPCHandler {
             LOGGER.error("[XDLib] - Failed to initialize Discord RPC.", e);
         }
 
-        if (loader.isModLoaded("cloth-config")) {
-            if (!configHelper.isDiscordRPCEnabled()) {
-                shutdown();
-            }
+        if (!configManager.configData.isDiscordRPC()) {
+            shutdown();
         }
     }
 

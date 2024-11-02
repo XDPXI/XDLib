@@ -2,9 +2,8 @@ package dev.xdpxi.xdlib.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import dev.xdpxi.xdlib.api.mod.loader;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,14 +14,23 @@ public class configManager {
     public static final String CONFIG_FILE_NAME = "config.json";
     public final File configFile;
     public final Gson gson;
-    public ConfigData configData;
+    private static final boolean clothConfig = loader.isModLoaded("cloth-config");
+    public static ConfigData configData;
+
+    public static void registerConfig() {
+        new configManager();
+    }
 
     public configManager() {
         File configDir = new File("config" + File.separator + "xdlib");
+        File pluginDir = new File("config" + File.separator + "xdlib" + File.separator + "plugins");
         gson = new GsonBuilder().setPrettyPrinting().create();
 
         if (!configDir.exists()) {
             configDir.mkdirs();
+        }
+        if (!pluginDir.exists()) {
+            pluginDir.mkdirs();
         }
         configFile = new File(configDir, CONFIG_FILE_NAME);
 
@@ -31,6 +39,8 @@ public class configManager {
         } else {
             configData = read();
         }
+
+        pluginManager.start();
     }
 
     public void write(ConfigData configData) {
@@ -53,34 +63,103 @@ public class configManager {
         }
     }
 
-    public Screen getModConfigScreen(Screen parent) {
-        ConfigBuilder builder = ConfigBuilder.create()
-                .setParentScreen(parent)
-                .setTitle(Text.of("XDLib Configuration"));
-
-        builder.getOrCreateCategory(Text.of("General"))
-                .addEntry(builder.entryBuilder()
-                        .startIntField(Text.of("Version"), configData.getVersion())
-                        .setDefaultValue(0)
-                        .setSaveConsumer(newVersion -> {
-                            configData.setVersion(newVersion);
-                            write(configData);
-                        })
-                        .build()
-                );
-
-        return builder.build();
+    public Screen getModConfigScreen(ConfigData configData, Screen parent) {
+        if (clothConfig) {
+            return getModConfigScreen(configManager.configData, parent);
+        }
+        return parent;
     }
 
     public static class ConfigData {
-        private int version = 0;
+        private boolean customBadges = true;
+        private boolean changelogEveryStartup = false;
+        private boolean discordRPC = true;
+        private boolean disablePlugins = false;
+        private boolean disableChangelog = false;
+        private boolean disableTitlePopups = false;
+        private boolean unverifiedPlugins = false;
+        private boolean devMode = false;
+        private String serverName = "";
+        private String serverAddress = "";
 
-        public int getVersion() {
-            return version;
+        public boolean isCustomBadges() {
+            return customBadges;
         }
 
-        public void setVersion(int var) {
-            version = var;
+        public void setCustomBadges(boolean customBadges) {
+            this.customBadges = customBadges;
+        }
+
+        public boolean isChangelogEveryStartup() {
+            return changelogEveryStartup;
+        }
+
+        public void setChangelogEveryStartup(boolean changelogEveryStartup) {
+            this.changelogEveryStartup = changelogEveryStartup;
+        }
+
+        public boolean isDiscordRPC() {
+            return discordRPC;
+        }
+
+        public void setDiscordRPC(boolean discordRPC) {
+            this.discordRPC = discordRPC;
+        }
+
+        public boolean isDisablePlugins() {
+            return disablePlugins;
+        }
+
+        public void setDisablePlugins(boolean disablePlugins) {
+            this.disablePlugins = disablePlugins;
+        }
+
+        public boolean isDisableChangelog() {
+            return disableChangelog;
+        }
+
+        public void setDisableChangelog(boolean disableChangelog) {
+            this.disableChangelog = disableChangelog;
+        }
+
+        public boolean isDisableTitlePopups() {
+            return disableTitlePopups;
+        }
+
+        public void setDisableTitlePopups(boolean disableTitlePopups) {
+            this.disableTitlePopups = disableTitlePopups;
+        }
+
+        public String getServerName() {
+            return serverName;
+        }
+
+        public void setServerName(String serverName) {
+            this.serverName = serverName;
+        }
+
+        public String getServerAddress() {
+            return serverAddress;
+        }
+
+        public void setServerAddress(String serverAddress) {
+            this.serverAddress = serverAddress;
+        }
+
+        public boolean isUnverifiedPlugins() {
+            return unverifiedPlugins;
+        }
+
+        public void setUnverifiedPlugins(boolean unverifiedPlugins) {
+            this.unverifiedPlugins = unverifiedPlugins;
+        }
+
+        public boolean isDevMode() {
+            return devMode;
+        }
+
+        public void setDevMode(boolean devMode) {
+            this.devMode = devMode;
         }
     }
 }

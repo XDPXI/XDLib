@@ -1,7 +1,7 @@
 package dev.xdpxi.xdlib;
 
 import dev.xdpxi.xdlib.api.mod.loader;
-import dev.xdpxi.xdlib.config.configHelper;
+import dev.xdpxi.xdlib.config.configManager;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -27,11 +27,7 @@ public class CustomScreen extends Screen {
 
     @Override
     protected void init() {
-        if (loader.isModLoaded("cloth-config")) {
-            if (!configHelper.isTitlePopupsDisabled()) {
-                showPopups();
-            }
-        } else {
+        if (!configManager.configData.isDisableTitlePopups()) {
             showPopups();
         }
 
