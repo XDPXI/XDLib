@@ -16,15 +16,12 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. Windows]
- - Minecraft Version [e.g. 1.20.3]
- - Loader Version [e.g. Fabric]
- - Java Version [e.g. 17]
- - Mod Version [e.g. 1.2.0]
+ - OS: `[e.g. Windows 11]`
+ - Minecraft Version: `[e.g. 1.20.3]`
+ - Loader Version: `[e.g. Fabric]`
+ - Java Version: `[e.g. 17]`
+ - Mod Version: `[e.g. 1.2.0]`

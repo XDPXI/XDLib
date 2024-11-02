@@ -8,3 +8,7 @@ assignees: XDPXI
 
 **Describe the plugin**
 A clear and concise description of what the plugin is.
+
+**Describe the plugin**
+- Source Code (If possible): `[e.g. github.com/xdpxi/xdlib]`
+- Plugin Download: `[e.g. github.com/xdpxi/xdlib/releases]`
