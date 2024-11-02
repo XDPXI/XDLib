@@ -79,8 +79,6 @@ public class configManager {
         private boolean disableTitlePopups = false;
         private boolean unverifiedPlugins = false;
         private boolean devMode = false;
-        private String serverName = "";
-        private String serverAddress = "";
 
         public boolean isCustomBadges() {
             return customBadges;
@@ -128,22 +126,6 @@ public class configManager {
 
         public void setDisableTitlePopups(boolean disableTitlePopups) {
             this.disableTitlePopups = disableTitlePopups;
-        }
-
-        public String getServerName() {
-            return serverName;
-        }
-
-        public void setServerName(String serverName) {
-            this.serverName = serverName;
-        }
-
-        public String getServerAddress() {
-            return serverAddress;
-        }
-
-        public void setServerAddress(String serverAddress) {
-            this.serverAddress = serverAddress;
         }
 
         public boolean isUnverifiedPlugins() {
