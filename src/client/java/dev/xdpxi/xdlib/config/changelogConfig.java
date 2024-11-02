@@ -13,7 +13,7 @@ public class changelogConfig {
     private final File configFile;
 
     public changelogConfig() {
-        File configDir = new File("config\\xdlib");
+        File configDir = new File("config" + File.separator + "xdlib");
 
         if (!configDir.exists()) {
             configDir.mkdirs();
