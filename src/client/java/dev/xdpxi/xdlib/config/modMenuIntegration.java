@@ -8,7 +8,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class ModMenuIntegration implements ModMenuApi {
+public class modMenuIntegration implements ModMenuApi {
     private static final boolean clothConfig = loader.isModLoaded("cloth-config");
     public static final configManager CONFIG_MANAGER = new configManager();
 
