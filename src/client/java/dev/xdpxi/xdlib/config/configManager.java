@@ -2,7 +2,6 @@ package dev.xdpxi.xdlib.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
