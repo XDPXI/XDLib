@@ -118,7 +118,11 @@ public class XDsLibraryClient implements ClientModInitializer {
         configManager.registerConfig();
         CONFIG_MANAGER = new configManager();
 
-        pluginManager.start();
+        try {
+            pluginManager.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
