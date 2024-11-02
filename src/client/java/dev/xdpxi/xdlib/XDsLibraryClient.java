@@ -33,6 +33,7 @@ public class XDsLibraryClient implements ClientModInitializer {
     private static final float GRADIENT_HEIGHT = 6.0F;
     private static final float INVERTED_GRADIENT_HEIGHT = 1.0F / GRADIENT_HEIGHT;
     public static int duration = -1;
+    public configManager CONFIG_MANAGER;
     public static List<HostileEntity> list = new ArrayList<>();
     public static Map<String, Float> WorldCloudHeights = new HashMap<>();
 
@@ -114,6 +115,7 @@ public class XDsLibraryClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         configManager.registerConfig();
+        CONFIG_MANAGER = new configManager();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
