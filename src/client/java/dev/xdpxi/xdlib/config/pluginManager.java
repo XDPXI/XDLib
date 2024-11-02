@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static dev.xdpxi.xdlib.XDsLibraryClient.LOGGER;
 
-public class pluginReader {
+public class pluginManager {
     public static void start() {
         File pluginsDir = new File("config/xdlib/plugins");
 
