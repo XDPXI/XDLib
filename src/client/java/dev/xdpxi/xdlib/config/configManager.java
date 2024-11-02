@@ -39,8 +39,6 @@ public class configManager {
         } else {
             configData = read();
         }
-
-        pluginManager.start();
     }
 
     public void write(ConfigData configData) {

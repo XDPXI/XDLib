@@ -1,6 +1,7 @@
 package dev.xdpxi.xdlib;
 
 import dev.xdpxi.xdlib.config.configManager;
+import dev.xdpxi.xdlib.config.pluginManager;
 import dev.xdpxi.xdlib.gui.PreLaunchWindow;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -116,6 +117,8 @@ public class XDsLibraryClient implements ClientModInitializer {
     public void onInitializeClient() {
         configManager.registerConfig();
         CONFIG_MANAGER = new configManager();
+
+        pluginManager.start();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
