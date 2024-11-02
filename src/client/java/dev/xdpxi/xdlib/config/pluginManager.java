@@ -2,12 +2,13 @@ package dev.xdpxi.xdlib.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import dev.xdpxi.xdlib.api.files;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -23,6 +24,7 @@ public class pluginManager {
     private static final File LOADED_PLUGINS_FILE = new File("config" + File.separator + "xdlib" + File.separator + "plugins.json");
     private static final Gson GSON = new Gson();
     private static final Set<String> loadedPlugins = new HashSet<>();
+    private static File[] pluginFiles;
 
     private static boolean checkDir() {
         return PLUGINS_DIR.exists() && PLUGINS_DIR.isDirectory();
@@ -34,44 +36,43 @@ public class pluginManager {
             return;
         }
 
+        pluginFiles = PLUGINS_DIR.listFiles((dir, name) -> name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith(".jar.disabled"));
         files.deleteFile(LOADED_PLUGINS_FILE.toPath());
 
-        loadPreviouslyLoadedPlugins();
-
-        LOGGER.info("[XDLib] - Reading Plugins...");
-        File[] pluginFiles = PLUGINS_DIR.listFiles((dir, name) -> name.toLowerCase().endsWith(".jar"));
-
-        if (pluginFiles != null && pluginFiles.length > 0) {
-            LOGGER.info("[XDLib] - Running Plugins:");
-            for (File pluginFile : pluginFiles) {
-                String pluginName = pluginFile.getName();
-                if (!loadedPlugins.contains(pluginName)) {
-                    try {
-                        LOGGER.info("[XDLib] - Loading plugin: " + pluginName);
-                        loadJar(pluginFile);
-                        loadedPlugins.add(pluginName);
-                        saveLoadedPlugins();
-                    } catch (Exception e) {
-                        LOGGER.error("[XDLib] - Failed to load plugin: " + pluginName, e);
-                    }
-                } else {
-                    LOGGER.info("[XDLib] - Plugin already loaded: " + pluginName);
-                }
-            }
-        } else {
-            LOGGER.warn("[XDLib] - No plugin files found in directory: " + PLUGINS_DIR.getAbsolutePath());
-        }
+        readPlugins();
     }
 
-    private static void loadPreviouslyLoadedPlugins() {
-        if (LOADED_PLUGINS_FILE.exists()) {
-            try (Reader reader = Files.newBufferedReader(LOADED_PLUGINS_FILE.toPath())) {
-                JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
-                for (JsonElement element : jsonArray) {
-                    loadedPlugins.add(element.getAsString());
-                }
+    private static void readPlugins() {
+        LOGGER.info("[XDLib] - Reading Plugins...");
+
+        if (pluginFiles == null || pluginFiles.length == 0) {
+            LOGGER.warn("[XDLib] - No plugin files found in directory: " + PLUGINS_DIR.getAbsolutePath());
+            return;
+        }
+
+        LOGGER.info("[XDLib] - Running Plugins:");
+        for (File pluginFile : pluginFiles) {
+            String pluginName = pluginFile.getName();
+
+            if (loadedPlugins.contains(pluginName)) {
+                LOGGER.info("[XDLib] - Skipping already loaded plugin: " + pluginName);
+                continue;
+            }
+
+            if (pluginFile.toString().toLowerCase().endsWith(".disabled")) {
+                LOGGER.info("[XDLib] - Skipping disabled plugin: " + pluginName);
+                loadedPlugins.add(pluginName);
+                saveLoadedPlugins();
+                continue;
+            }
+
+            try {
+                LOGGER.info("[XDLib] - Loading plugin: " + pluginName);
+                loadJar(pluginFile);
+                loadedPlugins.add(pluginName);
+                saveLoadedPlugins();
             } catch (Exception e) {
-                LOGGER.error("[XDLib] - Error reading loaded plugins file", e);
+                LOGGER.error("[XDLib] - Failed to load plugin: " + pluginName, e);
             }
         }
     }

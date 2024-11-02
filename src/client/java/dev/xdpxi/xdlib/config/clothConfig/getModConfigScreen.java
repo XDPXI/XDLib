@@ -1,16 +1,26 @@
 package dev.xdpxi.xdlib.config.clothConfig;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import dev.xdpxi.xdlib.config.configManager;
+import dev.xdpxi.xdlib.config.pluginManager;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
 import me.shedaniel.clothconfig2.gui.entries.StringListEntry;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class getModConfigScreen {
     private final configManager configManagerInstance;
+    private static final File pluginsDir = new File("config" + File.separator + "xdlib" + File.separator + "plugins");
 
     public getModConfigScreen(configManager configManager) {
         this.configManagerInstance = configManager;
@@ -63,16 +73,65 @@ public class getModConfigScreen {
     }
 
     private void updatePluginsCategory(ConfigBuilder builder, boolean isDisabled) {
-        if (!isDisabled) {
-            var pluginsCategory = builder.getOrCreateCategory(Text.of("Plugins"));
-            pluginsCategory.getEntries().clear();
+        var pluginsCategory = builder.getOrCreateCategory(Text.of("Plugins"));
+        pluginsCategory.getEntries().clear();
 
-            pluginsCategory.addEntry(builder.entryBuilder()
-                    .startSubCategory(Text.of("Loaded Plugins"))
-                    .build());
+        if (!isDisabled) {
+            var subCategoryBuilder = builder.entryBuilder()
+                    .startSubCategory(Text.of("Loaded Plugins"));
+            subCategoryBuilder.clear();
+
+            List<String> pluginNames = loadPluginsFromJson("config" + File.separator + "xdlib" + File.separator + "plugins.json");
+            for (String pluginName : pluginNames) {
+                if (pluginName.toLowerCase().endsWith(".jar")) {
+                    subCategoryBuilder.add(createBooleanToggle(builder, "Enable " + pluginName, true, newValue -> {
+                        renameEnabled(pluginName);
+                    }, true));
+                }
+                if (pluginName.toLowerCase().endsWith(".disabled")) {
+                    subCategoryBuilder.add(createBooleanToggle(builder, "Enable " + pluginName.toLowerCase().replace(".disabled", ""), false, newValue -> {
+                        renameDisabled(pluginName);
+                    }, true));
+                }
+            }
+
+            pluginsCategory.addEntry(subCategoryBuilder.build());
 
             pluginsCategory.addEntry(createBooleanToggle(builder, "Enable Unverified Plugins", configManager.configData.isUnverifiedPlugins(), newVersion -> configManager.configData.setUnverifiedPlugins(newVersion), false));
             pluginsCategory.addEntry(createBooleanToggle(builder, "Enter Dev Mode", configManager.configData.isDevMode(), newVersion -> configManager.configData.setDevMode(newVersion), false));
         }
+    }
+
+    private static void renameEnabled(String pluginName) {
+        File plugin = new File(pluginsDir + File.separator + pluginName);
+        plugin.renameTo(new File(pluginsDir + File.separator + pluginName + ".DISABLED"));
+
+        try {
+            pluginManager.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void renameDisabled(String pluginName) {
+        File plugin = new File(pluginsDir + File.separator + pluginName);
+        plugin.renameTo(new File(pluginsDir + File.separator + pluginName.toLowerCase().replace(".disabled", "")));
+
+        try {
+            pluginManager.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<String> loadPluginsFromJson(String path) {
+        List<String> pluginNames = new ArrayList<>();
+        try (FileReader reader = new FileReader(path)) {
+            JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
+            jsonArray.forEach(element -> pluginNames.add(element.getAsString()));
+        } catch (IOException | JsonSyntaxException e) {
+            System.err.println("Failed to load plugins from JSON: " + e.getMessage());
+        }
+        return pluginNames;
     }
 }
