@@ -34,7 +34,7 @@
       "dev.xdpxi.xdlib.XDsLibraryDataGenerator"
     ],
     "modmenu": [
-      "dev.xdpxi.xdlib.ModMenuIntegration"
+      "dev.xdpxi.xdlib.config.ModMenuIntegration"
     ]
   },
   "accessWidener": "xdlib.accesswidener",
