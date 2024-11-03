@@ -97,9 +97,9 @@ public class files {
                 if (!normalizedPath.startsWith(Paths.get(outputDir))) {
                     throw new IOException("Bad zip entry: " + entry.getName());
                 }
-               filePath = normalizedPath.toString();
-               if (!entry.isDirectory()) {
-                   try (FileOutputStream fos = new FileOutputStream(filePath)) {
+                filePath = normalizedPath.toString();
+                if (!entry.isDirectory()) {
+                    try (FileOutputStream fos = new FileOutputStream(filePath)) {
                         byte[] buffer = new byte[1024];
                         int len;
                         while ((len = zipIn.read(buffer)) > 0) {

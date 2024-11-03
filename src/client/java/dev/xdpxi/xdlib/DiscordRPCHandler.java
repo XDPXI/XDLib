@@ -3,7 +3,6 @@ package dev.xdpxi.xdlib;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import dev.xdpxi.xdlib.api.mod.loader;
 import dev.xdpxi.xdlib.config.configManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

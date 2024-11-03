@@ -12,14 +12,10 @@ import java.io.IOException;
 
 public class configManager {
     public static final String CONFIG_FILE_NAME = "config.json";
-    public final File configFile;
-    public final Gson gson;
     private static final boolean clothConfig = loader.isModLoaded("cloth-config");
     public static ConfigData configData;
-
-    public static void registerConfig() {
-        new configManager();
-    }
+    public final File configFile;
+    public final Gson gson;
 
     public configManager() {
         File configDir = new File("config" + File.separator + "xdlib");
@@ -39,6 +35,10 @@ public class configManager {
         } else {
             configData = read();
         }
+    }
+
+    public static void registerConfig() {
+        new configManager();
     }
 
     public void write(ConfigData configData) {

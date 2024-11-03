@@ -19,11 +19,33 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class getModConfigScreen {
-    private final configManager configManagerInstance;
     private static final File pluginsDir = new File("config" + File.separator + "xdlib" + File.separator + "plugins");
+    private final configManager configManagerInstance;
 
     public getModConfigScreen(configManager configManager) {
         this.configManagerInstance = configManager;
+    }
+
+    private static void renameEnabled(String pluginName) {
+        File plugin = new File(pluginsDir + File.separator + pluginName);
+        plugin.renameTo(new File(pluginsDir + File.separator + pluginName + ".DISABLED"));
+
+        try {
+            pluginManager.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void renameDisabled(String pluginName) {
+        File plugin = new File(pluginsDir + File.separator + pluginName);
+        plugin.renameTo(new File(pluginsDir + File.separator + pluginName.toLowerCase().replace(".disabled", "")));
+
+        try {
+            pluginManager.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Screen getModConfigScreen(Screen parent) {
@@ -99,28 +121,6 @@ public class getModConfigScreen {
 
             pluginsCategory.addEntry(createBooleanToggle(builder, "Enable Unverified Plugins", configManager.configData.isUnverifiedPlugins(), newVersion -> configManager.configData.setUnverifiedPlugins(newVersion), false));
             pluginsCategory.addEntry(createBooleanToggle(builder, "Enter Dev Mode", configManager.configData.isDevMode(), newVersion -> configManager.configData.setDevMode(newVersion), false));
-        }
-    }
-
-    private static void renameEnabled(String pluginName) {
-        File plugin = new File(pluginsDir + File.separator + pluginName);
-        plugin.renameTo(new File(pluginsDir + File.separator + pluginName + ".DISABLED"));
-
-        try {
-            pluginManager.start();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static void renameDisabled(String pluginName) {
-        File plugin = new File(pluginsDir + File.separator + pluginName);
-        plugin.renameTo(new File(pluginsDir + File.separator + pluginName.toLowerCase().replace(".disabled", "")));
-
-        try {
-            pluginManager.start();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 

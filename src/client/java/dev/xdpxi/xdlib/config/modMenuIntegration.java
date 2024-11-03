@@ -9,8 +9,8 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 public class modMenuIntegration implements ModMenuApi {
-    private static final boolean clothConfig = loader.isModLoaded("cloth-config");
     public static final configManager CONFIG_MANAGER = new configManager();
+    private static final boolean clothConfig = loader.isModLoaded("cloth-config");
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {

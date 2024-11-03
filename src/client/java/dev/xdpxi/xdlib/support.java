@@ -1,6 +1,7 @@
 package dev.xdpxi.xdlib;
 
 import dev.xdpxi.xdlib.api.mod.loader;
+import dev.xdpxi.xdlib.config.configManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -8,7 +9,6 @@ import net.minecraft.client.toast.SystemToast;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import dev.xdpxi.xdlib.config.configManager;
 
 import java.util.concurrent.CompletableFuture;
 

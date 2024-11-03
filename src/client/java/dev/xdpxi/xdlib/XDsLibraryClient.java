@@ -34,9 +34,9 @@ public class XDsLibraryClient implements ClientModInitializer {
     private static final float GRADIENT_HEIGHT = 6.0F;
     private static final float INVERTED_GRADIENT_HEIGHT = 1.0F / GRADIENT_HEIGHT;
     public static int duration = -1;
-    public configManager CONFIG_MANAGER;
     public static List<HostileEntity> list = new ArrayList<>();
     public static Map<String, Float> WorldCloudHeights = new HashMap<>();
+    public configManager CONFIG_MANAGER;
 
     public static boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("windows");
