@@ -32,7 +32,7 @@ public class files {
                 try {
                     Files.delete(file);
                 } catch (IOException e) {
-                    XDsLibraryClient.LOGGER.error("ERROR DELETING FILE: " + e);
+                    XDsLibraryClient.LOGGER.error("ERROR DELETING FILE: {}", String.valueOf(e));
                 }
             }
             if (Files.exists(file)) {
@@ -93,8 +93,9 @@ public class files {
 
             ZipEntry entry;
             while ((entry = zipIn.getNextEntry()) != null) {
-                Path normalizedPath = Paths.get(outputDir).resolve(entry.getName()).normalize();
-                if (!normalizedPath.startsWith(Paths.get(outputDir))) {
+                Path path = Paths.get(outputDir);
+                Path normalizedPath = path.resolve(entry.getName()).normalize();
+                if (!normalizedPath.startsWith(path)) {
                     throw new IOException("Bad zip entry: " + entry.getName());
                 }
                 filePath = normalizedPath.toString();
