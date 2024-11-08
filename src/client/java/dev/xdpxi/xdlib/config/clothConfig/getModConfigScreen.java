@@ -31,7 +31,7 @@ public class getModConfigScreen {
         plugin.renameTo(new File(pluginsDir + File.separator + pluginName + ".DISABLED"));
 
         try {
-            pluginManager.start();
+            pluginManager.readPlugins();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -42,7 +42,7 @@ public class getModConfigScreen {
         plugin.renameTo(new File(pluginsDir + File.separator + pluginName.toLowerCase().replace(".disabled", "")));
 
         try {
-            pluginManager.start();
+            pluginManager.readPlugins();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

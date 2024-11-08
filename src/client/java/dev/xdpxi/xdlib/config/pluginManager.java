@@ -36,14 +36,15 @@ public class pluginManager {
             return;
         }
 
-        pluginFiles = PLUGINS_DIR.listFiles((dir, name) -> name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith(".jar.disabled"));
-        files.deleteFile(LOADED_PLUGINS_FILE.toPath());
-
         readPlugins();
     }
 
-    private static void readPlugins() {
+    public static void readPlugins() throws IOException {
+        LOGGER.info("[XDLib] - Clearing Loaded Plugins...");
+        files.deleteFile(LOADED_PLUGINS_FILE.toPath());
+
         LOGGER.info("[XDLib] - Reading Plugins...");
+        pluginFiles = PLUGINS_DIR.listFiles((dir, name) -> name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith(".jar.disabled"));
 
         if (pluginFiles == null || pluginFiles.length == 0) {
             LOGGER.warn("[XDLib] - No plugin files found in directory: " + PLUGINS_DIR.getAbsolutePath());
