@@ -34,7 +34,7 @@
     "ScreenAccessor",
     "SoundSystemMixin",
     "TitleFixMixin",
-    "TitleScreenMixin",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
