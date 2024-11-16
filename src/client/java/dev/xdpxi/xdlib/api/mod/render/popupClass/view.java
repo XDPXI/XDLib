@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 public class view extends Screen {
     private static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
-    private static final boolean toastShown = false;
     private final Screen parent;
     private final MutableText changelogText;
 
