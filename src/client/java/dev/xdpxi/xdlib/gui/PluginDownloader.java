@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.*;
-import java.net.URL;
+import java.net.URI;
 import java.nio.file.Path;
 
 public class PluginDownloader {
@@ -74,7 +74,7 @@ public class PluginDownloader {
                     while ((fileURL = reader.readLine()) != null) {
                         fileURL = fileContent;
                         String savePath = "plugin.zip";
-                        try (BufferedInputStream in = new BufferedInputStream(new URL(fileURL).openStream());
+                        try (BufferedInputStream in = new BufferedInputStream(URI.create(fileURL).toURL().openStream());
                              FileOutputStream fileOutputStream = new FileOutputStream(savePath)) {
 
                             byte[] dataBuffer = new byte[1024];
