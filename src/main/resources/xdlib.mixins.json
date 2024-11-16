@@ -3,7 +3,6 @@
   "package": "dev.xdpxi.xdlib.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BedBlockMixin",
     "EulaMixin"
   ],
   "injectors": {
