@@ -11,6 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -366,7 +367,7 @@ public class XDLibInstaller {
     }
 
     private static void downloadFile(String fileURL, Path folderPath, String fileName, JProgressBar progressBar) throws IOException {
-        URL url = new URL(fileURL);
+        URL url = URI.create(fileURL).toURL();
         try (BufferedInputStream in = new BufferedInputStream(url.openStream());
              FileOutputStream fileOutputStream = new FileOutputStream(folderPath.resolve(fileName).toString())) {
             byte[] dataBuffer = new byte[1024];
@@ -382,7 +383,7 @@ public class XDLibInstaller {
     }
 
     private static void downloadLibraryFile(String fileURL, Path folderPath, String fileName, JProgressBar progressBar) throws IOException {
-        URL url = new URL(fileURL);
+        URL url = URI.create(fileURL).toURL();
         try (BufferedInputStream in = new BufferedInputStream(url.openStream());
              FileOutputStream fileOutputStream = new FileOutputStream(folderPath.resolve(fileName).toString())) {
             byte[] dataBuffer = new byte[1024];
@@ -395,27 +396,6 @@ public class XDLibInstaller {
                 SwingUtilities.invokeLater(() -> progressBar.setValue(progress));
             }
         }
-    }
-
-    private static JButton createRoundedButton(String text, Color outlineColor, int cornerRadius) {
-        JButton button = new JButton(text) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(new Color(70, 73, 75));
-                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius); // Fill the button background
-                g2d.setColor(outlineColor);
-                g2d.setStroke(new BasicStroke(2)); // Outline width
-                g2d.drawRoundRect(1, 1, getWidth() - 2, getHeight() - 2, cornerRadius, cornerRadius); // Draw rounded outline
-                g2d.dispose();
-                super.paintComponent(g);
-            }
-        };
-        button.setContentAreaFilled(false);
-        button.setFocusPainted(false);
-        button.setOpaque(false);
-        return button;
     }
 
     private static JButton createOutlinedButton(String text, Color outlineColor, int cornerRadius) {
@@ -441,7 +421,7 @@ public class XDLibInstaller {
 
     private static void setCustomIcon(JFrame frame, String iconUrl) {
         try {
-            URL url = new URL(iconUrl);
+            URL url = URI.create(iconUrl).toURL();
             BufferedImage icon = ImageIO.read(url);
             frame.setIconImage(icon);
         } catch (IOException e) {
