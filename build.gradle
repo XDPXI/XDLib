@@ -48,6 +48,8 @@ dependencies {
 	compileOnly("org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT")
 	compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 	annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
+	modImplementation("net.fabricmc:fabric-loader:0.16.9")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:0.108.1+")
 	
 	include(implementation("org.tomlj:tomlj:1.1.1"))
     include(implementation("org.antlr:antlr4-runtime:4.13.2"))
@@ -55,8 +57,6 @@ dependencies {
     include(implementation("org.yaml:snakeyaml:2.3"))
     include(modImplementation("maven.modrinth:ducky-updater-lib:2024.10.2"))
 
-	modImplementation("net.fabricmc:fabric-loader:0.16.9")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:0.108.1+")
 	modImplementation("com.terraformersmc:modmenu:11.0.3")
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:16.0.141"){exclude(group: "net.fabricmc.fabric-api")}
 	implementation("org.commonmark:commonmark:0.24.0")
