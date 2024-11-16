@@ -33,24 +33,24 @@ public class XDLibInstaller {
     private static final String CLOTH_CONFIG_URL_NEO = "izKINKFg/cloth-config-15.0.140-neoforge.jar";
 
     private static final String CONNECTER_121 = "https://cdn.modrinth.com/data/u58R1TMW/versions/PHaoQIFN/connector-2.0.0-beta.1%2B1.21-full.jar";
-    private static final String CONNECTER_1211 = "https://cdn.modrinth.com/data/u58R1TMW/versions/x3AHjKpg/connector-2.0.0-beta.3%2B1.21.1-full.jar";
+    private static final String CONNECTER_1211 = "https://cdn.modrinth.com/data/u58R1TMW/versions/aQSgBo32/connector-2.0.0-beta.4%2B1.21.1-full.jar";
 
     private static final String FORGIFIED_121 = "https://cdn.modrinth.com/data/Aqlf1Shp/versions/K5REyk0w/forgified-fabric-api-0.101.2%2B2.0.10%2B1.21.jar";
-    private static final String FORGIFIED_1211 = "https://cdn.modrinth.com/data/Aqlf1Shp/versions/2bxEYAKi/forgified-fabric-api-0.104.0%2B2.0.15%2B1.21.1.jar";
+    private static final String FORGIFIED_1211 = "https://cdn.modrinth.com/data/Aqlf1Shp/versions/L7Mufn4x/forgified-fabric-api-0.104.0%2B2.0.18%2B1.21.1.jar";
 
     private static final String CONNECTEREXTRAS_121 = "https://cdn.modrinth.com/data/FYpiwiBR/versions/WUktoh8L/ConnectorExtras-1.12.0%2B1.21.jar";
     private static final String CONNECTEREXTRAS_1211 = "https://cdn.modrinth.com/data/FYpiwiBR/versions/dgLCqZyo/ConnectorExtras-1.12.1%2B1.21.1.jar";
 
-    private static final String FABRIC_QUILT_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/fabric.jar";
-    private static final String NEO_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/neo.jar";
-    private static final String BUKKIT_21_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/bukkit.jar";
-    private static final String VELO_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/velo.jar";
-    private static final String BUNGEE_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.21/bungee.jar";
+    private static final String FABRIC_QUILT_21_URL = "https://github.com/XDPXI/ZtrolixLibs/raw/main/installer/versions/1.21/fabric.jar";
+    private static final String NEO_21_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.21/neo.jar";
+    private static final String BUKKIT_21_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.21/bukkit.jar";
+    private static final String VELO_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.21/velo.jar";
+    private static final String BUNGEE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.21/bungee.jar";
 
-    private static final String FABRIC_QUILT_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.20/fabric.jar";
-    private static final String BUKKIT_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.20/bukkit.jar";
-    private static final String NEOFORGE_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.20/neo.jar";
-    private static final String FORGE_URL = "https://github.com/ZtrolixGit/ZtrolixLibs/raw/main/installer/versions/1.20/forge.jar";
+    private static final String FABRIC_QUILT_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.20/fabric.jar";
+    private static final String BUKKIT_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.20/bukkit.jar";
+    private static final String NEOFORGE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.20/neo.jar";
+    private static final String FORGE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.20/forge.jar";
 
     public static void main(String[] args) {
         try {
@@ -277,7 +277,7 @@ public class XDLibInstaller {
                     case "1.21":
                         return FABRIC_API_BASE_URL + "oGwyXeEI/fabric-api-0.102.0%2B1.21.jar";
                     case "1.21.1":
-                        return FABRIC_API_BASE_URL + "iFnYBUfS/fabric-api-0.106.0%2B1.21.1.jar";
+                        return FABRIC_API_BASE_URL + "GcoFPm9u/fabric-api-0.108.0%2B1.21.1.jar";
                     default:
                         return null;
                 }
