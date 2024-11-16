@@ -12,16 +12,16 @@ import java.nio.file.Path;
 
 @Plugin(id = "xdlib", name = "XDLib", version = "2.4.2", description = "This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!", url = "https://xdpxi.vercel.app/mc/xdlib", authors = {"XDPXI"})
 public class velocity {
-    @Inject
-    private Logger logger;
-
+    private final Logger logger;
     private final ProxyServer proxyServer;
     private final Path dataDirectory;
     private final String currentVersion;
 
-    public velocity(ProxyServer proxyServer, @DataDirectory Path dataDirectory) {
+    @Inject
+    public velocity(ProxyServer proxyServer, @DataDirectory Path dataDirectory, Logger logger) {
         this.proxyServer = proxyServer;
         this.dataDirectory = dataDirectory;
+        this.logger = logger;
         this.currentVersion = this.getClass().getAnnotation(Plugin.class).version();
     }
 
