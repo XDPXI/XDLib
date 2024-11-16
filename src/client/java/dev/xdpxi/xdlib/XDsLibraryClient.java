@@ -8,19 +8,15 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.resource.InputSupplier;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,30 +69,6 @@ public class XDsLibraryClient implements ClientModInitializer {
 
         }
         return original;
-    }
-
-    public static void setIcon(InputSupplier<InputStream> icon) {
-        ((IconSetter) MinecraftClient.getInstance()).ztrolixLibs$setIcon(icon);
-    }
-
-    public static void resetIcon() {
-        ((IconSetter) MinecraftClient.getInstance()).ztrolixLibs$resetIcon();
-    }
-
-    public static void setIcon(NativeImage nativeImage) {
-        try {
-            byte[] bytes = nativeImage.getBytes();
-            setIcon(bytes);
-        } catch (IOException e) {
-            LOGGER.error("Could not set icon: ", e);
-        } finally {
-            nativeImage.close();
-        }
-    }
-
-    public static void setIcon(byte[] favicon) {
-        if (favicon == null) resetIcon();
-        else setIcon(() -> new ByteArrayInputStream(favicon));
     }
 
     public boolean isModLoaded(String modID) {
