@@ -27,9 +27,6 @@
     "client": [
       "dev.xdpxi.xdlib.XDsLibraryClient"
     ],
-    "fabric-datagen": [
-      "dev.xdpxi.xdlib.XDsLibraryDataGenerator"
-    ],
     "modmenu": [
       "dev.xdpxi.xdlib.config.modMenuIntegration"
     ]
