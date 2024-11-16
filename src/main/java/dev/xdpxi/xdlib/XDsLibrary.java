@@ -5,11 +5,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.xdpxi.xdlib.api.mod.custom;
 import lombok.Getter;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
-import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.HostileEntity;
@@ -25,7 +21,6 @@ import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.border.WorldBorderStage;
 import org.jetbrains.annotations.Contract;
@@ -36,11 +31,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraft.command.argument.MessageArgumentType.getMessage;
-import static net.minecraft.command.argument.MessageArgumentType.message;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
-
 public class XDsLibrary implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
     public static final String MOD_ID = "xdlib";
@@ -48,9 +38,6 @@ public class XDsLibrary implements ModInitializer {
     public static int duration = -1;
     public static List<HostileEntity> list = new ArrayList<>();
     public static SoundEvent DEATH_SOUND_EVENT = SoundEvent.of(DEATH_SOUND_ID);
-
-    public static GameRules.Key<GameRules.IntRule> VAULT_BLOCK_COOLDOWN;
-    public static GameRules.Key<GameRules.IntRule> OMINOUS_VAULT_BLOCK_COOLDOWN;
 
     @Getter
     public static boolean eulaAccepted = false;
@@ -147,26 +134,6 @@ public class XDsLibrary implements ModInitializer {
         custom.ItemGroup("xdlib_group", MOD_ID, xdlibItem, items);
     }
 
-    private static void registerGameRules() {
-        VAULT_BLOCK_COOLDOWN = GameRuleRegistry.register("vaultBlockCooldown", GameRules.Category.MISC, GameRuleFactory.createIntRule(720_000, 1));
-        OMINOUS_VAULT_BLOCK_COOLDOWN = GameRuleRegistry.register("ominousVaultBlockCooldown", GameRules.Category.MISC, GameRuleFactory.createIntRule(864_000, 1));
-    }
-
-    private static void registerCommands() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, registrationEnvironment) -> {
-            dispatcher.register(literal("link")
-                    .then(argument("message", message())
-                            .executes(ctx -> broadcast(ctx.getSource(), getMessage(ctx, "message").getString())))
-            );
-            dispatcher.register(literal("linkwhisper")
-                    .then(argument("player", EntityArgumentType.player())
-                            .then(argument("message", message())
-                                    .executes(ctx -> whisper(ctx.getSource(), getMessage(ctx, "message").getString(), EntityArgumentType.getPlayer(ctx, "player")))))
-            );
-        });
-    }
-
-
     @Override
     public void onInitialize() {
         LOGGER.info("[XDLib] - Loading...");
@@ -182,8 +149,6 @@ public class XDsLibrary implements ModInitializer {
         updateChecker.checkForUpdate();
         registerItems();
         ModNetworkHandler.registerServer();
-        registerGameRules();
-        registerCommands();
 
         ServerTickEvents.END_WORLD_TICK.register(this::postWorldTick);
 
