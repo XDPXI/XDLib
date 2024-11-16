@@ -4,16 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BedBlockMixin",
-    "BubbleColumnBlockMixin",
-    "EulaMixin",
-    "PacketCodecDispatcherMixin",
-    "ServerPlayNetworkHandlerMixin",
-    "VaultBlockEntityMixin",
-    "VaultBlockServerMixin",
-    "VaultServerDataMixin"
-  ],
-  "server": [
-    "ServerPlayerEntityMixin"
+    "EulaMixin"
   ],
   "injectors": {
     "defaultRequire": 1
