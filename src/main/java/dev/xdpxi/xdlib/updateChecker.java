@@ -9,7 +9,7 @@ import net.fabricmc.loader.api.ModContainer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
 
 import static dev.xdpxi.xdlib.XDsLibrary.LOGGER;
 
@@ -23,7 +23,8 @@ public class updateChecker {
 
     public static void checkForUpdate() {
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL("https://api.modrinth.com/v2/project/xdlib/version").openConnection();
+            URL url = URI.create("https://api.modrinth.com/v2/project/xdlib/version").toURL();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 

@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
 
 public class updateCheckerVelocity {
     private final ProxyServer proxyServer;
@@ -32,7 +32,7 @@ public class updateCheckerVelocity {
 
     public void checkForUpdate() {
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL("https://api.modrinth.com/v2/project/xdlib/version").openConnection();
+            HttpURLConnection connection = (HttpURLConnection) URI.create("https://api.modrinth.com/v2/project/xdlib/version").toURL().openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
