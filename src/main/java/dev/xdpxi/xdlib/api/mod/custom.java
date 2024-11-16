@@ -47,7 +47,8 @@ public class custom {
         modID = modID.toLowerCase();
         Identifier identifier = Identifier.of(modID, itemID);
 
-        Item item = new Item(new Item.Settings());
+        Item.Settings settings = new Item.Settings();
+        Item item = new Item(settings);
         Registry.register(Registries.ITEM, identifier, item);
 
         if (itemGroup != null) {
@@ -88,7 +89,8 @@ public class custom {
         modID = modID.toLowerCase();
         Identifier identifier = Identifier.of(modID, weaponID);
 
-        SwordItem weapon = new SwordItem(material, new Item.Settings().maxDamage(material.getDurability()));
+        SwordItem weapon = new SwordItem(material, new Item.Settings()
+            .maxDamage(material.getDurability()));
         Registry.register(Registries.ITEM, identifier, weapon);
 
         if (itemGroup != null) {
