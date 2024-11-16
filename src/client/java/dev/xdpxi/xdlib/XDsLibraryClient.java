@@ -2,11 +2,9 @@ package dev.xdpxi.xdlib;
 
 import dev.xdpxi.xdlib.config.configManager;
 import dev.xdpxi.xdlib.config.pluginManager;
-import dev.xdpxi.xdlib.gui.PreLaunchWindow;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
@@ -134,10 +132,6 @@ public class XDsLibraryClient implements ClientModInitializer {
                 }
             }
         });
-
-        if (isWindows() && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT && isNoEarlyLoaders()) {
-            ClientLifecycleEvents.CLIENT_STARTED.register(client -> PreLaunchWindow.remove());
-        }
 
         if (WorldCloudHeights.isEmpty()) {
             WorldCloudHeights.put("minecraft:overworld", 182.0F);

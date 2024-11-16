@@ -48,7 +48,7 @@ dependencies {
 	compileOnly("org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT")
 	compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 	annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
-	include(implementation("dev.xdpxi:dependencies:1.1.7"))
+	include(implementation("dev.xdpxi:dependencies:1.1.8"))
 
 	modImplementation("net.fabricmc:fabric-loader:0.16.9")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:0.108.1+")

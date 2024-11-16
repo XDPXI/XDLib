@@ -21,9 +21,6 @@
   "icon": "assets/xdlib/icon.png",
   "environment": "*",
   "entrypoints": {
-    "preLaunch": [
-      "dev.xdpxi.xdlib.EarlyLoadingBarPreLaunch"
-    ],
     "main": [
       "dev.xdpxi.xdlib.XDsLibrary"
     ],
