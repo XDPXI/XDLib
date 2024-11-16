@@ -91,6 +91,8 @@ public class XDsLibraryClient implements ClientModInitializer {
             setIcon(bytes);
         } catch (IOException e) {
             LOGGER.error("Could not set icon: ", e);
+        } finally {
+            nativeImage.close();
         }
     }
 
