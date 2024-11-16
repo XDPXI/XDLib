@@ -63,13 +63,14 @@ public class config<T extends Configurable> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void loadConfig() {
         if (CONFIG_FILE.exists()) {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
                 switch (fileType) {
                     case TOML:
                         Toml toml = new Toml();
-                        configInstance = (T) toml.read(reader).to(configInstance.getClass());
+                        configInstance = toml.read(reader).to((Class<T>) getGenericType());
                         break;
                     case JSON:
                         configInstance = GSON.fromJson(reader, (Class<T>) getGenericType());
