@@ -166,8 +166,6 @@ public class DeathScreenMixin extends Screen {
     public void respawnReset() {
         if (!wasHudHidden && hudWasHiddenByMod) {
             this.client.options.hudHidden = false;
-        } else if (false) {
-            this.client.options.hudHidden = false;
         }
 
         this.client.getSoundManager().stop(soundInstance);
