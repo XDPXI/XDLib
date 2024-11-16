@@ -71,7 +71,6 @@ public class configManager {
     public static class ConfigData {
         private boolean customBadges = true;
         private boolean changelogEveryStartup = false;
-        private boolean discordRPC = true;
         private boolean disablePlugins = false;
         private boolean disableChangelog = false;
         private boolean disableTitlePopups = false;
@@ -92,14 +91,6 @@ public class configManager {
 
         public void setChangelogEveryStartup(boolean changelogEveryStartup) {
             this.changelogEveryStartup = changelogEveryStartup;
-        }
-
-        public boolean isDiscordRPC() {
-            return discordRPC;
-        }
-
-        public void setDiscordRPC(boolean discordRPC) {
-            this.discordRPC = discordRPC;
         }
 
         public boolean isDisablePlugins() {

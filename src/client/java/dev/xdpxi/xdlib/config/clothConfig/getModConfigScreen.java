@@ -56,6 +56,7 @@ public class getModConfigScreen {
                 .setTitle(Text.of("XDLib Configuration"));
 
         builder.getOrCreateCategory(Text.of("Main"))
+                .addEntry(createBooleanToggle(builder, "Add Custom Modmenu Badges", configData.isCustomBadges(), configData::setCustomBadges, true))
                 .addEntry(createBooleanToggle(builder, "Show Changelog On Every Startup", configData.isChangelogEveryStartup(), configData::setChangelogEveryStartup, false))
                 .addEntry(createBooleanToggle(builder, "Disable Plugins", configData.isDisablePlugins(), newVersion -> {
                     configData.setDisablePlugins(newVersion);
@@ -66,10 +67,6 @@ public class getModConfigScreen {
                 .addEntry(createBooleanToggle(builder, "Disable Title Screen Warnings", configData.isDisableTitlePopups(), configData::setDisableTitlePopups, false));
 
         updatePluginsCategory(builder, configData.isDisablePlugins());
-
-        builder.getOrCreateCategory(Text.of("Compatibility"))
-                .addEntry(createBooleanToggle(builder, "Add Custom Modmenu Badges", configData.isCustomBadges(), configData::setCustomBadges, true))
-                .addEntry(createBooleanToggle(builder, "Enable Discord RPC", configData.isDiscordRPC(), configData::setDiscordRPC, true));
 
         return builder.build();
     }
