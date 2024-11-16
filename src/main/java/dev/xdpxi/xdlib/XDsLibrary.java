@@ -190,45 +190,6 @@ public class XDsLibrary implements ModInitializer {
         LOGGER.info("[XDLib] - Loaded!");
     }
 
-    private boolean broadcastToPlayers(ServerPlayerEntity sender, String message) {
-        List<ServerPlayerEntity> players = sender.getServer().getPlayerManager().getPlayerList();
-        for (ServerPlayerEntity player : players)
-            player.sendMessage(Text.literal(message));
-        return false;
-    }
-
-    private String getPos(ServerPlayerEntity sender) {
-        return (int) sender.getPos().getX() + ", " + (int) sender.getPos().getY() + ", " + (int) sender.getPos().getZ();
-    }
-
-    private String getBiome(ServerPlayerEntity sender) {
-        String rawBiome = Identifier.of(sender.getEntityWorld().getBiome(sender.getBlockPos()).getIdAsString()).getPath();
-        return fixName(rawBiome);
-    }
-
-    private String getDim(ServerPlayerEntity sender) {
-        String dim = sender.getEntityWorld().getRegistryKey().getValue().getPath();
-        return fixName(dim);
-    }
-
-    private String fixName(String rawName) {
-        StringBuilder name = new StringBuilder();
-        for (int i = 0; i < rawName.length(); i++) {
-            if (i == 0 || rawName.charAt(i - 1) == '_') {
-                name.append(Character.toUpperCase(rawName.charAt(i)));
-                continue;
-            }
-
-            if (rawName.charAt(i) == '_') {
-                name.append(" ");
-                continue;
-            }
-
-            name.append(rawName.charAt(i));
-        }
-        return name.toString();
-    }
-
     private void postWorldTick(ServerWorld world) {
         if (world.getTime() % 10 != 0)
             return;
