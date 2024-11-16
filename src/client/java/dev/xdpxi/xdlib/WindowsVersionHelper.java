@@ -13,7 +13,7 @@ public class WindowsVersionHelper {
         String line;
         try {
             rt = Runtime.getRuntime();
-            pr = rt.exec("wmic.exe os get BuildNumber");
+            pr = rt.exec(new String[]{"wmic.exe", "os", "get", "BuildNumber"});
             in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
             int i = 0;
             while ((line = in.readLine()) != null) {
