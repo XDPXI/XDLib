@@ -13,7 +13,7 @@ public class DarkUtils {
         }
         int useImmersiveDarkMode = enabled ? 1 : 0;
         WinDef.HWND hWnd = new WinDef.HWND(com.sun.jna.Pointer.createConstant((int) i_hwnd));
-        Dwmapi.INSTANCE.DwmSetWindowAttribute(hWnd, 20, new int[]{useImmersiveDarkMode}, Integer.BYTES);
+        Dwmapi.INSTANCE.DwmSetWindowAttribute(hWnd, DWMWA_USE_IMMERSIVE_DARK_MODE, new int[]{useImmersiveDarkMode}, Integer.BYTES);
     }
 
     public static boolean isCompatible() {
