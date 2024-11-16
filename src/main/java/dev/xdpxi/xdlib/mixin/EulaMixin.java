@@ -37,8 +37,10 @@ public abstract class EulaMixin {
         LOGGER.warn("Please indicate your agreement to the minecraft EULA (https://aka.ms/MinecraftEULA)");
         LOGGER.warn("Agree [Y/n]: ");
 
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine().toLowerCase().replace(" ", "");
+        String input;
+        try (Scanner scanner = new Scanner(System.in)) {
+            input = scanner.nextLine().toLowerCase().replace(" ", "");
+        }
         if (List.of(new String[]{"n", "no"}).contains(input)) return false;
 
         try (OutputStream outputStream = Files.newOutputStream(eulaFile)) {
