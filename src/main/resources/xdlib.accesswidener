@@ -5,7 +5,6 @@ accessible method net/minecraft/client/QuickPlay startRealms (Lnet/minecraft/cli
 accessible field net/minecraft/client/MinecraftClient renderTickCounter Lnet/minecraft/client/render/RenderTickCounter$Dynamic;
 accessible field net/minecraft/client/render/RenderTickCounter$Dynamic tickDelta F
 accessible field net/minecraft/client/render/RenderTickCounter$Dynamic tickDeltaBeforePause F
-accessible method net/minecraft/client/render/GameRenderer getFov (Lnet/minecraft/client/render/Camera;FZ)D
 accessible class net/minecraft/client/network/ClientCommonNetworkHandler$ConfirmServerResourcePackScreen
 accessible class net/minecraft/client/network/ClientCommonNetworkHandler$ConfirmServerResourcePackScreen$Pack
 accessible field net/minecraft/client/network/ClientCommonNetworkHandler$ConfirmServerResourcePackScreen packs Ljava/util/List;
