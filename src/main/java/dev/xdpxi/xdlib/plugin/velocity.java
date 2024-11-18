@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 
 import java.nio.file.Path;
 
-@Plugin(id = "xdlib", name = "XDLib", version = "2.4.2", description = "This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!", url = "https://xdpxi.vercel.app/mc/xdlib", authors = {"XDPXI"})
+@Plugin(id = "xdlib", name = "XDLib", version = "3.0.0", description = "This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!", url = "https://xdpxi.vercel.app/mc/xdlib", authors = {"XDPXI"})
 public class velocity {
     private final Logger logger;
     private final ProxyServer proxyServer;

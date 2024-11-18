@@ -26,12 +26,6 @@ public class XDLibInstaller {
     private static final String FABRIC_API_BASE_URL = "https://cdn.modrinth.com/data/P7dR8mSH/versions/";
     private static final String QUILT_API_BASE_URL = "https://cdn.modrinth.com/data/qvIfYCYJ/versions/";
 
-    private static final String CLOTH_CONFIG_BASE_URL = "https://cdn.modrinth.com/data/9s6osm5g/versions/";
-    private static final String CLOTH_CONFIG_URL_2_FABRIC = "JbVSQUVw/cloth-config-16.0.141-fabric.jar";
-    private static final String CLOTH_CONFIG_URL_2_NEO = "uYoucpky/cloth-config-16.0.141-neoforge.jar";
-    private static final String CLOTH_CONFIG_URL_FABRIC = "HpMb5wGb/cloth-config-15.0.140-fabric.jar";
-    private static final String CLOTH_CONFIG_URL_NEO = "izKINKFg/cloth-config-15.0.140-neoforge.jar";
-
     private static final String CONNECTER_121 = "https://cdn.modrinth.com/data/u58R1TMW/versions/PHaoQIFN/connector-2.0.0-beta.1%2B1.21-full.jar";
     private static final String CONNECTER_1211 = "https://cdn.modrinth.com/data/u58R1TMW/versions/aQSgBo32/connector-2.0.0-beta.4%2B1.21.1-full.jar";
 
@@ -147,19 +141,12 @@ public class XDLibInstaller {
                                 if (modUrl != null) {
                                     downloadLibraryFile(modUrl, folderPath, selectedLoader + "-API" + ".jar", progressBar);
                                 }
-                                if (selectedLoader.equals("Fabric") || selectedLoader.equals("Quilt")) {
-                                    if (selectedVersion.equals("1.21") || selectedVersion.equals("1.21.1")) {
-                                        downloadFile(CLOTH_CONFIG_BASE_URL + CLOTH_CONFIG_URL_FABRIC, folderPath, "cloth-config-15.0.140-fabric.jar", progressBar);
-                                    }
-                                }
                                 if (selectedLoader.equals("NeoForge")) {
                                     if (selectedVersion.equals("1.21")) {
-                                        downloadFile(CLOTH_CONFIG_BASE_URL + CLOTH_CONFIG_URL_NEO, folderPath, "cloth-config-15.0.140-neoforge.jar", progressBar);
                                         downloadFile(CONNECTER_121, folderPath, "connector-2.0.0-beta.1+1.21-full.jar", progressBar);
                                         downloadFile(FORGIFIED_121, folderPath, "forgified-fabric-api-0.101.2+2.0.10+1.21.jar", progressBar);
                                         downloadFile(CONNECTEREXTRAS_121, folderPath, "ConnectorExtras-1.12.0+1.21.jar", progressBar);
                                     } else if (selectedVersion.equals("1.21.1")) {
-                                        downloadFile(CLOTH_CONFIG_BASE_URL + CLOTH_CONFIG_URL_NEO, folderPath, "cloth-config-15.0.140-neoforge.jar", progressBar);
                                         downloadFile(CONNECTER_1211, folderPath, "connector-2.0.0-beta.3+1.21.1-full.jar", progressBar);
                                         downloadFile(FORGIFIED_1211, folderPath, "forgified-fabric-api-0.104.0+2.0.15+1.21.1.jar", progressBar);
                                         downloadFile(CONNECTEREXTRAS_1211, folderPath, "ConnectorExtras-1.12.1+1.21.1.jar", progressBar);
@@ -278,6 +265,10 @@ public class XDLibInstaller {
                         return FABRIC_API_BASE_URL + "oGwyXeEI/fabric-api-0.102.0%2B1.21.jar";
                     case "1.21.1":
                         return FABRIC_API_BASE_URL + "GcoFPm9u/fabric-api-0.108.0%2B1.21.1.jar";
+                    case "1.21.2":
+                        return FABRIC_API_BASE_URL + "UEjZZNue/fabric-api-0.106.1%2B1.21.2.jar";
+                    case "1.21.3":
+                        return FABRIC_API_BASE_URL + "kwP1bhmH/fabric-api-0.108.0%2B1.21.3.jar";
                     default:
                         return null;
                 }
@@ -310,6 +301,8 @@ public class XDLibInstaller {
         versionDropdown.removeAllItems();
         switch (selectedLoader) {
             case "Fabric":
+                versionDropdown.addItem("1.21.3");
+                versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
                 versionDropdown.addItem("1.20.4");

@@ -22,7 +22,7 @@ public class TitleScreenMixin {
     private static boolean Shown = false;
 
     @Unique
-    private static int version = 10;
+    private static int version = 11;
 
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
