@@ -1,6 +1,5 @@
 package dev.xdpxi.xdlib.mixin.client;
 
-import dev.xdpxi.xdlib.CustomScreen;
 import dev.xdpxi.xdlib.config.changelogConfig;
 import dev.xdpxi.xdlib.config.configManager;
 import dev.xdpxi.xdlib.support;
@@ -22,7 +21,7 @@ public class TitleScreenMixin {
     private static boolean Shown = false;
 
     @Unique
-    private static int version = 11;
+    private static int version = 12;
 
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
@@ -34,46 +33,23 @@ public class TitleScreenMixin {
         boolean disableChangelog = configManager.configData.isDisableChangelog();
 
         if (((firstStartup || changelogEveryStartup) && !Shown) && !disableChangelog) {
-            CompletableFuture.supplyAsync(() -> {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                return 0;
-            }).thenAcceptAsync(result -> {
-                Shown = true;
-
-                changelogConfig.ConfigData configData = config.read();
-                configData.setVersion(version);
-                config.write(configData);
-
-                MinecraftClient client = MinecraftClient.getInstance();
-                Screen currentScreen = client.currentScreen;
-
-                client.execute(() -> client.setScreen(new CustomScreen(Text.empty(), currentScreen)));
-            }, MinecraftClient.getInstance());
+            // do nothing
         } else {
             if (!Shown) {
-                showPopups();
+                CompletableFuture.supplyAsync(() -> {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    return 0;
+                }).thenAcceptAsync(result -> {
+                    Shown = true;
+                    MinecraftClient client = MinecraftClient.getInstance();
+                    Screen currentScreen = client.currentScreen;
+                    client.execute(() -> client.setScreen(new support(Text.empty(), currentScreen)));
+                }, MinecraftClient.getInstance());
             }
         }
-    }
-
-    @Unique
-    private void showPopups() {
-        CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            return 0;
-        }).thenAcceptAsync(result -> {
-            Shown = true;
-            MinecraftClient client = MinecraftClient.getInstance();
-            Screen currentScreen = client.currentScreen;
-            client.execute(() -> client.setScreen(new support(Text.empty(), currentScreen)));
-        }, MinecraftClient.getInstance());
     }
 }
