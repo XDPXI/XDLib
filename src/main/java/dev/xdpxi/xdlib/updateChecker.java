@@ -51,7 +51,7 @@ public class updateChecker {
                 isUpdate = false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("[XDLib] - Failed to check for update: " + e.getMessage());
         }
     }
 
