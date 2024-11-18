@@ -1,38 +1,33 @@
 package dev.xdpxi.xdlib.api.mod;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
+import dev.xdpxi.xdlib.api.mod.customClass.custom1;
+import dev.xdpxi.xdlib.api.mod.customClass.custom2;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class custom {
+    private static final String minecraftVersion = FabricLoader.getInstance().getModContainer("minecraft")
+            .map(container -> container.getMetadata().getVersion().getFriendlyString())
+            .orElse("Unknown");
+
     public static void ItemGroup(String itemGroupID, String modID, Item itemIconID, List<Item> itemsToAdd) {
-        itemGroupID = itemGroupID.toLowerCase();
-        modID = modID.toLowerCase();
-        RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(modID, itemGroupID));
+        if (itemGroupID == null || modID == null) {
+            throw new IllegalArgumentException("itemGroupID or modID is null");
+        }
 
-        ItemGroup ITEM_GROUP = FabricItemGroup.builder()
-                .displayName(Text.translatable("itemGroup." + modID + "." + itemGroupID))
-                .icon(() -> new ItemStack(itemIconID != null ? itemIconID : Items.STONE))
-                .build();
-
-        Registry.register(Registries.ITEM_GROUP, ITEM_GROUP_KEY, ITEM_GROUP);
-
-        ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP_KEY).register(itemGroup -> {
-            for (Item item : itemsToAdd) {
-                itemGroup.add(item);
+        try {
+            if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
+                custom1.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
+            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
+                //custom2.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
             }
-        });
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create ItemGroup: " + e.getMessage(), e);
+        }
     }
 
     public static void AddToItemGroup(String itemGroupID, String modID, List<Item> itemsToAdd) {
@@ -43,19 +38,18 @@ public class custom {
         if (itemID == null || modID == null) {
             throw new IllegalArgumentException("itemID or modID is null");
         }
-        itemID = itemID.toLowerCase();
-        modID = modID.toLowerCase();
-        Identifier identifier = Identifier.of(modID, itemID);
 
-        Item.Settings settings = new Item.Settings();
-        Item item = new Item(settings);
-        Registry.register(Registries.ITEM, identifier, item);
-
-        if (itemGroup != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(item));
+        try {
+            if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
+                return custom1.Item(itemID, modID, itemGroup);
+            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
+                //return custom2.Item(itemID, modID, itemGroup);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create Item: " + e.getMessage(), e);
         }
 
-        return item;
+        return null;
     }
 
     public static Item Item(String itemID, String modID) {
@@ -63,21 +57,21 @@ public class custom {
     }
 
     public static BlockItem Block(String blockID, String modID, RegistryKey<ItemGroup> itemGroup) {
-        blockID = blockID.toLowerCase();
-        modID = modID.toLowerCase();
-        Identifier blockIdentifier = Identifier.of(modID, blockID);
-
-        Block block = new Block(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(1.5F, 6.0F));
-        Block registeredBlock = Registry.register(Registries.BLOCK, blockIdentifier, block);
-        BlockItem blockItem = new BlockItem(registeredBlock, new Item.Settings());
-
-        Registry.register(Registries.ITEM, blockIdentifier, blockItem);
-
-        if (itemGroup != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(blockItem));
+        if (blockID == null || modID == null) {
+            throw new IllegalArgumentException("blockID or modID is null");
         }
 
-        return blockItem;
+        try {
+            if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
+                return custom1.Block(blockID, modID, itemGroup);
+            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
+                //return custom2.Block(blockID, modID, itemGroup);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create Block: " + e.getMessage(), e);
+        }
+
+        return null;
     }
 
     public static BlockItem Block(String blockID, String modID) {
@@ -85,19 +79,21 @@ public class custom {
     }
 
     public static Item Weapon(String weaponID, String modID, ToolMaterial material, RegistryKey<ItemGroup> itemGroup) {
-        weaponID = weaponID.toLowerCase();
-        modID = modID.toLowerCase();
-        Identifier identifier = Identifier.of(modID, weaponID);
-
-        SwordItem weapon = new SwordItem(material, new Item.Settings()
-            .maxDamage(material.getDurability()));
-        Registry.register(Registries.ITEM, identifier, weapon);
-
-        if (itemGroup != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(weapon));
+        if (weaponID == null || modID == null || material == null) {
+            throw new IllegalArgumentException("weaponID, modID, or material is null");
         }
 
-        return weapon;
+        try {
+            if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
+                return custom1.Weapon(weaponID, modID, material, itemGroup);
+            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
+                //return custom2.Weapon(weaponID, modID, material, itemGroup);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create Weapon: " + e.getMessage(), e);
+        }
+
+        return null;
     }
 
     public static Item Weapon(String weaponID, String modID, ToolMaterial material) {
@@ -105,18 +101,21 @@ public class custom {
     }
 
     public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart, RegistryKey<ItemGroup> itemGroup) {
-        armorID = armorID.toLowerCase();
-        modID = modID.toLowerCase();
-        Identifier identifier = Identifier.of(modID, armorID);
-
-        ArmorItem armor = new ArmorItem(armorType, armorPart, new Item.Settings());
-        Registry.register(Registries.ITEM, identifier, armor);
-
-        if (itemGroup != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(armor));
+        if (armorID == null || modID == null || armorType == null || armorPart == null) {
+            throw new IllegalArgumentException("armorID, modID, armorType, or armorPart is null");
         }
 
-        return armor;
+        try {
+            if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
+                return custom1.Armor(armorID, modID, armorType, armorPart, itemGroup);
+            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
+                //return custom2.Armor(armorID, modID, armorType, armorPart, itemGroup);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create Armor: " + e.getMessage(), e);
+        }
+
+        return null;
     }
 
     public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart) {

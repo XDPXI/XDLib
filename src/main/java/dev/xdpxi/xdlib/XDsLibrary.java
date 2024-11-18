@@ -129,9 +129,19 @@ public class XDsLibrary implements ModInitializer {
     }
 
     public static void registerItems() {
-        Item xdlibItem = custom.Item("xdlib_item", MOD_ID);
-        List<Item> items = List.of(xdlibItem);
-        custom.ItemGroup("xdlib_group", MOD_ID, xdlibItem, items);
+        try {
+            Item xdlibItem = custom.Item("xdlib_item", MOD_ID);
+            if (xdlibItem == null) {
+                LOGGER.error("[XDLib] Failed to create xdlib_item - Item creation returned null");
+            }
+
+            List<Item> items = List.of(xdlibItem);
+            custom.ItemGroup("xdlib_group", MOD_ID, xdlibItem, items);
+            LOGGER.info("[XDLib] Successfully registered items and item group");
+        } catch (Exception e) {
+            LOGGER.error("[XDLib] Failed to register items: {}", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
