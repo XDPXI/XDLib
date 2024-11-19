@@ -41,17 +41,17 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.0",
-    "minecraft": ">=1.21",
+    "minecraft": ">=1.20.5",
     "java": ">=21",
     "fabric-api": "*"
   },
   "recommends": {
     "modmenu": "*",
-    "cloth-config": ">=15.0.127"
+    "cloth-config": ">=14.0.126"
   },
   "breaks": {
     "minecraft": ">1.21.3",
-    "cloth-config": "<15.0.127"
+    "cloth-config": "<14.0.126"
   },
   "custom": {
     "modmenu": {
