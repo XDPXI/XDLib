@@ -11,7 +11,6 @@
     "DownloadingTerrainScreenMixin",
     "DrawContextAccessor",
     "EntityModelMixin",
-    "EntryListWidgetMixin",
     "GameMenuScreenMixin",
     "GameOptionsMixin",
     "GlDebugMixin",
