@@ -58,7 +58,7 @@ public class XDLibInstaller {
         frame.setUndecorated(true);
         frame.setShape(new RoundRectangle2D.Double(0, 0, frame.getWidth(), frame.getHeight(), 20, 20));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setCustomIcon(frame, "https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/icon.png");
+        setCustomIcon(frame, "https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/r-icon.png");
 
         addDraggableFeature(frame);
 
@@ -261,14 +261,18 @@ public class XDLibInstaller {
                         return FABRIC_API_BASE_URL + "Yolngp3s/fabric-api-0.91.1%2B1.20.3.jar";
                     case "1.20.4":
                         return FABRIC_API_BASE_URL + "QVBohPm2/fabric-api-0.97.2%2B1.20.4.jar";
+                    case "1.20.5":
+                        return FABRIC_API_BASE_URL + "GCdY4I8I/fabric-api-0.97.8%2B1.20.5.jar";
+                    case "1.20.6":
+                        return FABRIC_API_BASE_URL + "ocg4hG3t/fabric-api-0.100.8%2B1.20.6.jar";
                     case "1.21":
                         return FABRIC_API_BASE_URL + "oGwyXeEI/fabric-api-0.102.0%2B1.21.jar";
                     case "1.21.1":
-                        return FABRIC_API_BASE_URL + "GcoFPm9u/fabric-api-0.108.0%2B1.21.1.jar";
+                        return FABRIC_API_BASE_URL + "aHuj8q0Q/fabric-api-0.109.0%2B1.21.1.jar";
                     case "1.21.2":
                         return FABRIC_API_BASE_URL + "UEjZZNue/fabric-api-0.106.1%2B1.21.2.jar";
                     case "1.21.3":
-                        return FABRIC_API_BASE_URL + "kwP1bhmH/fabric-api-0.108.0%2B1.21.3.jar";
+                        return FABRIC_API_BASE_URL + "Xhw2LuSh/fabric-api-0.109.0%2B1.21.3.jar";
                     default:
                         return null;
                 }
@@ -305,6 +309,8 @@ public class XDLibInstaller {
                 versionDropdown.addItem("1.21.2");
                 versionDropdown.addItem("1.21.1");
                 versionDropdown.addItem("1.21");
+                versionDropdown.addItem("1.20.6");
+                versionDropdown.addItem("1.20.5");
                 versionDropdown.addItem("1.20.4");
                 versionDropdown.addItem("1.20.3");
                 versionDropdown.addItem("1.20.2");

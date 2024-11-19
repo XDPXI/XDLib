@@ -1,38 +1,73 @@
 @echo off
-set JAVA_FILE=XDLibInstaller.java
-set CLASS_FILES=XDLibInstaller*.class
-set MANIFEST_FILE=manifest.txt
-set JAR_FILE=XDLibInstaller.jar
-set FLATLAF_JAR=flatlaf-3.5.2.jar
+setlocal EnableDelayedExpansion
 
-echo Compiling %JAVA_FILE%...
-javac -cp %FLATLAF_JAR% -Xlint:deprecation %JAVA_FILE%
-if %errorlevel% neq 0 (
-    echo Compilation failed!
+:: Configuration
+set "JAVA_FILE=XDLibInstaller.java"
+set "CLASS_FILES=XDLibInstaller*.class"
+set "MANIFEST_FILE=manifest.txt"
+set "JAR_FILE=XDLibInstaller.jar"
+set "FLATLAF_JAR=flatlaf-3.5.2.jar"
+
+:: Check if Java is installed
+where java >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+    echo Error: Java is not installed or not in PATH
     pause
-    exit /b %errorlevel%
+    exit /b 1
 )
 
-echo Creating JAR file %JAR_FILE%...
-echo Main-Class: XDLibInstaller > %MANIFEST_FILE%
-jar cfm %JAR_FILE% %MANIFEST_FILE% %CLASS_FILES%
-if %errorlevel% neq 0 (
-    echo Failed to create JAR file!
+:: Check if required files exist
+if not exist "%JAVA_FILE%" (
+    echo Error: %JAVA_FILE% not found
     pause
-    exit /b %errorlevel%
+    exit /b 1
 )
 
-echo Running %JAR_FILE%...
-java -cp "%JAR_FILE%;%FLATLAF_JAR%" XDLibInstaller
-if %errorlevel% neq 0 (
-    echo Failed to run JAR file!
+if not exist "%FLATLAF_JAR%" (
+    echo Error: %FLATLAF_JAR% not found
     pause
-    exit /b %errorlevel%
+    exit /b 1
 )
 
-echo Cleaning up...
-del %CLASS_FILES%
-del %MANIFEST_FILE%
+:: Compile
+echo [*] Compiling %JAVA_FILE%...
+javac -cp "%FLATLAF_JAR%" -Xlint:deprecation "%JAVA_FILE%"
+if %ERRORLEVEL% neq 0 (
+    echo Error: Compilation failed
+    pause
+    exit /b %ERRORLEVEL%
+)
 
-echo Done!
+:: Create JAR
+echo [*] Creating JAR file %JAR_FILE%...
+(
+    echo Manifest-Version: 1.0
+    echo Main-Class: XDLibInstaller
+    echo Class-Path: %FLATLAF_JAR%
+) > "%MANIFEST_FILE%"
+
+jar cfm "%JAR_FILE%" "%MANIFEST_FILE%" %CLASS_FILES%
+if %ERRORLEVEL% neq 0 (
+    echo Error: Failed to create JAR file
+    pause
+    exit /b %ERRORLEVEL%
+)
+
+:: Run JAR
+echo [*] Running %JAR_FILE%...
+java -jar "%JAR_FILE%"
+if %ERRORLEVEL% neq 0 (
+    echo Error: Failed to run JAR file
+    pause
+    exit /b %ERRORLEVEL%
+)
+
+:: Cleanup
+echo [*] Cleaning up temporary files...
+del /q %CLASS_FILES% 2>nul
+del /q %MANIFEST_FILE% 2>nul
+
+echo [*] Done!
 pause
+
+endlocal
