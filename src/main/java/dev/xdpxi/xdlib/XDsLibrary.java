@@ -15,7 +15,6 @@ import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
@@ -34,10 +33,8 @@ import java.util.List;
 public class XDsLibrary implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
     public static final String MOD_ID = "xdlib";
-    public static final Identifier DEATH_SOUND_ID = Identifier.of("xdlib:death");
     public static int duration = -1;
     public static List<HostileEntity> list = new ArrayList<>();
-    public static SoundEvent DEATH_SOUND_EVENT = SoundEvent.of(DEATH_SOUND_ID);
 
     @Getter
     public static boolean eulaAccepted = false;
@@ -158,7 +155,6 @@ public class XDsLibrary implements ModInitializer {
 
         updateChecker.checkForUpdate();
         registerItems();
-        ModNetworkHandler.registerServer();
 
         ServerTickEvents.END_WORLD_TICK.register(this::postWorldTick);
 
