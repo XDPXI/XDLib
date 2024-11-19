@@ -1,5 +1,6 @@
 package dev.xdpxi.xdlib.api.mod;
 
+import dev.xdpxi.xdlib.api.mod.customClass.custom0;
 import dev.xdpxi.xdlib.api.mod.customClass.custom1;
 import dev.xdpxi.xdlib.api.mod.customClass.custom2;
 import net.fabricmc.loader.api.FabricLoader;
@@ -24,6 +25,8 @@ public class custom {
                 custom1.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //custom2.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
+            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                custom0.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create ItemGroup: " + e.getMessage(), e);
@@ -44,6 +47,8 @@ public class custom {
                 return custom1.Item(itemID, modID, itemGroup);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //return custom2.Item(itemID, modID, itemGroup);
+            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                return custom0.Item(itemID, modID, itemGroup);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Item: " + e.getMessage(), e);
@@ -66,6 +71,8 @@ public class custom {
                 return custom1.Block(blockID, modID, itemGroup);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //return custom2.Block(blockID, modID, itemGroup);
+            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                return custom0.Block(blockID, modID, itemGroup);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Block: " + e.getMessage(), e);
@@ -88,6 +95,8 @@ public class custom {
                 return custom1.Weapon(weaponID, modID, material, itemGroup);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //return custom2.Weapon(weaponID, modID, material, itemGroup);
+            }else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                return custom0.Weapon(weaponID, modID, material, itemGroup);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Weapon: " + e.getMessage(), e);
@@ -110,6 +119,8 @@ public class custom {
                 return custom1.Armor(armorID, modID, armorType, armorPart, itemGroup);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //return custom2.Armor(armorID, modID, armorType, armorPart, itemGroup);
+            }else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                return custom0.Armor(armorID, modID, armorType, armorPart, itemGroup);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Armor: " + e.getMessage(), e);
