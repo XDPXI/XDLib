@@ -21,6 +21,9 @@
   "icon": "assets/xdlib/icon.png",
   "environment": "*",
   "entrypoints": {
+    "preLaunch": [
+      "dev.xdpxi.xdlib.javaWarning"
+    ],
     "main": [
       "dev.xdpxi.xdlib.XDsLibrary"
     ],
@@ -41,17 +44,18 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.0",
-    "minecraft": ">=1.20.5",
-    "java": ">=21",
+    "minecraft": ">=1.20",
+    "java": "*",
     "fabric-api": "*"
   },
   "recommends": {
     "modmenu": "*",
-    "cloth-config": ">=14.0.126"
+    "cloth-config": "*",
+    "java": ">=21"
   },
   "breaks": {
     "minecraft": ">1.21.3",
-    "cloth-config": "<14.0.126"
+    "cloth-config": "<11.0.99"
   },
   "custom": {
     "modmenu": {
