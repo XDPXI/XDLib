@@ -35,16 +35,12 @@ public class XDLibInstaller {
     private static final String CONNECTEREXTRAS_121 = "https://cdn.modrinth.com/data/FYpiwiBR/versions/WUktoh8L/ConnectorExtras-1.12.0%2B1.21.jar";
     private static final String CONNECTEREXTRAS_1211 = "https://cdn.modrinth.com/data/FYpiwiBR/versions/dgLCqZyo/ConnectorExtras-1.12.1%2B1.21.1.jar";
 
-    private static final String FABRIC_QUILT_21_URL = "https://github.com/XDPXI/ZtrolixLibs/raw/main/installer/versions/1.21/fabric.jar";
-    private static final String NEO_21_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.21/neo.jar";
-    private static final String BUKKIT_21_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.21/bukkit.jar";
-    private static final String VELO_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.21/velo.jar";
-    private static final String BUNGEE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.21/bungee.jar";
-
-    private static final String FABRIC_QUILT_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.20/fabric.jar";
-    private static final String BUKKIT_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.20/bukkit.jar";
-    private static final String NEOFORGE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.20/neo.jar";
-    private static final String FORGE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/1.20/forge.jar";
+    private static final String VELO_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/velo.jar";
+    private static final String BUNGEE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/bungee.jar";
+    private static final String FABRIC_QUILT_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/fabric.jar";
+    private static final String BUKKIT_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/bukkit.jar";
+    private static final String NEOFORGE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/neo.jar";
+    private static final String FORGE_URL = "https://github.com/XDPXI/XDLib/raw/main/installer/versions/old/forge.jar";
 
     public static void main(String[] args) {
         try {
@@ -212,27 +208,15 @@ public class XDLibInstaller {
         switch (loader) {
             case "Fabric":
             case "Quilt":
-                if (version.equals("1.21") || version.equals("1.21.1")) {
-                    return FABRIC_QUILT_21_URL;
-                } else {
-                    return FABRIC_QUILT_URL;
-                }
+                return FABRIC_QUILT_URL;
             case "Velocity":
                 return VELO_URL;
             case "Bungeecord":
                 return BUNGEE_URL;
             case "Bukkit":
-                if (!version.equals("1.19") || !version.equals("1.19.1") || !version.equals("1.19.2") || !version.equals("1.19.3") || !version.equals("1.19.4")) {
-                    return BUKKIT_21_URL;
-                } else {
-                    return BUKKIT_URL;
-                }
+                return BUKKIT_URL;
             case "NeoForge":
-                if (!version.equals("1.20.4")) {
-                    return NEO_21_URL;
-                } else {
-                    return NEOFORGE_URL;
-                }
+                return NEOFORGE_URL;
             case "Forge":
                 return FORGE_URL;
             default:
