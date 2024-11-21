@@ -9,17 +9,32 @@ import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
+import java.lang.reflect.Method;
 
-public class custom0 {
+public class custom3 {
+    private static Method registerMethod;
+    private static Method getKeyMethod;
+
+    static {
+        try {
+            registerMethod = Registry.class.getDeclaredMethod("register", Registry.class, Identifier.class, Object.class);
+            registerMethod.setAccessible(true);
+            
+            getKeyMethod = Registries.class.getDeclaredMethod("getKey");
+            getKeyMethod.setAccessible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void ItemGroup(String itemGroupID, String modID, Item itemIconID, List<Item> itemsToAdd) {
         itemGroupID = itemGroupID.toLowerCase();
         modID = modID.toLowerCase();
-        RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(modID, itemGroupID));
+        RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(modID, itemGroupID));
 
         ItemGroup ITEM_GROUP = FabricItemGroup.builder()
                 .displayName(Text.translatable("itemGroup." + modID + "." + itemGroupID))
@@ -45,9 +60,10 @@ public class custom0 {
         }
         itemID = itemID.toLowerCase();
         modID = modID.toLowerCase();
-        Identifier identifier = new Identifier(modID, itemID);
+        Identifier identifier = Identifier.of(modID, itemID);
 
-        Item item = new Item(new Item.Settings());
+        Item.Settings settings = new Item.Settings();
+        Item item = new Item(settings);
         Registry.register(Registries.ITEM, identifier, item);
 
         if (itemGroup != null) {
@@ -64,7 +80,7 @@ public class custom0 {
     public static BlockItem Block(String blockID, String modID, RegistryKey<ItemGroup> itemGroup) {
         blockID = blockID.toLowerCase();
         modID = modID.toLowerCase();
-        Identifier blockIdentifier = new Identifier(modID, blockID);
+        Identifier blockIdentifier = Identifier.of(modID, blockID);
 
         Block block = new Block(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(1.5F, 6.0F));
         Block registeredBlock = Registry.register(Registries.BLOCK, blockIdentifier, block);
@@ -81,43 +97,5 @@ public class custom0 {
 
     public static BlockItem Block(String blockID, String modID) {
         return Block(blockID, modID, null);
-    }
-
-    public static Item Weapon(String weaponID, String modID, ToolMaterial material, RegistryKey<ItemGroup> itemGroup) {
-        weaponID = weaponID.toLowerCase();
-        modID = modID.toLowerCase();
-        Identifier identifier = new Identifier(modID, weaponID);
-
-        SwordItem weapon = new SwordItem(material, new Item.Settings().maxDamage(material.getDurability()));
-        Registry.register(Registries.ITEM, identifier, weapon);
-
-        if (itemGroup != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(weapon));
-        }
-
-        return weapon;
-    }
-
-    public static Item Weapon(String weaponID, String modID, ToolMaterial material) {
-        return Weapon(weaponID, modID, material, null);
-    }
-
-    public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart, RegistryKey<ItemGroup> itemGroup) {
-        armorID = armorID.toLowerCase();
-        modID = modID.toLowerCase();
-        Identifier identifier = new Identifier(modID, armorID);
-
-        ArmorItem armor = new ArmorItem(armorType, armorPart, new Item.Settings());
-        Registry.register(Registries.ITEM, identifier, armor);
-
-        if (itemGroup != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(armor));
-        }
-
-        return armor;
-    }
-
-    public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart) {
-        return Armor(armorID, modID, armorType, armorPart, null);
     }
 }

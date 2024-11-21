@@ -9,28 +9,13 @@ import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
-import java.lang.reflect.Method;
 
 public class custom2 {
-    private static Method registerMethod;
-    private static Method getKeyMethod;
-
-    static {
-        try {
-            registerMethod = Registry.class.getDeclaredMethod("register", Registry.class, Identifier.class, Object.class);
-            registerMethod.setAccessible(true);
-            
-            getKeyMethod = Registries.class.getDeclaredMethod("getKey");
-            getKeyMethod.setAccessible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void ItemGroup(String itemGroupID, String modID, Item itemIconID, List<Item> itemsToAdd) {
         itemGroupID = itemGroupID.toLowerCase();
         modID = modID.toLowerCase();
@@ -62,8 +47,7 @@ public class custom2 {
         modID = modID.toLowerCase();
         Identifier identifier = Identifier.of(modID, itemID);
 
-        Item.Settings settings = new Item.Settings();
-        Item item = new Item(settings);
+        Item item = new Item(new Item.Settings());
         Registry.register(Registries.ITEM, identifier, item);
 
         if (itemGroup != null) {
@@ -97,5 +81,43 @@ public class custom2 {
 
     public static BlockItem Block(String blockID, String modID) {
         return Block(blockID, modID, null);
+    }
+
+    public static Item Weapon(String weaponID, String modID, ToolMaterial material, RegistryKey<ItemGroup> itemGroup) {
+        weaponID = weaponID.toLowerCase();
+        modID = modID.toLowerCase();
+        Identifier identifier = Identifier.of(modID, weaponID);
+
+        SwordItem weapon = new SwordItem(material, 3, -2.4F, new Item.Settings().maxDamage(material.getDurability()));
+        Registry.register(Registries.ITEM, identifier, weapon);
+
+        if (itemGroup != null) {
+            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(weapon));
+        }
+
+        return weapon;
+    }
+
+    public static Item Weapon(String weaponID, String modID, ToolMaterial material) {
+        return Weapon(weaponID, modID, material, null);
+    }
+
+    public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart, RegistryKey<ItemGroup> itemGroup) {
+        armorID = armorID.toLowerCase();
+        modID = modID.toLowerCase();
+        Identifier identifier = Identifier.of(modID, armorID);
+
+        ArmorItem armor = new ArmorItem(armorType.value(), armorPart, new Item.Settings());
+        Registry.register(Registries.ITEM, identifier, armor);
+
+        if (itemGroup != null) {
+            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(armor));
+        }
+
+        return armor;
+    }
+
+    public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart) {
+        return Armor(armorID, modID, armorType, armorPart, null);
     }
 }

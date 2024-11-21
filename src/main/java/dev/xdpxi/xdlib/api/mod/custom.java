@@ -1,8 +1,6 @@
 package dev.xdpxi.xdlib.api.mod;
 
-import dev.xdpxi.xdlib.api.mod.customClass.custom0;
-import dev.xdpxi.xdlib.api.mod.customClass.custom1;
-import dev.xdpxi.xdlib.api.mod.customClass.custom2;
+import dev.xdpxi.xdlib.api.mod.customClass.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
@@ -22,11 +20,11 @@ public class custom {
 
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
-                custom1.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
+                custom2.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //custom2.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
-            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
-                custom0.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
+            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                custom1.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create ItemGroup: " + e.getMessage(), e);
@@ -44,11 +42,11 @@ public class custom {
 
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
-                return custom1.Item(itemID, modID, itemGroup);
+                return custom2.Item(itemID, modID, itemGroup);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //return custom2.Item(itemID, modID, itemGroup);
-            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
-                return custom0.Item(itemID, modID, itemGroup);
+            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                return custom1.Item(itemID, modID, itemGroup);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Item: " + e.getMessage(), e);
@@ -68,11 +66,11 @@ public class custom {
 
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
-                return custom1.Block(blockID, modID, itemGroup);
+                return custom2.Block(blockID, modID, itemGroup);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
-                //return custom2.Block(blockID, modID, itemGroup);
-            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
-                return custom0.Block(blockID, modID, itemGroup);
+                //return custom3.Block(blockID, modID, itemGroup);
+            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                return custom1.Block(blockID, modID, itemGroup);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Block: " + e.getMessage(), e);
@@ -92,11 +90,11 @@ public class custom {
 
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
-                return custom1.Weapon(weaponID, modID, material, itemGroup);
+                return custom2.Weapon(weaponID, modID, material, itemGroup);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //return custom2.Weapon(weaponID, modID, material, itemGroup);
-            }else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
-                return custom0.Weapon(weaponID, modID, material, itemGroup);
+            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                return custom1.Weapon(weaponID, modID, material, itemGroup);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Weapon: " + e.getMessage(), e);
@@ -116,11 +114,11 @@ public class custom {
 
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
-                return custom1.Armor(armorID, modID, armorType, armorPart, itemGroup);
+                return custom2.Armor(armorID, modID, armorType, armorPart, itemGroup);
             } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
                 //return custom2.Armor(armorID, modID, armorType, armorPart, itemGroup);
-            }else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
-                return custom0.Armor(armorID, modID, armorType, armorPart, itemGroup);
+            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+                return custom1.Armor(armorID, modID, armorType, armorPart, itemGroup);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Armor: " + e.getMessage(), e);
