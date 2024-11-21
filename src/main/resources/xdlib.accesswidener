@@ -2,7 +2,4 @@ accessWidener v2 named
 accessible method net/minecraft/client/QuickPlay startSingleplayer (Lnet/minecraft/client/MinecraftClient;Ljava/lang/String;)V
 accessible method net/minecraft/client/QuickPlay startMultiplayer (Lnet/minecraft/client/MinecraftClient;Ljava/lang/String;)V
 accessible method net/minecraft/client/QuickPlay startRealms (Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/realms/RealmsClient;Ljava/lang/String;)V
-accessible class net/minecraft/client/network/ClientCommonNetworkHandler$ConfirmServerResourcePackScreen
-accessible class net/minecraft/client/network/ClientCommonNetworkHandler$ConfirmServerResourcePackScreen$Pack
-accessible field net/minecraft/client/network/ClientCommonNetworkHandler$ConfirmServerResourcePackScreen packs Ljava/util/List;
 accessible field net/minecraft/client/option/KeyBinding KEY_TO_BINDINGS Ljava/util/Map;
