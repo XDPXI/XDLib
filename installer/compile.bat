@@ -29,45 +29,64 @@ if not exist "%FLATLAF_JAR%" (
     exit /b 1
 )
 
-:: Compile
+:: Clean any existing temp directory and create new one
+if exist "temp" rmdir /s /q "temp"
+mkdir temp
+
+:: Extract FlatLaf JAR contents
+echo [*] Extracting FlatLaf...
+cd temp
+jar xf "../%FLATLAF_JAR%"
+cd ..
+
+:: Compile with FlatLaf in classpath
 echo [*] Compiling %JAVA_FILE%...
-javac -cp "%FLATLAF_JAR%" -Xlint:deprecation "%JAVA_FILE%"
+javac -cp "temp" "%JAVA_FILE%"
 if %ERRORLEVEL% neq 0 (
     echo Error: Compilation failed
+    rmdir /s /q temp
     pause
     exit /b %ERRORLEVEL%
 )
 
-:: Create JAR
-echo [*] Creating JAR file %JAR_FILE%...
+:: Move class files to temp
+move %CLASS_FILES% temp\ >nul
+
+:: Create manifest
+echo [*] Creating manifest...
 (
     echo Manifest-Version: 1.0
     echo Main-Class: XDLibInstaller
     echo Class-Path: %FLATLAF_JAR%
 ) > "%MANIFEST_FILE%"
 
-jar cfm "%JAR_FILE%" "%MANIFEST_FILE%" %CLASS_FILES%
+:: Create JAR with FlatLaf included
+echo [*] Creating JAR file %JAR_FILE%...
+cd temp
+jar cfm "../%JAR_FILE%" "../%MANIFEST_FILE%" *
+cd ..
 if %ERRORLEVEL% neq 0 (
     echo Error: Failed to create JAR file
-    pause
-    exit /b %ERRORLEVEL%
-)
-
-:: Run JAR
-echo [*] Running %JAR_FILE%...
-java -jar "%JAR_FILE%"
-if %ERRORLEVEL% neq 0 (
-    echo Error: Failed to run JAR file
+    rmdir /s /q temp
+    del /q "%MANIFEST_FILE%"
     pause
     exit /b %ERRORLEVEL%
 )
 
 :: Cleanup
 echo [*] Cleaning up temporary files...
-del /q %CLASS_FILES% 2>nul
-del /q %MANIFEST_FILE% 2>nul
+rmdir /s /q temp
+del /q "%MANIFEST_FILE%"
 
 echo [*] Done!
-pause
+timeout /t 1 /nobreak >nul
+echo [*] Closing in 3 seconds...
+timeout /t 1 /nobreak >nul
+echo [*] Closing in 2 seconds...
+timeout /t 1 /nobreak >nul
+echo [*] Closing in 1 second...
+timeout /t 1 /nobreak >nul
+echo [*] Closing...
 
 endlocal
+@echo on
