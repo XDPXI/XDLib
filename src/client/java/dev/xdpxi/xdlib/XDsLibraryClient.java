@@ -1,7 +1,6 @@
 package dev.xdpxi.xdlib;
 
 import dev.xdpxi.xdlib.config.configManager;
-import dev.xdpxi.xdlib.config.pluginManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,7 +15,6 @@ import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,12 +87,6 @@ public class XDsLibraryClient implements ClientModInitializer {
     public void onInitializeClient() {
         configManager.registerConfig();
         CONFIG_MANAGER = new configManager();
-
-        try {
-            pluginManager.start();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
