@@ -134,7 +134,6 @@ public class XDsLibrary implements ModInitializer {
 
             List<Item> items = List.of(xdlibItem);
             custom.ItemGroup("xdlib_group", MOD_ID, xdlibItem, items);
-            LOGGER.info("[XDLib] Successfully registered items and item group");
         } catch (Exception e) {
             LOGGER.error("[XDLib] Failed to register items: {}", e.getMessage());
             e.printStackTrace();
