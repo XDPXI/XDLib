@@ -48,12 +48,6 @@ public class support extends Screen {
     private void showPopups() {
         if (!shownToast) {
             shownToast = true;
-            if (loader.isModLoaded("iris") || loader.isModLoaded("optifine")) {
-                LOGGER.warn("[XDLib] - Does not support shaders!");
-                this.client.getToastManager().add(
-                        new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, Text.of("XD's Library"), Text.of("Does not support shaders!"))
-                );
-            }
             if (!loader.isModLoaded("cloth-config")) {
                 LOGGER.warn("[XDLib] - Recommends the use of 'cloth-config'");
                 this.client.getToastManager().add(
@@ -61,6 +55,7 @@ public class support extends Screen {
                 );
             }
             if (updateChecker.isUpdate()) {
+                LOGGER.warn("[XDLib] - An update is available!");
                 this.client.getToastManager().add(
                         new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, Text.of("XD's Library"), Text.of("An update is available!"))
                 );
