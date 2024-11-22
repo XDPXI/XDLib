@@ -19,14 +19,10 @@ public class configManager {
 
     public configManager() {
         File configDir = new File("config" + File.separator + "xdlib");
-        File pluginDir = new File("config" + File.separator + "xdlib" + File.separator + "plugins");
         gson = new GsonBuilder().setPrettyPrinting().create();
 
         if (!configDir.exists()) {
             configDir.mkdirs();
-        }
-        if (!pluginDir.exists()) {
-            pluginDir.mkdirs();
         }
         configFile = new File(configDir, CONFIG_FILE_NAME);
 
