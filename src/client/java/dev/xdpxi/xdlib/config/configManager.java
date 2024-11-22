@@ -70,9 +70,7 @@ public class configManager {
 
     public static class ConfigData {
         private boolean customBadges = true;
-        private boolean changelogEveryStartup = false;
         private boolean disablePlugins = false;
-        private boolean disableChangelog = false;
         private boolean disableTitlePopups = false;
         private boolean unverifiedPlugins = false;
         private boolean devMode = false;
@@ -85,28 +83,12 @@ public class configManager {
             this.customBadges = customBadges;
         }
 
-        public boolean isChangelogEveryStartup() {
-            return changelogEveryStartup;
-        }
-
-        public void setChangelogEveryStartup(boolean changelogEveryStartup) {
-            this.changelogEveryStartup = changelogEveryStartup;
-        }
-
         public boolean isDisablePlugins() {
             return disablePlugins;
         }
 
         public void setDisablePlugins(boolean disablePlugins) {
             this.disablePlugins = disablePlugins;
-        }
-
-        public boolean isDisableChangelog() {
-            return disableChangelog;
-        }
-
-        public void setDisableChangelog(boolean disableChangelog) {
-            this.disableChangelog = disableChangelog;
         }
 
         public boolean isDisableTitlePopups() {

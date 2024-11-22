@@ -57,13 +57,11 @@ public class getModConfigScreen {
 
         builder.getOrCreateCategory(Text.of("Main"))
                 .addEntry(createBooleanToggle(builder, "Add Custom Modmenu Badges", configData.isCustomBadges(), configData::setCustomBadges, true))
-                .addEntry(createBooleanToggle(builder, "Show Changelog On Every Startup", configData.isChangelogEveryStartup(), configData::setChangelogEveryStartup, false))
                 .addEntry(createBooleanToggle(builder, "Disable Plugins", configData.isDisablePlugins(), newVersion -> {
                     configData.setDisablePlugins(newVersion);
                     updatePluginsCategory(builder, newVersion);
                     write(configData);
                 }, false))
-                .addEntry(createBooleanToggle(builder, "Disable Changelog", configData.isDisableChangelog(), configData::setDisableChangelog, false))
                 .addEntry(createBooleanToggle(builder, "Disable Title Screen Warnings", configData.isDisableTitlePopups(), configData::setDisableTitlePopups, false));
 
         updatePluginsCategory(builder, configData.isDisablePlugins());
