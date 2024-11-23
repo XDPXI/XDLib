@@ -53,8 +53,9 @@ public class XDsLibraryClient implements ClientModInitializer {
 
     @Environment(EnvType.CLIENT)
     public static float getRainGradient(World world, float original) {
-        if (MinecraftClient.getInstance().cameraEntity != null) {
-            double playerY = MinecraftClient.getInstance().cameraEntity.getPos().y;
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.cameraEntity != null) {
+            double playerY = client.cameraEntity.getPos().y;
             float cloudY = XDsLibraryClient.getCloudHeight(world) + ADDITIONAL_CLOUD_HEIGHT;
 
             if (playerY < cloudY - GRADIENT_HEIGHT) {
