@@ -62,17 +62,14 @@
       "links": {
         "modmenu.modrinth": "https://modrinth.com/plugin/xdlib"
       },
+      "badges": [ "library" ],
       "update_checker": true
     },
     "xdlib": {
       "modrinthID": "xdlib",
       "type": "release",
       "badges": [
-        {
-          "name": "Library",
-          "fillColor": -16172759,
-          "outlineColor": -15698860
-        }
+
       ]
     },
     "duckyupdater": {
