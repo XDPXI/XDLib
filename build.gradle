@@ -43,7 +43,7 @@ dependencies {
 	compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 	annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 	modImplementation("net.fabricmc:fabric-loader:0.16.9")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:0.108.1+")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:0.110.0+")
 	
     include(implementation("org.json:json:20240303"))
     include(modImplementation("maven.modrinth:ducky-updater-lib:2024.10.2"))
