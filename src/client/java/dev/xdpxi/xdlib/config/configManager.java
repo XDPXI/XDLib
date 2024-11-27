@@ -66,7 +66,7 @@ public class configManager {
 
     public static class ConfigData {
         private boolean customBadges = true;
-        private boolean disableTitlePopups = false;
+        private boolean titlePopups = false;
 
         public boolean isCustomBadges() {
             return customBadges;
@@ -76,12 +76,12 @@ public class configManager {
             this.customBadges = customBadges;
         }
 
-        public boolean isDisableTitlePopups() {
-            return disableTitlePopups;
+        public boolean isTitlePopups() {
+            return titlePopups;
         }
 
-        public void setDisableTitlePopups(boolean disableTitlePopups) {
-            this.disableTitlePopups = disableTitlePopups;
+        public void setTitlePopups(boolean titlePopups) {
+            this.titlePopups = titlePopups;
         }
     }
 }

@@ -29,7 +29,7 @@ public class support extends Screen {
 
     @Override
     protected void init() {
-        if (!configManager.configData.isDisableTitlePopups()) {
+        if (configManager.configData.isTitlePopups()) {
             showPopups();
         }
 

@@ -18,7 +18,7 @@ public class modConfigScreen {
 
         builder.getOrCreateCategory(Text.of("Main"))
                 .addEntry(createBooleanToggle(builder, "Enable Custom Modmenu Badges", configData.isCustomBadges(), configData::setCustomBadges, true))
-                .addEntry(createBooleanToggle(builder, "Disable Title Screen Warnings", configData.isDisableTitlePopups(), configData::setDisableTitlePopups, false));
+                .addEntry(createBooleanToggle(builder, "Enable Title Screen Warnings", configData.isTitlePopups(), configData::setTitlePopups, false));
 
         return builder.build();
     }
