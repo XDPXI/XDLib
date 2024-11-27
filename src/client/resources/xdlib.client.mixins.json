@@ -21,8 +21,7 @@
     "MultiplayerServerListWidgetMixin",
     "ProgressScreenMixin",
     "ScreenAccessor",
-    "SoundSystemMixin",
-    "TitleScreenMixin"
+    "SoundSystemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,6 +1,5 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.config.configManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,7 +27,6 @@ public class XDsLibraryClient implements ClientModInitializer {
     public static int duration = -1;
     public static List<HostileEntity> list = new ArrayList<>();
     public static Map<String, Float> WorldCloudHeights = new HashMap<>();
-    public configManager CONFIG_MANAGER;
 
     public static boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("windows");
@@ -86,9 +84,6 @@ public class XDsLibraryClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        configManager.registerConfig();
-        CONFIG_MANAGER = new configManager();
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
                 StatusEffectInstance darknessEffect = client.player.getStatusEffect(StatusEffects.DARKNESS);
