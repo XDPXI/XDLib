@@ -2,14 +2,12 @@ package dev.xdpxi.xdlib;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import dev.xdpxi.xdlib.api.mod.custom;
 import lombok.Getter;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.server.command.ServerCommandSource;
@@ -125,21 +123,6 @@ public class XDsLibrary implements ModInitializer {
         }
     }
 
-    public static void registerItems() {
-        try {
-            Item xdlibItem = custom.Item("xdlib_item", MOD_ID);
-            if (xdlibItem == null) {
-                LOGGER.error("[XDLib] Failed to create xdlib_item - Item creation returned null");
-            }
-
-            List<Item> items = List.of(xdlibItem);
-            custom.ItemGroup("xdlib_group", MOD_ID, xdlibItem, items);
-        } catch (Exception e) {
-            LOGGER.error("[XDLib] Failed to register items: {}", e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onInitialize() {
         LOGGER.info("[XDLib] - Loading...");
@@ -153,7 +136,6 @@ public class XDsLibrary implements ModInitializer {
         }
 
         updateChecker.checkForUpdate();
-        registerItems();
 
         ServerTickEvents.END_WORLD_TICK.register(this::postWorldTick);
 
