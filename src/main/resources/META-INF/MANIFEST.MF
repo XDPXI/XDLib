@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: XDLibInstaller
-Class-Path: flatlaf-3.5.2.jar
-Created-By: 21.0.2 (Oracle Corporation)
-
