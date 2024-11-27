@@ -1,7 +1,6 @@
 package dev.xdpxi.xdlib.plugin;
 
 import dev.xdpxi.xdlib.api.plugin.chatUtils;
-import org.bukkit.ChatColor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -9,6 +8,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
+
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.Component;
 
 public class updateChecker {
     private final xdlib plugin;
@@ -39,12 +41,12 @@ public class updateChecker {
 
             String latestVersion = parseLatestVersion(response.toString());
             latestVersion = textParser(latestVersion);
-            String currentVersion = plugin.getDescription().getVersion();
+            String currentVersion = plugin.getPluginMeta().getVersion();
             currentVersion = textParser(currentVersion);
 
             if (isVersionLower(currentVersion, latestVersion)) {
                 plugin.getLogger().info("[XDLib] - An update is available!");
-                chatUtils.sendMessageToOps(ChatColor.GOLD + "[XDLib] - An update is available!");
+                chatUtils.sendMessageToOps(Component.text("[XDLib] - An update is available!", NamedTextColor.GOLD));
                 update = true;
             } else {
                 plugin.getLogger().info("[XDLib] - No update available!");

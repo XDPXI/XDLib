@@ -3,7 +3,6 @@ package dev.xdpxi.xdlib.plugin;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,6 +10,9 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 public class tpaCommand implements CommandExecutor {
     private final HashMap<UUID, UUID> teleportRequests = new HashMap<>();
@@ -48,51 +50,53 @@ public class tpaCommand implements CommandExecutor {
     private void handleAccept(Player player) {
         UUID requesterUUID = teleportRequests.remove(player.getUniqueId());
         if (requesterUUID == null) {
-            player.sendMessage(ChatColor.RED + "No teleport request found.");
+            player.sendMessage(Component.text("No teleport request found.", NamedTextColor.RED));
             return;
         }
 
         Player requester = Bukkit.getPlayer(requesterUUID);
         if (requester == null) {
-            player.sendMessage(ChatColor.RED + "Player not found.");
+            player.sendMessage(Component.text("Player not found.", NamedTextColor.RED));
             return;
         }
 
         requester.teleport(player.getLocation());
-        player.sendMessage(ChatColor.GOLD + "Teleporting...");
-        requester.sendMessage(ChatColor.GOLD + "Teleport request " + ChatColor.GREEN + "accepted" + ChatColor.GOLD + " by " + ChatColor.GREEN + player.getName() + ChatColor.GOLD + ".");
+        player.sendMessage(Component.text("Teleporting...", NamedTextColor.GOLD));
+        requester.sendMessage(Component.text("Teleport request accepted by " + player.getName(), NamedTextColor.GOLD));
     }
 
     private void handleDecline(Player player) {
         UUID requesterUUID = teleportRequests.remove(player.getUniqueId());
         if (requesterUUID == null) {
-            player.sendMessage(ChatColor.RED + "No teleport request found.");
+            player.sendMessage(Component.text("No teleport request found.", NamedTextColor.RED));
             return;
         }
 
         Player requester = Bukkit.getPlayer(requesterUUID);
         if (requester == null) {
-            player.sendMessage(ChatColor.RED + "Player not found.");
+            player.sendMessage(Component.text("Player not found.", NamedTextColor.RED));
             return;
         }
 
-        player.sendMessage(ChatColor.GOLD + "Teleport request " + ChatColor.RED + "declined" + ChatColor.GOLD + ".");
-        requester.sendMessage(ChatColor.GOLD + "Teleport request" + ChatColor.RED + " declined" + ChatColor.GOLD + " by " + ChatColor.GREEN + player.getName());
+        player.sendMessage(Component.text("Teleport request declined.", NamedTextColor.GOLD));
+        requester.sendMessage(Component.text("Teleport request declined by " + player.getName(), NamedTextColor.GOLD));
     }
 
     private void handleTpaRequest(Player player, String targetName) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            player.sendMessage(ChatColor.RED + "Player not found.");
+            player.sendMessage(Component.text("Player not found.", NamedTextColor.RED));
             return;
         }
 
         teleportRequests.put(target.getUniqueId(), player.getUniqueId());
 
-        TextComponent message = new TextComponent(ChatColor.GREEN + player.getName() + ChatColor.GOLD + " has requested to teleport to you. \n");
-        TextComponent accept = new TextComponent(ChatColor.GREEN + "[Accept]");
+        TextComponent message = new TextComponent(player.getName() + " has requested to teleport to you. \n");
+        TextComponent accept = new TextComponent("[Accept]");
+        accept.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpa accept"));
-        TextComponent decline = new TextComponent(ChatColor.RED + "[Decline]");
+        TextComponent decline = new TextComponent("[Decline]");
+        decline.setColor(net.md_5.bungee.api.ChatColor.RED);
         decline.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpa decline"));
 
         message.addExtra(accept);
@@ -100,6 +104,6 @@ public class tpaCommand implements CommandExecutor {
         message.addExtra(decline);
 
         target.spigot().sendMessage(message);
-        player.sendMessage(ChatColor.GOLD + "Teleport request sent to " + ChatColor.GREEN + target.getName() + ChatColor.GOLD + ".");
+        player.sendMessage(Component.text("Teleport request sent to " + target.getName(), NamedTextColor.GOLD));
     }
 }
