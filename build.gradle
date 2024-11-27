@@ -45,18 +45,13 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:0.16.9")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:0.108.1+")
 	
-	include(implementation("org.tomlj:tomlj:1.1.1"))
-    include(implementation("org.antlr:antlr4-runtime:4.13.2"))
     include(implementation("org.json:json:20240303"))
-    include(implementation("org.yaml:snakeyaml:2.3"))
     include(modImplementation("maven.modrinth:ducky-updater-lib:2024.10.2"))
 
 	modImplementation("com.terraformersmc:modmenu:11.0.3")
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:16.0.141"){exclude(group: "net.fabricmc.fabric-api")}
 	implementation("org.commonmark:commonmark:0.24.0")
 	implementation("org.projectlombok:lombok:1.18.36")
-	implementation("org.beanshell:bsh:3.0.0-SNAPSHOT")
-	implementation("io.hotmoka:toml4j:0.7.3")
 	implementation("com.formdev:flatlaf:3.5.2")
 }
 
