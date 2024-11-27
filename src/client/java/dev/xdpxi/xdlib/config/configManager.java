@@ -66,10 +66,7 @@ public class configManager {
 
     public static class ConfigData {
         private boolean customBadges = true;
-        private boolean disablePlugins = false;
         private boolean disableTitlePopups = false;
-        private boolean unverifiedPlugins = false;
-        private boolean devMode = false;
 
         public boolean isCustomBadges() {
             return customBadges;
@@ -79,36 +76,12 @@ public class configManager {
             this.customBadges = customBadges;
         }
 
-        public boolean isDisablePlugins() {
-            return disablePlugins;
-        }
-
-        public void setDisablePlugins(boolean disablePlugins) {
-            this.disablePlugins = disablePlugins;
-        }
-
         public boolean isDisableTitlePopups() {
             return disableTitlePopups;
         }
 
         public void setDisableTitlePopups(boolean disableTitlePopups) {
             this.disableTitlePopups = disableTitlePopups;
-        }
-
-        public boolean isUnverifiedPlugins() {
-            return unverifiedPlugins;
-        }
-
-        public void setUnverifiedPlugins(boolean unverifiedPlugins) {
-            this.unverifiedPlugins = unverifiedPlugins;
-        }
-
-        public boolean isDevMode() {
-            return devMode;
-        }
-
-        public void setDevMode(boolean devMode) {
-            this.devMode = devMode;
         }
     }
 }
