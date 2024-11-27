@@ -82,4 +82,23 @@ public final class xdlib extends JavaPlugin {
     public void onDisable() {
         getLogger().info("[XDLib] - Disabled!");
     }
+
+    private boolean isCommandAvailable(String name) {
+        try {
+            return getServer().getPluginCommand(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void unregisterCommand(String name) {
+        try {
+            Field commandMapField = getServer().getClass().getDeclaredField("commandMap");
+            commandMapField.setAccessible(true);
+            CommandMap commandMap = (CommandMap) commandMapField.get(getServer());
+            commandMap.getCommand(name).unregister(commandMap);
+        } catch (Exception e) {
+            getLogger().warning("Failed to unregister command: " + name);
+        }
+    }
 }
