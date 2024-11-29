@@ -75,7 +75,8 @@
     "duckyupdater": {
       "modrinthId": "yDe2kPBC",
       "type": "release",
-      "featured": false
-    }
+      "featured": true
+    },
+    "fstats": "yDe2kPBC"
   }
 }
