@@ -29,9 +29,6 @@
     ],
     "client": [
       "dev.xdpxi.xdlib.XDsLibraryClient"
-    ],
-    "modmenu": [
-      "dev.xdpxi.xdlib.config.modMenuIntegration"
     ]
   },
   "accessWidener": "xdlib.accesswidener",
