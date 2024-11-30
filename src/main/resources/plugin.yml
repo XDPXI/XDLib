@@ -1,5 +1,5 @@
 name: XDLib
-version: '3.3.0'
+version: '3.3.1'
 main: dev.xdpxi.xdlib.plugin.xdlib
 api-version: '1.21'
 prefix: XDLib

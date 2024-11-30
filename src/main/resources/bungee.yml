@@ -1,5 +1,5 @@
 name: XDLib
-version: '3.3.0'
+version: '3.3.1'
 main: dev.xdpxi.xdlib.plugin.bungee
 author: XDPXI
 description: This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!
