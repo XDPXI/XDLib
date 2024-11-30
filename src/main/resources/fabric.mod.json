@@ -50,12 +50,10 @@
   },
   "recommends": {
     "modmenu": "*",
-    "cloth-config": "*",
     "java": ">=21"
   },
   "breaks": {
-    "minecraft": ">1.21.3",
-    "cloth-config": "<11.0.99"
+    "minecraft": ">1.21.3"
   },
   "custom": {
     "modmenu": {
