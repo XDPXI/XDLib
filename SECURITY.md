@@ -16,7 +16,9 @@
 
 | Version | Fabric             | Quilt          | Forge | NeoForge       | Bukkit             | BungeeCord         | Velocity       |
 | ------- | ------------------ | -------------- | ----- | -------------- | ------------------ | ------------------ | -------------- |
-| 2.X.X   | :white_check_mark: | :construction: | :x:   | :construction: | :white_check_mark: | :white_check_mark: | :construction: |
+| 4.X.X   | :construction: | :construction: | :construction:   | :construction: | :x: | :x: | :x: |
+| 3.X.X   | :warning: | :warning: | :x:   | :warning: | :warning: | :warning: | :warning: |
+| 2.X.X   | :x: | :x: | :x:   | :x: | :x: | :x: | :x: |
 | 1.X.X   | :x:                | :x:            | :x:   | :x:            | :x:                | :x:                | :x:            |
 
 ## Reporting a Vulnerability
