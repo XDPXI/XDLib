@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.9.0-alpha.5'
+	id 'fabric-loom' version '1.9.1'
 }
 
 version = project.mod_version
@@ -39,7 +39,7 @@ dependencies {
 	compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 	annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 	modImplementation("net.fabricmc:fabric-loader:0.16.9")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:0.110.0+")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:0.110.3+")
 	
 	include(implementation("org.json:json:20240303"))
 
