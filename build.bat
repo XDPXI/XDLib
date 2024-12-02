@@ -4,6 +4,12 @@ setlocal enabledelayedexpansion
 set "gradleFile=gradle.properties"
 set "version="
 
+echo [*] Cleaning Build Folder
+if exist "build" (
+    del /q /f /s "build\*"
+    for /d %%x in ("build\*") do rmdir /s /q "%%x"
+)
+
 echo [*] Building...
 echo ----------------------------------
 echo [%date% %time%] Running Gradle build...
@@ -71,4 +77,3 @@ if exist "%neoforgeJar%" (
 
 echo [%date% %time%] Build and file movement complete!
 echo [*] Complete!
-pause
