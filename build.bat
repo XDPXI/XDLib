@@ -6,14 +6,21 @@ set "version="
 
 echo [*] Building...
 echo ----------------------------------
+echo [%date% %time%] Running Gradle build...
 cmd /c gradlew build --warning-mode all
+if %errorlevel% neq 0 (
+    echo [!] Error: Gradle build failed. Exiting...
+    exit /b
+)
 echo ----------------------------------
 
+echo [%date% %time%] Getting version from gradle.properties...
 echo [*] Getting version...
-for /f "skip=4 tokens=*" %%a in (%gradleFile%) do (
+for /f "skip=5 tokens=*" %%a in (%gradleFile%) do (
     if not defined version (
         set "line=%%a"
-        set "version=!line:~8!"
+        set "version=!line:~12!"
+        echo [*] Found version: !version!
     )
 )
 
@@ -22,32 +29,46 @@ if not defined version (
     exit /b
 )
 
+echo [%date% %time%] Version found: !version!
 echo [*] Cleaning up...
 for /f "tokens=* delims= " %%a in ("!version!") do set version=%%a
 
-echo [*] Checking for directories...
+echo [%date% %time%] Checking for directories...
 if not exist "build" (
-    echo [*] Creating directory...
+    echo [*] Build directory not found. Creating directory...
     mkdir "build" >nul 2>&1
+    if %errorlevel% neq 0 (
+        echo [!] Error: Failed to create build directory. Exiting...
+        exit /b
+    )
 )
 
-set "fabricJar=fabric\build\libs\xdlib-fabric-1.21-%version%.jar"
-set "forgeJar=forge\build\libs\XD's Library-forge-1.21-%version%.jar"
-set "neoforgeJar=neoforge\build\libs\xdlib-neoforge-1.21-%version%.jar"
+set "fabricJar=fabric\build\libs\xdlib-fabric-%version%.jar"
+set "neoforgeJar=neoforge\build\libs\xdlib-neoforge-%version%.jar"
 
-echo [*] Moving files...
-if exist "%fabricJar%" move "%fabricJar%" "build\" >nul 2>&1
-if exist "%forgeJar%" move "%forgeJar%" "build\" >nul 2>&1
-if exist "%neoforgeJar%" move "%neoforgeJar%" "build\" >nul 2>&1
+echo [%date% %time%] Moving files...
+echo [*] Moving fabric JAR...
+if exist "%fabricJar%" (
+    move "%fabricJar%" "build\" >nul 2>&1
+    if %errorlevel% neq 0 (
+        echo [!] Error: Failed to move fabric JAR. Exiting...
+        exit /b
+    )
+) else (
+    echo [!] Fabric JAR not found: %fabricJar%
+)
 
-set "fabricJar=build\xdlib-fabric-1.21-%version%.jar"
-set "forgeJar=build\XD's Library-forge-1.21-%version%.jar"
-set "neoforgeJar=build\xdlib-neoforge-1.21-%version%.jar"
+echo [*] Moving neoforge JAR...
+if exist "%neoforgeJar%" (
+    move "%neoforgeJar%" "build\" >nul 2>&1
+    if %errorlevel% neq 0 (
+        echo [!] Error: Failed to move neoforge JAR. Exiting...
+        exit /b
+    )
+) else (
+    echo [!] Neoforge JAR not found: %neoforgeJar%
+)
 
-echo [*] Renaming files...
-if exist "%fabricJar%" ren "%fabricJar%" "xdlib-fabric-%version%.jar"
-if exist "%forgeJar%" ren "%forgeJar%" "xdlib-forge-%version%.jar"
-if exist "%neoforgeJar%" ren "%neoforgeJar%" "xdlib-neoforge-%version%.jar"
-
+echo [%date% %time%] Build and file movement complete!
 echo [*] Complete!
 pause
