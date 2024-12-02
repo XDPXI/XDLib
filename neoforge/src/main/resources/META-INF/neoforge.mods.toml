@@ -6,7 +6,7 @@ license = "Apache 2.0"
 [[mods]]
 modId = "xdlib"
 version = "${version}"
-displayName = "XDLib"
+displayName = "XD's Library"
 authors = "XDPXI"
 description = '''
 This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!
