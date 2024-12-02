@@ -1,3 +1,5 @@
+<h1 align="center">⚠️ THIS VERSION IS IN FINAL MAJOR RELEASE! ⚠️</h1>
+
 <h1 id="readme" align="center"></h1>
 
 <img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
