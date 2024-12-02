@@ -1,35 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "${mod_id}",
+  "id": "xdlib",
   "version": "${version}",
-  "name": "${mod_name}",
-  "description": "${description}",
+  "name": "XDLib",
+  "description": "This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!",
   "authors": [
-    "${mod_author}"
+    "XDPXI"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://xdpxi.vercel.app/xdlib"
   },
-  "license": "${license}",
-  "icon": "${mod_id}.png",
+  "license": "Apache-2.0",
+  "icon": "assets/xdlib/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.xdpxi.xdlib.MainFabric"
+      "dev.xdpxi.xdlib.fabric.MainFabric"
+    ],
+    "client": [
+      "dev.xdpxi.xdlib.fabric.client.MainFabricClient"
     ]
   },
   "mixins": [
-    "${mod_id}.mixins.json",
-    "${mod_id}.fabric.mixins.json"
+    "xdlib.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${fabric_loader_version}",
-    "fabric-api": "*",
-    "minecraft": "${minecraft_version}",
-    "java": ">=${java_version}"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "fabricloader": ">=0.16.9",
+    "minecraft": ">=1.21",
+    "java": ">=21"
   }
 }
