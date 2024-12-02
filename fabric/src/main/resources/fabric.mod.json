@@ -5,10 +5,17 @@
   "name": "XD's Library",
   "description": "This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!",
   "authors": [
-    "XDPXI"
+    {
+      "name": "XDPXI",
+      "contact": {
+        "homepage": "https://xdpxi.vercel.app"
+      }
+    }
   ],
   "contact": {
-    "homepage": "https://xdpxi.vercel.app/xdlib"
+    "homepage": "https://xdpxi.vercel.app/xdlib",
+    "sources": "https://github.com/XDPXI/XDLib",
+    "issues": "https://github.com/XDPXI/XDLib/issues"
   },
   "license": "Apache-2.0",
   "icon": "assets/xdlib/icon.png",
