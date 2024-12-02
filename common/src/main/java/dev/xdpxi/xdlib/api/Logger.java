@@ -1,6 +1,5 @@
 package dev.xdpxi.xdlib.api;
 
-import dev.xdpxi.xdlib.Main;
 import org.apache.logging.log4j.LogManager;
 
 /**
@@ -11,8 +10,19 @@ public class Logger {
 
     /**
      * The logger instance used for logging messages.
+     * This is initialized with an empty string and can be set with {@link #setup(String)}.
      */
-    public static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(Main.MOD_ID);
+    public static org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger("");
+
+    /**
+     * Sets up the logger with a custom modID.
+     * This method should be called before any log messages are logged to initialize the logger.
+     *
+     * @param modID The mod ID to be used as the logger name.
+     */
+    public static void setup(String modID) {
+        LOGGER = LogManager.getLogger(modID);
+    }
 
     /**
      * Logs a message at the DEBUG level.
