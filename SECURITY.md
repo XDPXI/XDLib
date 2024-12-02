@@ -14,6 +14,13 @@
 > [!WARNING]
 > Quilt and NeoForge are built on Fabric and most bugs and vulnerabilities arise from those versions with little to no support.
 
+> [!CAUTION]
+> `3.X.X` is now in final major release!
+> 
+> `2.X.X` is not supported!
+> 
+> `1.X.X` is not supported!
+
 | Version | Fabric         | Quilt          | Forge          | NeoForge       | Bukkik    | BungeeCord | Velocity  |
 | ------- | -------------- | -------------- | -------------- | -------------- | --------- | ---------- | --------- |
 | 4.X.X   | :construction: | :construction: | :construction: | :construction: | :x:       | :x:        | :x:       |
