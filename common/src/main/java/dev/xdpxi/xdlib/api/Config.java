@@ -9,7 +9,7 @@ import java.lang.reflect.*;
 import java.util.*;
 
 public class Config {
-
+    
     // Annotation for setup configuration
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
