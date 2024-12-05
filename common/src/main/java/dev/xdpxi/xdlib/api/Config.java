@@ -3,18 +3,25 @@ package dev.xdpxi.xdlib.api;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
-import java.lang.annotation.*;
-import java.lang.reflect.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Config {
-    
     // Annotation for setup configuration
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     public @interface Setup {
         String name();
+
         String file();
     }
 
@@ -33,7 +40,8 @@ public class Config {
     }
 
     // This interface will be implemented by all configuration classes
-    public interface Configuration {}
+    public interface Configuration {
+    }
 
     // Main Config loader
     public static class ConfigLoader {
@@ -73,15 +81,16 @@ public class Config {
          * Loads a JSON configuration file and applies the values to the configuration class.
          *
          * @param configClass The configuration class to load values into.
-         * @param configFile The JSON config file.
-         * @throws IOException If an error occurs during file reading.
+         * @param configFile  The JSON config file.
+         * @throws IOException            If an error occurs during file reading.
          * @throws IllegalAccessException If an error occurs while setting values on fields.
          */
         private static void loadJsonConfig(Class<? extends Configuration> configClass, File configFile)
                 throws IOException, IllegalAccessException {
             System.out.println("Loading JSON config from " + configFile.getAbsolutePath());
             try (FileReader reader = new FileReader(configFile)) {
-                Map<String, Object> configValues = gson.fromJson(reader, new TypeToken<Map<String, Object>>() {}.getType());
+                Map<String, Object> configValues = gson.fromJson(reader, new TypeToken<Map<String, Object>>() {
+                }.getType());
                 applyConfigValues(configClass, configValues);
             }
         }
@@ -90,9 +99,9 @@ public class Config {
          * Creates a default config if it doesn't exist, based on the class annotations.
          *
          * @param configClass The configuration class to create a default config for.
-         * @param configFile The file where the config will be saved.
-         * @param extension The file extension (e.g., json).
-         * @throws IOException If an error occurs while writing the config file.
+         * @param configFile  The file where the config will be saved.
+         * @param extension   The file extension (e.g., json).
+         * @throws IOException            If an error occurs while writing the config file.
          * @throws IllegalAccessException If an error occurs while reading field values.
          */
         private static void createDefaultConfig(Class<? extends Configuration> configClass, File configFile,
@@ -109,8 +118,8 @@ public class Config {
          * Creates a default JSON config file based on the class annotations.
          *
          * @param configClass The configuration class.
-         * @param configFile The file where the config will be saved.
-         * @throws IOException If an error occurs during file writing.
+         * @param configFile  The file where the config will be saved.
+         * @throws IOException            If an error occurs during file writing.
          * @throws IllegalAccessException If an error occurs while reading field values.
          */
         private static void createDefaultJsonConfig(Class<? extends Configuration> configClass, File configFile)
@@ -160,7 +169,7 @@ public class Config {
         /**
          * Applies the loaded configuration values to the fields of the configuration class.
          *
-         * @param configClass The configuration class.
+         * @param configClass  The configuration class.
          * @param configValues A map of field names to their respective values.
          * @throws IllegalAccessException If an error occurs while setting values on fields.
          */
