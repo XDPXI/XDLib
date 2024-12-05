@@ -3,22 +3,16 @@ setlocal enabledelayedexpansion
 
 set "gradleFile=gradle.properties"
 set "version="
+set "filePath=gradle.properties"
+set "input_file=src\main\resources\plugin.yml"
+set "output_file=src\main\resources\plugin_temp.yml"
+set "line_number=0"
 
 echo [*] Cleaning Build Folder
 if exist "build" (
     del /q /f /s "build\*"
     for /d %%x in ("build\*") do rmdir /s /q "%%x"
 )
-
-echo [*] Building...
-echo ----------------------------------
-echo [%date% %time%] Running Gradle build...
-cmd /c gradlew build --warning-mode all
-if %errorlevel% neq 0 (
-    echo [!] Error: Gradle build failed. Exiting...
-    exit /b
-)
-echo ----------------------------------
 
 echo [%date% %time%] Getting version from gradle.properties...
 echo [*] Getting version...
@@ -39,6 +33,41 @@ echo [%date% %time%] Version found: !version!
 echo [*] Cleaning up...
 for /f "tokens=* delims= " %%a in ("!version!") do set version=%%a
 
+echo [*] Building...
+echo ----------------------------------
+echo [%date% %time%] Running Gradle build...
+cmd /c gradlew build --warning-mode all
+if %errorlevel% neq 0 (
+    echo [!] Error: Gradle build failed. Exiting...
+    exit /b
+)
+cd spigot
+echo mod_version=%version%>"%filePath%"
+(for /f "delims=" %%a in (%input_file%) do (
+    set /a line_number+=1
+    set "line_content=%%a"
+
+    rem Modify line 2 at column 11
+    if !line_number! equ 2 (
+        rem Extract part before column 11
+        set "before=!line_content:~0,10!"
+        rem Add %version% with a single quote at the end
+        set "line_content=!before!%version%'"
+    )
+
+    echo !line_content!
+)) > %output_file%
+
+rem Overwrite the original file
+move /y %output_file% %input_file% >nul 2>&1
+cmd /c gradlew build --warning-mode all
+if %errorlevel% neq 0 (
+    echo [!] Error: Gradle build failed. Exiting...
+    exit /b
+)
+cd ..
+echo ----------------------------------
+
 echo [%date% %time%] Checking for directories...
 if not exist "build" (
     echo [*] Build directory not found. Creating directory...
@@ -51,6 +80,7 @@ if not exist "build" (
 
 set "fabricJar=fabric\build\libs\xdlib-fabric-%version%.jar"
 set "neoforgeJar=neoforge\build\libs\xdlib-neoforge-%version%.jar"
+set "spigotJar=spigot\build\libs\XDLib-%version%.jar"
 
 echo [%date% %time%] Moving files...
 echo [*] Moving fabric JAR...
@@ -73,6 +103,20 @@ if exist "%neoforgeJar%" (
     )
 ) else (
     echo [!] Neoforge JAR not found: %neoforgeJar%
+)
+
+echo [*] Moving spigot JAR...
+if exist "%spigotJar%" (
+    move "%spigotJar%" "build\" >nul 2>&1
+    if %errorlevel% neq 0 (
+        echo [!] Error: Failed to move spigot JAR. Exiting...
+        exit /b
+    )
+    cd build
+    ren "XDLib-%version%.jar" "xdlib-spigot-%version%.jar" >nul 2>&1
+    cd ..
+) else (
+    echo [!] Spigot JAR not found: %spigotJar%
 )
 
 echo [%date% %time%] Build and file movement complete!
