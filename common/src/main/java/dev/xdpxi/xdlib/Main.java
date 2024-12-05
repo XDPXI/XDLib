@@ -7,6 +7,6 @@ public final class Main {
 
     public static void init() {
         Logger.setup(MOD_ID);
-        Logger.info("[XDLib] - Started!");
+        Logger.info("[XDLib] - Loading...");
     }
 }
