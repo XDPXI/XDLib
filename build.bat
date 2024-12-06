@@ -113,7 +113,7 @@ if exist "%spigotJar%" (
         exit /b
     )
     cd build
-    ren "XDLib-%version%.jar" "xdlib-spigot-%version%.jar" >nul 2>&1
+    ren "XDLib-%version%.jar" "xdlib-bukkit-%version%.jar" >nul 2>&1
     cd ..
 ) else (
     echo [!] Spigot JAR not found: %spigotJar%
