@@ -10,12 +10,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 
-public class UpdateChecker {
+public class UpdateCheckerBukkit {
     private static final Gson gson = new Gson();
-    private final Main plugin;
+    private final MainBukkit plugin;
     private boolean updateAvailable = false;
 
-    public UpdateChecker(Main plugin) {
+    public UpdateCheckerBukkit(MainBukkit plugin) {
         this.plugin = plugin;
     }
 

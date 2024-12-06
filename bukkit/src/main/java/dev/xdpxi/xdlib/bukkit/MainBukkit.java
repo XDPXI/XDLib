@@ -2,12 +2,12 @@ package dev.xdpxi.xdlib;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Main extends JavaPlugin {
+public final class MainBukkit extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("[XDLib] - Enabling...");
 
-        UpdateChecker checker = new UpdateChecker(this);
+        UpdateCheckerBukkit checker = new UpdateCheckerBukkit(this);
         checker.checkForUpdate();
 
         if (checker.isUpdateAvailable()) {

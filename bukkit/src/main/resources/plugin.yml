@@ -1,6 +1,6 @@
 name: XDLib
 version: '4.0.0-alpha.3'
-main: dev.xdpxi.xdlib.Main
+main: dev.xdpxi.xdlib.bukkit.MainBukkit
 api-version: '1.21'
 prefix: XDLib
 load: STARTUP
