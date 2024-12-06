@@ -41,7 +41,7 @@ if %errorlevel% neq 0 (
     echo [!] Error: Gradle build failed. Exiting...
     exit /b
 )
-cd bukkit
+cd spigot
 echo mod_version=%version%>"%filePath%"
 (for /f "delims=" %%a in (%input_file%) do (
     set /a line_number+=1
@@ -80,7 +80,7 @@ if not exist "build" (
 
 set "fabricJar=fabric\build\libs\xdlib-fabric-%version%.jar"
 set "neoforgeJar=neoforge\build\libs\xdlib-neoforge-%version%.jar"
-set "spigotJar=bukkit\build\libs\XDLib-%version%.jar"
+set "spigotJar=spigot\build\libs\XDLib-%version%.jar"
 
 echo [%date% %time%] Moving files...
 echo [*] Moving fabric JAR...
@@ -105,18 +105,18 @@ if exist "%neoforgeJar%" (
     echo [!] Neoforge JAR not found: %neoforgeJar%
 )
 
-echo [*] Moving bukkit JAR...
+echo [*] Moving spigot JAR...
 if exist "%spigotJar%" (
     move "%spigotJar%" "build\" >nul 2>&1
     if %errorlevel% neq 0 (
-        echo [!] Error: Failed to move bukkit JAR. Exiting...
+        echo [!] Error: Failed to move spigot JAR. Exiting...
         exit /b
     )
     cd build
-    ren "XDLib-%version%.jar" "xdlib-bukkit-%version%.jar" >nul 2>&1
+    ren "XDLib-%version%.jar" "xdlib-spigot-%version%.jar" >nul 2>&1
     cd ..
 ) else (
-    echo [!] Bukkit JAR not found: %spigotJar%
+    echo [!] Spigot JAR not found: %spigotJar%
 )
 
 echo [%date% %time%] Build and file movement complete!
