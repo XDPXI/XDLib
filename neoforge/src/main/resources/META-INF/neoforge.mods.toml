@@ -1,32 +1,34 @@
-modLoader = "javafml"
-loaderVersion = "[2,)"
-issueTrackerURL = "https://github.com/XDPXI/XDLib/issues"
-license = "Apache 2.0"
+modLoader = "javafml" #mandatory
+loaderVersion = "${neoforge_loader_version_range}" #mandatory
+license = "${license}" # Review your options at https://choosealicense.com/.
+issueTrackerURL="https://github.com/XDPXI/XDLib/issues" #optional
 
-[[mods]]
-modId = "xdlib"
-version = "${version}"
-displayName = "XD's Library"
-authors = "XDPXI"
-description = '''
-This is a library for many uses and is included as an player counter for XDPXI's mods and modpacks!
-'''
-#logoFile = ""
-
-[[dependencies.xdlib]]
-modId = "neoforge"
-type = "required"
-versionRange = "[21,)"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.xdlib]]
-modId = "minecraft"
-type = "required"
-versionRange = "[1.21,)"
-ordering = "NONE"
-side = "BOTH"
-
+[[mods]] #mandatory
+modId = "${mod_id}" #mandatory
+version = "${version}" #mandatory
+displayName = "${mod_name}" #mandatory
+displayURL="https://modrinth.com/plugin/xdlib"
+logoFile = "assets/xdlib/icon.png" #optional
+credits = "${credits}" #optional
+authors = "${mod_author}" #optional
+description = '''${description}''' #mandatory Supports multiline text
 
 [[mixins]]
-config = "xdlib.mixins.json"
+config = "${mod_id}.mixins.json"
+
+[[mixins]]
+config = "${mod_id}.neoforge.mixins.json"
+
+[[dependencies."${mod_id}"]] #optional
+modId = "neoforge" #mandatory
+type = "required" #mandatory Can be one of "required", "optional", "incompatible" or "discouraged"
+versionRange = "[${neoforge_version},)" #mandatory
+ordering = "NONE" # The order that this dependency should load in relation to your mod, required to be either 'BEFORE' or 'AFTER' if the dependency is not mandatory
+side = "BOTH" # Side this dependency is applied on - 'BOTH', 'CLIENT' or 'SERVER'
+
+[[dependencies."${mod_id}"]]
+modId = "minecraft"
+type = "required" #mandatory Can be one of "required", "optional", "incompatible" or "discouraged"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"

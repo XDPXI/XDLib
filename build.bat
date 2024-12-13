@@ -1,123 +1,115 @@
 @echo off
 setlocal enabledelayedexpansion
 
+:: Configuration
 set "gradleFile=gradle.properties"
 set "version="
-set "filePath=gradle.properties"
-set "input_file=src\main\resources\plugin.yml"
-set "output_file=src\main\resources\plugin_temp.yml"
-set "line_number=0"
 
+:: Create Build Folder if it doesn't exist
+echo [*] Preparing Build Folder
+if not exist "build" mkdir build
+
+:: Clean Build Folder
 echo [*] Cleaning Build Folder
 if exist "build" (
-    del /q /f /s "build\*"
-    for /d %%x in ("build\*") do rmdir /s /q "%%x"
+    del /q /f /s "build\*" >nul 2>&1
+    for /d %%x in ("build\*") do rmdir /s /q "%%x" >nul 2>&1
 )
 
-echo [%date% %time%] Getting version from gradle.properties...
-echo [*] Getting version...
-for /f "skip=5 tokens=*" %%a in (%gradleFile%) do (
+:: Retrieve version from gradle.properties
+echo [%date% %time%] Retrieving version from %gradleFile%...
+for /f "usebackq tokens=* skip=5" %%a in ("%gradleFile%") do (
     if not defined version (
         set "line=%%a"
-        set "version=!line:~12!"
-        echo [*] Found version: !version!
+        set "version=!line:~8!"
     )
 )
 
 if not defined version (
-    echo [!] Version not found in gradle.properties. Exiting...
+    echo [!] Version not found in %gradleFile%. Exiting...
     exit /b
 )
 
+:: Clean up the version string
+echo [%date% %time%] Cleaning up version string...
+for /f "tokens=* delims= " %%a in ("!version!") do set "version=%%a"
 echo [%date% %time%] Version found: !version!
-echo [*] Cleaning up...
-for /f "tokens=* delims= " %%a in ("!version!") do set version=%%a
 
-echo [*] Building...
-echo ----------------------------------
-echo [%date% %time%] Running Gradle build...
+:: Start Gradle Build
+echo [*] Starting Gradle build...
 cmd /c gradlew build --warning-mode all
 if %errorlevel% neq 0 (
     echo [!] Error: Gradle build failed. Exiting...
     exit /b
 )
-cd spigot
-echo mod_version=%version%>"%filePath%"
-(for /f "delims=" %%a in (%input_file%) do (
-    set /a line_number+=1
-    set "line_content=%%a"
 
-    rem Modify line 2 at column 11
-    if !line_number! equ 2 (
-        rem Extract part before column 11
-        set "before=!line_content:~0,10!"
-        rem Add %version% with a single quote at the end
-        set "line_content=!before!%version%'"
-    )
+:: Prepare file paths
+set "fabricJar=fabric\build\libs\xdlib-fabric-1.21-%version%.jar"
+set "neoforgeJar=neoforge\build\libs\xdlib-neoforge-1.21-%version%.jar"
+set "forgeJar=forge\build\libs\XD's Library-forge-1.21-%version%.jar"
+set "fabricJar1=fabric\build\libs\xdlib-fabric-1.21-%version%-javadoc.jar"
+set "neoforgeJar1=neoforge\build\libs\xdlib-neoforge-1.21-%version%-javadoc.jar"
+set "forgeJar1=forge\build\libs\XD's Library-forge-1.21-%version%-javadoc.jar"
+set "fabricJar2=fabric\build\libs\xdlib-fabric-1.21-%version%-sources.jar"
+set "neoforgeJar2=neoforge\build\libs\xdlib-neoforge-1.21-%version%-sources.jar"
+set "forgeJar2=forge\build\libs\XD's Library-forge-1.21-%version%-sources.jar"
 
-    echo !line_content!
-)) > %output_file%
-
-rem Overwrite the original file
-move /y %output_file% %input_file% >nul 2>&1
-cmd /c gradlew build --warning-mode all
-if %errorlevel% neq 0 (
-    echo [!] Error: Gradle build failed. Exiting...
-    exit /b
-)
-cd ..
-echo ----------------------------------
-
-echo [%date% %time%] Checking for directories...
-if not exist "build" (
-    echo [*] Build directory not found. Creating directory...
-    mkdir "build" >nul 2>&1
-    if %errorlevel% neq 0 (
-        echo [!] Error: Failed to create build directory. Exiting...
-        exit /b
-    )
-)
-
-set "fabricJar=fabric\build\libs\xdlib-fabric-%version%.jar"
-set "neoforgeJar=neoforge\build\libs\xdlib-neoforge-%version%.jar"
-set "spigotJar=spigot\build\libs\XDLib-%version%.jar"
-
+:: Move files
 echo [%date% %time%] Moving files...
-echo [*] Moving fabric JAR...
-if exist "%fabricJar%" (
-    move "%fabricJar%" "build\" >nul 2>&1
+
+call :moveJar "%fabricJar%" "%fabricJar1%" "%fabricJar2%" "Fabric"
+call :moveJar "%forgeJar%" "%forgeJar1%" "%forgeJar2%" "Forge"
+call :moveJar "%neoforgeJar%" "%neoforgeJar1%" "%neoforgeJar2%" "NeoForge"
+
+:: Rename files
+echo [%date% %time%] Renaming files...
+call :renameJar "build\xdlib-fabric-1.21-%version%.jar" "xdlib-fabric-%version%.jar"
+call :renameJar "build\xdlib-fabric-1.21-%version%-javadoc.jar" "xdlib-fabric-%version%-javadoc.jar"
+call :renameJar "build\xdlib-fabric-1.21-%version%-sources.jar" "xdlib-fabric-%version%-sources.jar"
+call :renameJar "build\xdlib-neoforge-1.21-%version%.jar" "xdlib-neoforge-%version%.jar"
+call :renameJar "build\xdlib-neoforge-1.21-%version%-javadoc.jar" "xdlib-neoforge-%version%-javadoc.jar"
+call :renameJar "build\xdlib-neoforge-1.21-%version%-sources.jar" "xdlib-neoforge-%version%-sources.jar"
+call :renameJar "build\XD's Library-forge-1.21-%version%.jar" "xdlib-forge-%version%.jar"
+call :renameJar "build\XD's Library-forge-1.21-%version%-javadoc.jar" "xdlib-forge-%version%-javadoc.jar"
+call :renameJar "build\XD's Library-forge-1.21-%version%-sources.jar" "xdlib-forge-%version%-sources.jar"
+
+echo [%date% %time%] Build, file movement, and renaming complete!
+echo [*] Process complete!
+endlocal
+exit /b
+
+:moveJar
+:: Function to move JAR files
+:: Arguments: %1 = Main JAR, %2 = Javadoc JAR, %3 = Sources JAR, %4 = Display Name
+set "mainJar=%~1"
+set "javadocJar=%~2"
+set "sourcesJar=%~3"
+set "displayName=%4"
+
+echo [*] Moving %displayName% JARs...
+if exist "%mainJar%" (
+    move "%mainJar%" "build\" >nul 2>&1
+    move "%javadocJar%" "build\" >nul 2>&1
+    move "%sourcesJar%" "build\" >nul 2>&1
     if %errorlevel% neq 0 (
-        echo [!] Error: Failed to move fabric JAR. Exiting...
+        echo [!] Error: Failed to move %displayName% JARs. Exiting...
         exit /b
     )
 ) else (
-    echo [!] Fabric JAR not found: %fabricJar%
+    echo [!] %displayName% JAR not found: %mainJar%
 )
+exit /b
 
-echo [*] Moving neoforge JAR...
-if exist "%neoforgeJar%" (
-    move "%neoforgeJar%" "build\" >nul 2>&1
+:renameJar
+:: Function to rename JAR files
+:: Arguments: %1 = Source File, %2 = Target File
+if exist "%~1" (
+    ren "%~1" "%~2"
     if %errorlevel% neq 0 (
-        echo [!] Error: Failed to move neoforge JAR. Exiting...
+        echo [!] Error: Failed to rename %~1 to %~2. Exiting...
         exit /b
     )
 ) else (
-    echo [!] Neoforge JAR not found: %neoforgeJar%
+    echo [!] File not found for renaming: %~1
 )
-
-echo [*] Moving spigot JAR...
-if exist "%spigotJar%" (
-    move "%spigotJar%" "build\" >nul 2>&1
-    if %errorlevel% neq 0 (
-        echo [!] Error: Failed to move spigot JAR. Exiting...
-        exit /b
-    )
-    cd build
-    ren "XDLib-%version%.jar" "xdlib-bukkit-%version%.jar" >nul 2>&1
-    cd ..
-) else (
-    echo [!] Spigot JAR not found: %spigotJar%
-)
-
-echo [%date% %time%] Build and file movement complete!
-echo [*] Complete!
+exit /b
