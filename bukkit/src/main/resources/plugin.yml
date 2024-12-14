@@ -1,0 +1,10 @@
+name: XDLib
+version: '${version}'
+main: dev.xdpxi.xdlib.Main
+api-version: '1.21'
+prefix: XDLib
+load: STARTUP
+authors: [ XDPXI ]
+description: This is a library for many uses and is included as a player counter for XDPXI's mods and modpacks!
+website: https://modrinth.com/plugin/xdlib
+folia-support: true

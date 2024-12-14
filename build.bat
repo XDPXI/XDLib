@@ -44,12 +44,15 @@ if %errorlevel% neq 0 (
 )
 
 :: Prepare file paths
+set "bukkitJar=bukkit\build\libs\xdlib-bukkit-1.21-%version%.jar"
 set "fabricJar=fabric\build\libs\xdlib-fabric-1.21-%version%.jar"
 set "neoforgeJar=neoforge\build\libs\xdlib-neoforge-1.21-%version%.jar"
 set "forgeJar=forge\build\libs\XD's Library-forge-1.21-%version%.jar"
+set "bukkitJar1=bukkit\build\libs\xdlib-bukkit-1.21-%version%-javadoc.jar"
 set "fabricJar1=fabric\build\libs\xdlib-fabric-1.21-%version%-javadoc.jar"
 set "neoforgeJar1=neoforge\build\libs\xdlib-neoforge-1.21-%version%-javadoc.jar"
 set "forgeJar1=forge\build\libs\XD's Library-forge-1.21-%version%-javadoc.jar"
+set "bukkitJar2=bukkit\build\libs\xdlib-bukkit-1.21-%version%-sources.jar"
 set "fabricJar2=fabric\build\libs\xdlib-fabric-1.21-%version%-sources.jar"
 set "neoforgeJar2=neoforge\build\libs\xdlib-neoforge-1.21-%version%-sources.jar"
 set "forgeJar2=forge\build\libs\XD's Library-forge-1.21-%version%-sources.jar"
@@ -60,6 +63,7 @@ echo [%date% %time%] Moving files...
 call :moveJar "%fabricJar%" "%fabricJar1%" "%fabricJar2%" "Fabric"
 call :moveJar "%forgeJar%" "%forgeJar1%" "%forgeJar2%" "Forge"
 call :moveJar "%neoforgeJar%" "%neoforgeJar1%" "%neoforgeJar2%" "NeoForge"
+call :moveJar "%bukkitJar%" "%bukkitJar1%" "%bukkitJar2%" "Bukkit"
 
 :: Rename files
 echo [%date% %time%] Renaming files...
@@ -72,6 +76,9 @@ call :renameJar "build\xdlib-neoforge-1.21-%version%-sources.jar" "xdlib-neoforg
 call :renameJar "build\XD's Library-forge-1.21-%version%.jar" "xdlib-forge-%version%.jar"
 call :renameJar "build\XD's Library-forge-1.21-%version%-javadoc.jar" "xdlib-forge-%version%-javadoc.jar"
 call :renameJar "build\XD's Library-forge-1.21-%version%-sources.jar" "xdlib-forge-%version%-sources.jar"
+call :renameJar "build\xdlib-bukkit-1.21-%version%.jar" "xdlib-bukkit-%version%.jar"
+call :renameJar "build\xdlib-bukkit-1.21-%version%-javadoc.jar" "xdlib-bukkit-%version%-javadoc.jar"
+call :renameJar "build\xdlib-bukkit-1.21-%version%-sources.jar" "xdlib-bukkit-%version%-sources.jar"
 
 echo [%date% %time%] Build, file movement, and renaming complete!
 echo [*] Process complete!
