@@ -41,17 +41,17 @@ public class UpdateCheckerFabric {
                 String latestVersion = UpdateChecker.parseLatestVersion(response.toString());
                 String version = getModVersion();
 
-                Logger.info("[XDLib] - Latest Version: " + latestVersion);
-                Logger.info("[XDLib] - Current Version: " + version);
+                Logger.info("[XDLib/UpdateChecker] - Latest Version: " + latestVersion);
+                Logger.info("[XDLib/UpdateChecker] - Current Version: " + version);
 
                 if (latestVersion != null && UpdateChecker.compareVersions(version, latestVersion) < 0) {
-                    Logger.warn("[XDLib] - An update is available! Latest version: " + latestVersion);
+                    Logger.warn("[XDLib/UpdateChecker] - An update is available! Latest version: " + latestVersion);
                 } else {
-                    Logger.info("[XDLib] - No update available.");
+                    Logger.info("[XDLib/UpdateChecker] - No update available.");
                 }
             }
         } catch (Exception e) {
-            Logger.error("[XDLib] - Error checking for updates: " + e.getMessage());
+            Logger.error("[XDLib/UpdateChecker] - Error checking for updates: " + e.getMessage());
             e.printStackTrace();
         }
     }

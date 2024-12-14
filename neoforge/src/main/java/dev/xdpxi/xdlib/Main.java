@@ -9,9 +9,9 @@ public class Main {
     public Main(IEventBus eventBus) {
         CommonClass.init();
 
-        dev.xdpxi.xdlib.api.Logger.info("[XDLib] - Checking for updates...");
+        dev.xdpxi.xdlib.api.Logger.info("[XDLib/UpdateChecker] - Checking for updates...");
         UpdateCheckerNeoForge.checkForUpdate();
 
-        Logger.info("[XDLib] - Loaded!");
+        Logger.info("[XDLib/Main] - Loaded!");
     }
 }

@@ -8,14 +8,14 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         CommonClass.init();
 
-        Logger.info("[XDLib] - Checking for updates...");
+        Logger.info("[XDLib/UpdateChecker] - Checking for updates...");
         UpdateCheckerBukkit.checkForUpdate();
 
-        Logger.info("[XDLib] - Loaded!");
+        Logger.info("[XDLib/Main] - Loaded!");
     }
 
     @Override
     public void onDisable() {
-        Logger.info("[XDLib] - Disabled!");
+        Logger.info("[XDLib/Main] - Disabled!");
     }
 }

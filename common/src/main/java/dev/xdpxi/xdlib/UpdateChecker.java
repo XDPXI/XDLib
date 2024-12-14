@@ -23,7 +23,7 @@ public class UpdateChecker {
 
     public static boolean isVersionLower(String currentVersion, String latestVersion) {
         if (currentVersion.isEmpty() || latestVersion.isEmpty()) {
-            Logger.error("[XDLib] - Version strings cannot be empty.");
+            Logger.error("[XDLib/UpdateChecker] - Version strings cannot be empty.");
             return false;
         }
 

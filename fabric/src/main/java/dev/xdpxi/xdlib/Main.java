@@ -8,9 +8,9 @@ public class Main implements ModInitializer {
     public void onInitialize() {
         CommonClass.init();
 
-        dev.xdpxi.xdlib.api.Logger.info("[XDLib] - Checking for updates...");
+        dev.xdpxi.xdlib.api.Logger.info("[XDLib/UpdateChecker] - Checking for updates...");
         UpdateCheckerFabric.checkForUpdate();
 
-        Logger.info("[XDLib] - Loaded!");
+        Logger.info("[XDLib/Main] - Loaded!");
     }
 }

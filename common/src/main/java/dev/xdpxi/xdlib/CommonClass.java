@@ -5,6 +5,6 @@ import dev.xdpxi.xdlib.api.Logger;
 public class CommonClass {
     public static void init() {
         Logger.setup("dev.xdpxi.xdlib", Constants.MOD_ID);
-        Logger.info("[XDLib] - Loading...");
+        Logger.info("[XDLib/Main] - Loading...");
     }
 }
