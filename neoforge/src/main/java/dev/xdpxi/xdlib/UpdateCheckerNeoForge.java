@@ -29,6 +29,9 @@ public class UpdateCheckerNeoForge {
                         .orElse("Mod not found!");
                 String latestVersion = UpdateChecker.parseLatestVersion(response.toString());
 
+                Logger.info("[XDLib] - Latest Version: " + latestVersion);
+                Logger.info("[XDLib] - Current Version: " + version);
+
                 if (latestVersion != null && UpdateChecker.compareVersions(version, latestVersion) < 0) {
                     Logger.warn("[XDLib] - An update is available! Latest version: " + latestVersion);
                 } else {
