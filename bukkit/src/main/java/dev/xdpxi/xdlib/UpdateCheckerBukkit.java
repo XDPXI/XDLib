@@ -16,6 +16,7 @@ public class UpdateCheckerBukkit {
     }
 
     public static void checkForUpdate() {
+        Logger.info("[XDLib/UpdateChecker] - Checking for updates...");
         try {
             HttpURLConnection connection = (HttpURLConnection) URI.create("https://api.modrinth.com/v2/project/xdlib/version")
                     .toURL().openConnection();

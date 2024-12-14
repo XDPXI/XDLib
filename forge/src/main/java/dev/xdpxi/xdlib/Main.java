@@ -8,7 +8,6 @@ public class Main {
     public Main() {
         CommonClass.init();
 
-        dev.xdpxi.xdlib.api.Logger.info("[XDLib/UpdateChecker] - Checking for updates...");
         UpdateCheckerForge.checkForUpdate();
 
         Logger.info("[XDLib/Main] - Loaded!");
