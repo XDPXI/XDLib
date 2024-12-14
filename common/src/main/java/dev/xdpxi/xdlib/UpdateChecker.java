@@ -15,7 +15,8 @@ public class UpdateChecker {
         JsonArray versions = JsonParser.parseString(jsonResponse).getAsJsonArray();
         if (!versions.isEmpty()) {
             JsonObject latestVersionInfo = versions.get(0).getAsJsonObject();
-            return latestVersionInfo.get("version_number").getAsString();
+            String version = latestVersionInfo.get("version_number").getAsString();
+            return version.split("\\+")[0];
         }
         return null;
     }
