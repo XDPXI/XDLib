@@ -35,7 +35,7 @@ public class UpdateCheckerNeoForge {
                 if (latestVersion != null && UpdateChecker.compareVersions(version, latestVersion) < 0) {
                     Logger.warn("[XDLib] - An update is available! Latest version: " + latestVersion);
                 } else {
-                    Logger.info("[XDLib] - No update available. Current version: " + version);
+                    Logger.info("[XDLib] - No update available.");
                 }
             }
         } catch (Exception e) {
