@@ -31,12 +31,12 @@ public class UpdateCheckerBukkit {
                 }
 
                 String latestVersion = UpdateChecker.parseLatestVersion(response.toString());
-                String currentVersion = UpdateChecker.cleanVersion(getModVersion());
+                String currentVersion = getModVersion();
 
-                if (latestVersion != null && UpdateChecker.isVersionLower(currentVersion, latestVersion)) {
+                if (latestVersion != null && UpdateChecker.compareVersions(currentVersion, latestVersion) < 0) {
                     Logger.warn("[XDLib] - An update is available! Latest version: " + latestVersion);
                 } else {
-                    Logger.info("[XDLib] - No update available.");
+                    Logger.info("[XDLib] - No update available. Current version: " + currentVersion);
                 }
             }
         } catch (Exception e) {

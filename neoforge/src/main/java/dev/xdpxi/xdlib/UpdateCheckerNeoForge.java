@@ -28,12 +28,11 @@ public class UpdateCheckerNeoForge {
                         .map(container -> container.getModInfo().getVersion().toString())
                         .orElse("Mod not found!");
                 String latestVersion = UpdateChecker.parseLatestVersion(response.toString());
-                String currentVersion = UpdateChecker.cleanVersion(version);
 
-                if (latestVersion != null && UpdateChecker.isVersionLower(currentVersion, latestVersion)) {
+                if (latestVersion != null && UpdateChecker.compareVersions(version, latestVersion) < 0) {
                     Logger.warn("[XDLib] - An update is available! Latest version: " + latestVersion);
                 } else {
-                    Logger.info("[XDLib] - No update available.");
+                    Logger.info("[XDLib] - No update available. Current version: " + version);
                 }
             }
         } catch (Exception e) {
