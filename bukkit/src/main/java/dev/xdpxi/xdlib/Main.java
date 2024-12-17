@@ -8,7 +8,9 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         CommonClass.init();
 
-        UpdateCheckerBukkit.checkForUpdate();
+        Thread updateThread = new Thread(new UpdateCheckerBukkit(), "Update thread");
+        updateThread.setDaemon(true);
+        updateThread.start();
 
         Logger.info("[XDLib/Main] - Loaded!");
     }

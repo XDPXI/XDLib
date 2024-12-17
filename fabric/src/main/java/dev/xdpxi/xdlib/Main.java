@@ -8,7 +8,9 @@ public class Main implements ModInitializer {
     public void onInitialize() {
         CommonClass.init();
 
-        UpdateCheckerFabric.checkForUpdate();
+        Thread updateThread = new Thread(new UpdateCheckerFabric(), "Update thread");
+        updateThread.setDaemon(true);
+        updateThread.start();
 
         Logger.info("[XDLib/Main] - Loaded!");
     }

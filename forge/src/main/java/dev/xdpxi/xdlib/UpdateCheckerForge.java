@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 
-public class UpdateCheckerForge {
+public class UpdateCheckerForge implements Runnable {
     public static void checkForUpdate() {
         Logger.info("[XDLib/UpdateChecker] - Checking for updates...");
         try {
@@ -43,5 +43,13 @@ public class UpdateCheckerForge {
             Logger.error("[XDLib/UpdateChecker] - Error checking for updates: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Runs this operation.
+     */
+    @Override
+    public void run() {
+        checkForUpdate();
     }
 }

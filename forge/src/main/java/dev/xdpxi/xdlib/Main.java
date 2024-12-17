@@ -8,7 +8,9 @@ public class Main {
     public Main() {
         CommonClass.init();
 
-        UpdateCheckerForge.checkForUpdate();
+        Thread updateThread = new Thread(new UpdateCheckerForge(), "Update thread");
+        updateThread.setDaemon(true);
+        updateThread.start();
 
         Logger.info("[XDLib/Main] - Loaded!");
     }

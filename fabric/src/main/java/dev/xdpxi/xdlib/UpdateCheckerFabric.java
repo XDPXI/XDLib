@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 
-public class UpdateCheckerFabric {
+public class UpdateCheckerFabric implements Runnable {
     private static String getModVersion() {
         ModMetadata metadata = FabricLoader.getInstance().getModContainer("xdlib")
                 .map(ModContainer::getMetadata)
@@ -55,5 +55,13 @@ public class UpdateCheckerFabric {
             Logger.error("[XDLib/UpdateChecker] - Error checking for updates: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Runs this operation.
+     */
+    @Override
+    public void run() {
+        checkForUpdate();
     }
 }

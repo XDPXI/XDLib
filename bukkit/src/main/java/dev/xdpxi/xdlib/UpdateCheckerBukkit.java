@@ -1,15 +1,15 @@
 package dev.xdpxi.xdlib;
 
 import dev.xdpxi.xdlib.api.Logger;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 
-public class UpdateCheckerBukkit {
+public class UpdateCheckerBukkit implements Runnable {
     private static String getModVersion() {
         Plugin plugin = JavaPlugin.getPlugin(Main.class);
         return plugin.getDescription().getVersion();
@@ -47,5 +47,13 @@ public class UpdateCheckerBukkit {
             Logger.error("[XDLib/UpdateChecker] - Error checking for updates: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Runs this operation.
+     */
+    @Override
+    public void run() {
+        checkForUpdate();
     }
 }

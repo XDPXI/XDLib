@@ -9,7 +9,9 @@ public class Main {
     public Main(IEventBus eventBus) {
         CommonClass.init();
 
-        UpdateCheckerNeoForge.checkForUpdate();
+        Thread updateThread = new Thread(new UpdateCheckerNeoForge(), "Update thread");
+        updateThread.setDaemon(true);
+        updateThread.start();
 
         Logger.info("[XDLib/Main] - Loaded!");
     }
