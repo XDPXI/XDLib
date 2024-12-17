@@ -51,9 +51,7 @@ public class Register {
     public static Item registerItem(Item item, String id) {
         Identifier itemID = Identifier.of(Constants.MOD_ID, id);
 
-        Item registeredItem = Registry.register(Registries.ITEM, itemID, item);
-
-        return registeredItem;
+        return Registry.register(Registries.ITEM, itemID, item);
     }
 
     /**
