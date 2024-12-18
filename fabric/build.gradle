@@ -2,10 +2,14 @@ plugins {
     id 'multiloader-loader'
     id 'fabric-loom'
 }
+repositories {
+    flatDir { dirs "libs" }
+}
 dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
+    minecraft("com.mojang:minecraft:${minecraft_version}")
     mappings("net.fabricmc:yarn:${fabric_yarn_version}:v2")
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
+    include(modImplementation("dev.xdpxi:fiber-api:1.0.0-alpha.1"))
 }
 loom {
     def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
