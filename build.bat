@@ -4,16 +4,17 @@ setlocal enabledelayedexpansion
 :: Configuration
 set "gradleFile=gradle.properties"
 set "version="
+set "buildFolder=build"
 
 :: Create Build Folder if it doesn't exist
 echo [*] Preparing Build Folder
-if not exist "build" mkdir build
+if not exist "%buildFolder%" mkdir "%buildFolder%"
 
 :: Clean Build Folder
 echo [*] Cleaning Build Folder
-if exist "build" (
-    del /q /f /s "build\*" >nul 2>&1
-    for /d %%x in ("build\*") do rmdir /s /q "%%x" >nul 2>&1
+if exist "%buildFolder%" (
+    del /q /f /s "%buildFolder%\*" >nul 2>&1
+    for /d %%x in ("%buildFolder%\*") do rmdir /s /q "%%x" >nul 2>&1
 )
 
 :: Retrieve version from gradle.properties
@@ -22,101 +23,59 @@ for /f "usebackq tokens=* skip=5" %%a in ("%gradleFile%") do (
     if not defined version (
         set "line=%%a"
         set "version=!line:~8!"
+        goto :versionFound
     )
 )
+:versionFound
 
 if not defined version (
     echo [!] Version not found in %gradleFile%. Exiting...
-    exit /b
+    exit /b 1
 )
 
 :: Clean up the version string
 echo [%date% %time%] Cleaning up version string...
-for /f "tokens=* delims= " %%a in ("!version!") do set "version=%%a"
-echo [%date% %time%] Version found: !version!
+set "version=%version: =%"
+echo [%date% %time%] Version found: %version%
 
 :: Start Gradle Build
 echo [*] Starting Gradle build...
-cmd /c gradlew build --warning-mode all
+call gradlew build --warning-mode all
 if %errorlevel% neq 0 (
     echo [!] Error: Gradle build failed. Exiting...
-    exit /b
+    exit /b 1
 )
 
-:: Prepare file paths
-set "bukkitJar=bukkit\build\libs\xdlib-bukkit-1.21-%version%.jar"
-set "fabricJar=fabric\build\libs\xdlib-fabric-1.21-%version%.jar"
-set "neoforgeJar=neoforge\build\libs\xdlib-neoforge-1.21-%version%.jar"
-set "forgeJar=forge\build\libs\XD's Library-forge-1.21-%version%.jar"
-set "bukkitJar1=bukkit\build\libs\xdlib-bukkit-1.21-%version%-javadoc.jar"
-set "fabricJar1=fabric\build\libs\xdlib-fabric-1.21-%version%-javadoc.jar"
-set "neoforgeJar1=neoforge\build\libs\xdlib-neoforge-1.21-%version%-javadoc.jar"
-set "forgeJar1=forge\build\libs\XD's Library-forge-1.21-%version%-javadoc.jar"
-set "bukkitJar2=bukkit\build\libs\xdlib-bukkit-1.21-%version%-sources.jar"
-set "fabricJar2=fabric\build\libs\xdlib-fabric-1.21-%version%-sources.jar"
-set "neoforgeJar2=neoforge\build\libs\xdlib-neoforge-1.21-%version%-sources.jar"
-set "forgeJar2=forge\build\libs\XD's Library-forge-1.21-%version%-sources.jar"
+:: Define platforms and file types
+set "platforms=bukkit fabric neoforge forge"
+set "fileTypes=.jar -javadoc.jar -sources.jar"
 
-:: Move files
-echo [%date% %time%] Moving files...
-
-call :moveJar "%fabricJar%" "%fabricJar1%" "%fabricJar2%" "Fabric"
-call :moveJar "%forgeJar%" "%forgeJar1%" "%forgeJar2%" "Forge"
-call :moveJar "%neoforgeJar%" "%neoforgeJar1%" "%neoforgeJar2%" "NeoForge"
-call :moveJar "%bukkitJar%" "%bukkitJar1%" "%bukkitJar2%" "Bukkit"
-
-:: Rename files
-echo [%date% %time%] Renaming files...
-call :renameJar "build\xdlib-fabric-1.21-%version%.jar" "xdlib-fabric-%version%.jar"
-call :renameJar "build\xdlib-fabric-1.21-%version%-javadoc.jar" "xdlib-fabric-%version%-javadoc.jar"
-call :renameJar "build\xdlib-fabric-1.21-%version%-sources.jar" "xdlib-fabric-%version%-sources.jar"
-call :renameJar "build\xdlib-neoforge-1.21-%version%.jar" "xdlib-neoforge-%version%.jar"
-call :renameJar "build\xdlib-neoforge-1.21-%version%-javadoc.jar" "xdlib-neoforge-%version%-javadoc.jar"
-call :renameJar "build\xdlib-neoforge-1.21-%version%-sources.jar" "xdlib-neoforge-%version%-sources.jar"
-call :renameJar "build\XD's Library-forge-1.21-%version%.jar" "xdlib-forge-%version%.jar"
-call :renameJar "build\XD's Library-forge-1.21-%version%-javadoc.jar" "xdlib-forge-%version%-javadoc.jar"
-call :renameJar "build\XD's Library-forge-1.21-%version%-sources.jar" "xdlib-forge-%version%-sources.jar"
-call :renameJar "build\xdlib-bukkit-1.21-%version%.jar" "xdlib-bukkit-%version%.jar"
-call :renameJar "build\xdlib-bukkit-1.21-%version%-javadoc.jar" "xdlib-bukkit-%version%-javadoc.jar"
-call :renameJar "build\xdlib-bukkit-1.21-%version%-sources.jar" "xdlib-bukkit-%version%-sources.jar"
+:: Move and rename files
+echo [%date% %time%] Moving and renaming files...
+for %%p in (%platforms%) do (
+    for %%t in (%fileTypes%) do (
+        set "sourceFile=%%p\build\libs\xdlib-%%p-1.21-%version%%%t"
+        if "%%p"=="forge" set "sourceFile=%%p\build\libs\XD's Library-%%p-1.21-%version%%%t"
+        set "targetFile=%buildFolder%\xdlib-%%p-%version%%%t"
+        call :moveAndRenameJar "!sourceFile!" "!targetFile!" "%%p"
+    )
+)
 
 echo [%date% %time%] Build, file movement, and renaming complete!
 echo [*] Process complete!
 endlocal
-exit /b
+exit /b 0
 
-:moveJar
-:: Function to move JAR files
-:: Arguments: %1 = Main JAR, %2 = Javadoc JAR, %3 = Sources JAR, %4 = Display Name
-set "mainJar=%~1"
-set "javadocJar=%~2"
-set "sourcesJar=%~3"
-set "displayName=%4"
-
-echo [*] Moving %displayName% JARs...
-if exist "%mainJar%" (
-    move "%mainJar%" "build\" >nul 2>&1
-    move "%javadocJar%" "build\" >nul 2>&1
-    move "%sourcesJar%" "build\" >nul 2>&1
-    if %errorlevel% neq 0 (
-        echo [!] Error: Failed to move %displayName% JARs. Exiting...
-        exit /b
-    )
-) else (
-    echo [!] %displayName% JAR not found: %mainJar%
-)
-exit /b
-
-:renameJar
-:: Function to rename JAR files
-:: Arguments: %1 = Source File, %2 = Target File
+:moveAndRenameJar
+:: Function to move and rename JAR files
+:: Arguments: %1 = Source File, %2 = Target File, %3 = Display Name
 if exist "%~1" (
-    ren "%~1" "%~2"
+    move "%~1" "%~2" >nul 2>&1
     if %errorlevel% neq 0 (
-        echo [!] Error: Failed to rename %~1 to %~2. Exiting...
-        exit /b
+        echo [!] Error: Failed to move and rename %~3 JAR. Exiting...
+        exit /b 1
     )
 ) else (
-    echo [!] File not found for renaming: %~1
+    echo [!] %~3 JAR not found: %~1
 )
-exit /b
+exit /b 0
