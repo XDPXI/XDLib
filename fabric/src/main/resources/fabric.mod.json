@@ -34,6 +34,9 @@
     "minecraft": ">=${minecraft_version}",
     "java": ">=${java_version}"
   },
+  "recommends": {
+    "fiber-api": "*"
+  },
   "custom": {
     "modmenu": {
       "links": {
