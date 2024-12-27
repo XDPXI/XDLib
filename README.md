@@ -1,5 +1,6 @@
-<h1 align="center">⚠️ THIS VERSION IS IN FINAL MAJOR RELEASE! ⚠️</h1>
-<h1 align="center">⚠️ REPORT ALL BUGS IN ISSUES! ⚠️</h1>
+<img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
+
+<h1 align="center">⚠️ THIS VERSION IS NOW DEPRICATED! ⚠️</h1>
 
 <h1 id="readme" align="center"></h1>
 
@@ -27,7 +28,7 @@
 
 ▶️ Clone the [Git Repo](https://github.com/Ztrolix/ZtrolixLibs/tree/main)
 
-▶️ Either run `build.bat` or in terminal run `gradlew build`
+▶️ Either run `build.bat` or in the terminal run `gradlew build`
 
 ▶️ The mod will be made in `build\libs`
 
