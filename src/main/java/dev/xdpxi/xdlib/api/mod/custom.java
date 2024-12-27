@@ -21,9 +21,7 @@ public class custom {
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
                 custom2.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
-            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
-                //custom2.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
-            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
                 custom1.ItemGroup(itemGroupID, modID, itemIconID, itemsToAdd);
             }
         } catch (Exception e) {
@@ -43,9 +41,7 @@ public class custom {
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
                 return custom2.Item(itemID, modID, itemGroup);
-            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
-                //return custom2.Item(itemID, modID, itemGroup);
-            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
                 return custom1.Item(itemID, modID, itemGroup);
             }
         } catch (Exception e) {
@@ -67,9 +63,7 @@ public class custom {
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
                 return custom2.Block(blockID, modID, itemGroup);
-            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
-                //return custom3.Block(blockID, modID, itemGroup);
-            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
                 return custom1.Block(blockID, modID, itemGroup);
             }
         } catch (Exception e) {
@@ -91,9 +85,7 @@ public class custom {
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
                 return custom2.Weapon(weaponID, modID, material, itemGroup);
-            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
-                //return custom2.Weapon(weaponID, modID, material, itemGroup);
-            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
                 return custom1.Weapon(weaponID, modID, material, itemGroup);
             }
         } catch (Exception e) {
@@ -115,9 +107,7 @@ public class custom {
         try {
             if (minecraftVersion.equals("1.21") || minecraftVersion.equals("1.21.1")) {
                 return custom2.Armor(armorID, modID, armorType, armorPart, itemGroup);
-            } else if (minecraftVersion.equals("1.21.2") || minecraftVersion.equals("1.21.3")) {
-                //return custom2.Armor(armorID, modID, armorType, armorPart, itemGroup);
-            } else if (minecraftVersion.equals("1.20") || minecraftVersion.equals("1.20.1") || minecraftVersion.equals("1.20.2") || minecraftVersion.equals("1.20.3") || minecraftVersion.equals("1.20.4") || minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
+            } else if (minecraftVersion.equals("1.20.5") || minecraftVersion.equals("1.20.6")) {
                 return custom1.Armor(armorID, modID, armorType, armorPart, itemGroup);
             }
         } catch (Exception e) {

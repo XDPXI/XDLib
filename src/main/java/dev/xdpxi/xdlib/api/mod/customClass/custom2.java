@@ -88,7 +88,7 @@ public class custom2 {
         modID = modID.toLowerCase();
         Identifier identifier = Identifier.of(modID, weaponID);
 
-        SwordItem weapon = new SwordItem(material, 3, -2.4F, new Item.Settings().maxDamage(material.getDurability()));
+        SwordItem weapon = new SwordItem(material, new Item.Settings().maxDamage(material.getDurability()));
         Registry.register(Registries.ITEM, identifier, weapon);
 
         if (itemGroup != null) {
@@ -107,7 +107,7 @@ public class custom2 {
         modID = modID.toLowerCase();
         Identifier identifier = Identifier.of(modID, armorID);
 
-        ArmorItem armor = new ArmorItem(armorType.value(), armorPart, new Item.Settings());
+        ArmorItem armor = new ArmorItem(armorType, armorPart, new Item.Settings());
         Registry.register(Registries.ITEM, identifier, armor);
 
         if (itemGroup != null) {
