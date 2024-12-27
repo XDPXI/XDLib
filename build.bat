@@ -47,7 +47,7 @@ if %errorlevel% neq 0 (
 )
 
 :: Define platforms and file types
-set "platforms=bukkit fabric neoforge forge"
+set "platforms=fabric neoforge forge"
 set "fileTypes=.jar -javadoc.jar -sources.jar"
 
 :: Move and rename files
