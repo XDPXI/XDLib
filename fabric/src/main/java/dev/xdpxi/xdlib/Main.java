@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.api.Logger;
+import dev.xdpxi.xdlib.api.v4.Logger;
 import net.fabricmc.api.ModInitializer;
 
 public class Main implements ModInitializer {

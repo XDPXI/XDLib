@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.v4;
 
 import org.jetbrains.annotations.NotNull;
 
