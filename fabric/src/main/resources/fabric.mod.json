@@ -42,7 +42,9 @@
       "links": {
         "modmenu.modrinth": "https://modrinth.com/plugin/xdlib"
       },
-      "badges": [ "library" ],
+      "badges": [
+        "library"
+      ],
       "update_checker": true
     }
   }

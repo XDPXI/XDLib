@@ -1,13 +1,13 @@
 modLoader = "javafml" #mandatory
 loaderVersion = "${forge_loader_version_range}"
 license = "${license}"
-issueTrackerURL="https://github.com/XDPXI/XDLib/issues"
+issueTrackerURL = "https://github.com/XDPXI/XDLib/issues"
 
 [[mods]] #mandatory
 modId = "${mod_id}"
 version = "${version}"
 displayName = "${mod_name}"
-displayURL="https://modrinth.com/plugin/xdlib"
+displayURL = "https://modrinth.com/plugin/xdlib"
 logoFile = "assets/xdlib/icon.png"
 credits = "${credits}"
 authors = "${mod_author}"

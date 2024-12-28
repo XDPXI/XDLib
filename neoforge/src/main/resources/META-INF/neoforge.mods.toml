@@ -1,13 +1,13 @@
 modLoader = "javafml" #mandatory
 loaderVersion = "${neoforge_loader_version_range}" #mandatory
 license = "${license}" # Review your options at https://choosealicense.com/.
-issueTrackerURL="https://github.com/XDPXI/XDLib/issues" #optional
+issueTrackerURL = "https://github.com/XDPXI/XDLib/issues" #optional
 
 [[mods]] #mandatory
 modId = "${mod_id}" #mandatory
 version = "${version}" #mandatory
 displayName = "${mod_name}" #mandatory
-displayURL="https://modrinth.com/plugin/xdlib"
+displayURL = "https://modrinth.com/plugin/xdlib"
 logoFile = "assets/xdlib/icon.png" #optional
 credits = "${credits}" #optional
 authors = "${mod_author}" #optional

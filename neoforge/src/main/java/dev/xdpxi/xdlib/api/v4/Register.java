@@ -39,8 +39,8 @@ public class Register {
     /**
      * Registers an item.
      *
-     * @param name          The unique name (within the mod's namespace) for the item.
-     * @param itemSupplier  A supplier that provides the item instance to be registered.
+     * @param name         The unique name (within the mod's namespace) for the item.
+     * @param itemSupplier A supplier that provides the item instance to be registered.
      */
     public static void registerItem(String name, Supplier<Item> itemSupplier) {
         ITEMS.register(name, itemSupplier);

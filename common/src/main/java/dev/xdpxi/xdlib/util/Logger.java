@@ -3,9 +3,8 @@ package dev.xdpxi.xdlib.util;
 import dev.xdpxi.xdlib.Constants;
 import org.slf4j.LoggerFactory;
 
-
 public class Logger {
-    private static final  org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
 
     public static void debug(String message, Object... args) {
         LOGGER.debug(message, args);
