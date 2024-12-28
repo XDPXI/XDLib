@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api.v4;
+package dev.xdpxi.xdlib.util;
 
 import org.apache.logging.log4j.LogManager;
 

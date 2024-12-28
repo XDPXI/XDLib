@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.api.v4.Logger;
+import dev.xdpxi.xdlib.util.Logger;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;

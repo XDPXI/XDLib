@@ -3,7 +3,7 @@ package dev.xdpxi.xdlib;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dev.xdpxi.xdlib.api.v4.Logger;
+import dev.xdpxi.xdlib.util.Logger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

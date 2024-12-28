@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.api.v4.Logger;
+import dev.xdpxi.xdlib.util.Logger;
 
 public class CommonClass {
     public static void init() {

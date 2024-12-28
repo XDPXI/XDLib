@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.api.v4.Logger;
+import dev.xdpxi.xdlib.util.Logger;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
