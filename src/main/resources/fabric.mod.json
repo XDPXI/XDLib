@@ -17,7 +17,7 @@
     "sources": "https://github.com/XDPXI/XDLib",
     "issues": "https://github.com/XDPXI/XDLib/issues"
   },
-  "license": "Apache-2.0",
+  "license": "XDs MC License",
   "icon": "assets/xdlib/icon.png",
   "environment": "*",
   "entrypoints": {
