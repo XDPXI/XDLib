@@ -16,44 +16,56 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Configuration management utility for XDLib.
+ */
 public class Config {
-    // Annotation for setup configuration
+
+    /**
+     * Annotation to define setup information for configuration classes.
+     */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     public @interface Setup {
         String name();
-
         String file();
     }
 
-    // Annotation for category in configuration
+    /**
+     * Annotation to mark fields as belonging to a specific configuration category.
+     */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
     public @interface Category {
         String value();
     }
 
-    // Annotation for restart required fields
+    /**
+     * Annotation to indicate that a field requires a restart to apply changes.
+     */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
     public @interface RestartRequired {
         boolean value() default true;
     }
 
-    // This interface will be implemented by all configuration classes
+    /**
+     * Marker interface for configuration classes.
+     */
     public interface Configuration {
     }
 
-    // Main Config loader
+    /**
+     * Handles loading and saving configuration files.
+     */
     public static class ConfigLoader {
-
-        private static final Gson gson = new Gson();
+        private static final Gson GSON = new Gson();
 
         /**
-         * Loads configuration for a given class annotated with @Setup
+         * Loads the configuration from the file specified in the {@link Setup} annotation.
          *
-         * @param configClass The configuration class to load.
-         * @throws Exception If an error occurs during the config loading process.
+         * @param configClass The configuration class.
+         * @throws Exception If an error occurs during loading.
          */
         public static void loadConfig(Class<? extends Configuration> configClass) throws Exception {
             Setup setup = configClass.getAnnotation(Setup.class);
@@ -61,76 +73,59 @@ public class Config {
                 throw new IllegalArgumentException("[XDLib/Config] - Config class must be annotated with @Setup");
             }
 
-            String configFilePath = setup.file();
-            File configFile = new File(configFilePath);
+            File configFile = new File(setup.file());
             String extension = getFileExtension(configFile);
 
             if (configFile.exists()) {
-                switch (extension) {
-                    case "json":
-                        Logger.info("[XDLib/Config] - Loading JSON config from " + configFile.getAbsolutePath());
-                        try (FileReader reader = new FileReader(configFile)) {
-                            Map<String, Object> configValues = gson.fromJson(reader, new TypeToken<Map<String, Object>>() {
-                            }.getType());
-                            applyConfigValues(configClass, configValues);
-                        }
-                        break;
-                    default:
-                        throw new IllegalArgumentException("[XDLib/Config] - Unsupported config file format: " + extension);
+                if ("json".equals(extension)) {
+                    Logger.info("[XDLib/Config] - Loading JSON config from " + configFile.getAbsolutePath());
+                    try (FileReader reader = new FileReader(configFile)) {
+                        Map<String, Object> configValues = GSON.fromJson(reader, new TypeToken<Map<String, Object>>() {
+                        }.getType());
+                        applyConfigValues(configClass, configValues);
+                    }
+                } else {
+                    throw new IllegalArgumentException("[XDLib/Config] - Unsupported config file format: " + extension);
                 }
             } else {
                 Logger.warn("[XDLib/Config] - Config file not found, creating default config...");
-                createDefaultConfig(configClass, configFile, extension); // Create default config if it doesn't exist
+                createDefaultConfig(configClass, configFile);
             }
         }
 
         /**
-         * Creates a default config if it doesn't exist, based on the class annotations.
-         *
-         * @param configClass The configuration class to create a default config for.
-         * @param configFile  The file where the config will be saved.
-         * @param extension   The file extension (e.g., json).
-         * @throws IOException            If an error occurs while writing the config file.
-         * @throws IllegalAccessException If an error occurs while reading field values.
-         */
-        private static void createDefaultConfig(Class<? extends Configuration> configClass, File configFile,
-                                                String extension) throws IOException, IllegalAccessException {
-            // Create the directories if they don't exist
-            File configDir = configFile.getParentFile();
-            if (!configDir.exists()) {
-                boolean created = configDir.mkdirs(); // Create directories if they don't exist
-                if (created) {
-                    Logger.info("[XDLib/Config] - Created directory: " + configDir.getAbsolutePath());
-                } else {
-                    Logger.error("[XDLib/Config] - Failed to create directory: " + configDir.getAbsolutePath());
-                }
-            }
-
-            // Now proceed with creating the default config
-            if ("json".equals(extension)) {
-                Map<String, Object> defaultConfig = getDefaultConfigValues(configClass);
-                try (FileWriter writer = new FileWriter(configFile)) {
-                    gson.toJson(defaultConfig, writer);
-                    Logger.info("[XDLib/Config] - Default config created at " + configFile.getAbsolutePath());
-                }
-            } else {
-                throw new IllegalArgumentException("[XDLib/Config] - Unsupported config file format: " + extension);
-            }
-        }
-
-
-        /**
-         * Retrieves the default values for a configuration class.
+         * Creates a default configuration file based on the configuration class.
          *
          * @param configClass The configuration class.
-         * @return A map of field names and their default values.
-         * @throws IllegalAccessException If an error occurs while reading field values.
+         * @param configFile  The file to save the default configuration to.
+         * @throws IOException If an error occurs during file creation.
+         * @throws IllegalAccessException If a field cannot be accessed.
          */
-        private static Map<String, Object> getDefaultConfigValues(Class<? extends Configuration> configClass)
-                throws IllegalAccessException {
+        private static void createDefaultConfig(Class<? extends Configuration> configClass, File configFile) throws IOException, IllegalAccessException {
+            File parentDir = configFile.getParentFile();
+            if (parentDir != null && !parentDir.exists() && !parentDir.mkdirs()) {
+                throw new IOException("[XDLib/Config] - Failed to create directory: " + parentDir.getAbsolutePath());
+            }
+
+            Map<String, Object> defaultConfig = getDefaultConfigValues(configClass);
+            try (FileWriter writer = new FileWriter(configFile)) {
+                GSON.toJson(defaultConfig, writer);
+                Logger.info("[XDLib/Config] - Default config created at " + configFile.getAbsolutePath());
+            }
+        }
+
+        /**
+         * Retrieves default values for the fields in the configuration class.
+         *
+         * @param configClass The configuration class.
+         * @return A map of field names to default values.
+         * @throws IllegalAccessException If a field cannot be accessed.
+         */
+        private static Map<String, Object> getDefaultConfigValues(Class<? extends Configuration> configClass) throws IllegalAccessException {
             Map<String, Object> configValues = new HashMap<>();
             for (Field field : configClass.getDeclaredFields()) {
                 if (field.isAnnotationPresent(Category.class)) {
+                    field.setAccessible(true);
                     configValues.put(field.getName(), getDefaultValue(field));
                 }
             }
@@ -138,32 +133,31 @@ public class Config {
         }
 
         /**
-         * Provides a default value based on the field type.
+         * Determines the default value for a given field based on its type.
          *
-         * @param field The field to get the default value for.
-         * @return The default value for the field.
+         * @param field The field to determine the default value for.
+         * @return The default value.
          */
         private static Object getDefaultValue(Field field) {
             Class<?> fieldType = field.getType();
-            if (fieldType.equals(boolean.class)) {
+            if (fieldType == boolean.class) {
                 return false;
-            } else if (fieldType.equals(int.class)) {
+            } else if (fieldType == int.class) {
                 return 0;
-            } else if (fieldType.equals(String.class)) {
+            } else if (fieldType == String.class) {
                 return "";
             }
             return null;
         }
 
         /**
-         * Applies the loaded configuration values to the fields of the configuration class.
+         * Applies configuration values to the fields of the configuration class.
          *
          * @param configClass  The configuration class.
-         * @param configValues A map of field names to their respective values.
-         * @throws IllegalAccessException If an error occurs while setting values on fields.
+         * @param configValues The map of configuration values.
+         * @throws IllegalAccessException If a field cannot be accessed.
          */
-        private static void applyConfigValues(Class<? extends Configuration> configClass,
-                                              Map<String, Object> configValues) throws IllegalAccessException {
+        private static void applyConfigValues(Class<? extends Configuration> configClass, Map<String, Object> configValues) throws IllegalAccessException {
             for (Field field : configClass.getDeclaredFields()) {
                 if (field.isAnnotationPresent(Category.class)) {
                     Object value = configValues.get(field.getName());
@@ -176,10 +170,10 @@ public class Config {
         }
 
         /**
-         * Gets the file extension from the given file.
+         * Retrieves the file extension of a given file.
          *
-         * @param file The file to extract the extension from.
-         * @return The file extension (e.g., json).
+         * @param file The file.
+         * @return The file extension.
          */
         private static String getFileExtension(File file) {
             String name = file.getName();
@@ -188,19 +182,21 @@ public class Config {
         }
 
         /**
-         * Saves a configuration to a file.
+         * Saves the current configuration to a file.
          *
-         * @param configClass    the class of the configuration to save
-         * @param configFilePath the path to the file where the configuration will be saved
-         * @throws IOException            if an I/O error occurs while writing to the file
-         * @throws IllegalAccessException if the configuration class is not accessible
+         * @param configClass    The configuration class.
+         * @param configFilePath The file path to save the configuration to.
+         * @throws IOException If an error occurs during saving.
+         * @throws IllegalAccessException If a field cannot be accessed.
          */
         public static void saveConfig(Class<? extends Configuration> configClass, String configFilePath) throws IOException, IllegalAccessException {
-            String extension = getFileExtension(new File(configFilePath));
+            File configFile = new File(configFilePath);
+            String extension = getFileExtension(configFile);
+
             if ("json".equals(extension)) {
                 Map<String, Object> configValues = getDefaultConfigValues(configClass);
-                try (FileWriter writer = new FileWriter(configFilePath)) {
-                    gson.toJson(configValues, writer);
+                try (FileWriter writer = new FileWriter(configFile)) {
+                    GSON.toJson(configValues, writer);
                     Logger.info("[XDLib/Config] - Config saved to " + configFilePath);
                 }
             } else {
