@@ -10,20 +10,15 @@
 > :warning:: Final Major Release
 > 
 > :x: : Not Supported
-
-> [!CAUTION]
-> `3.X.X` is not supported!
 > 
-> `2.X.X` is not supported!
-> 
-> `1.X.X` is not supported!
+> :heavy_multiplication_x: : Never Supported
 
-| Version | Fabric         | Quilt          | Forge          | NeoForge       | Bukkik    | BungeeCord | Velocity  |
-| ------- | -------------- | -------------- | -------------- | -------------- | --------- | ---------- | --------- |
-| 4.X.X   | :construction: | :construction: | :construction: | :construction: | :x:       | :x:        | :x:       |
-| 3.X.X   | :x:            | :x:            | :x:            | :x:            | :x:       | :x:        | :x:       |
-| 2.X.X   | :x:            | :x:            | :x:            | :x:            | :x:       | :x:        | :x:       |
-| 1.X.X   | :x:            | :x:            | :x:            | :x:            | :x:       | :x:        | :x:       |
+| Version | Fabric             | Quilt              | Forge                    | NeoForge                 | Bukkit    | BungeeCord               | Velocity                 |
+| ------- | ------------------ | ------------------ | ------------------------ | ------------------------ | --------- | ------------------------ | ------------------------ |
+| 4.X.X   | :construction:     | :construction:     | :construction:           | :construction:           | :x:       | :heavy_multiplication_x: | :heavy_multiplication_x: |
+| 3.X.X   | :white_check_mark: | :white_check_mark: | :heavy_multiplication_x: | :x:                      | :x:       | :x:                      | :x:                      |
+| 2.X.X   | :x:                | :x:                | :heavy_multiplication_x: | :x:                      | :x:       | :x:                      | :x:                      |
+| 1.X.X   | :x:                | :x:                | :x:                      | :heavy_multiplication_x: | :x:       | :heavy_multiplication_x: | :heavy_multiplication_x: |
 
 ## Reporting a Vulnerability
 
