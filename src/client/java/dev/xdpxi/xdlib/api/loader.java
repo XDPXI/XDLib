@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api.mod;
+package dev.xdpxi.xdlib.api;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
