@@ -2,10 +2,6 @@
 
 <img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
 
-<h1 align="center">⚠️ THIS VERSION IS NOW DEPRICATED! ⚠️</h1>
-
-<img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
-
 <h1 align="center">XD's Library</h1>
 
 <img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
