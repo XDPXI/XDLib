@@ -22,10 +22,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.xdpxi.xdlib.XDsLibrary"
+      "dev.xdpxi.xdlib.Main"
     ],
     "client": [
-      "dev.xdpxi.xdlib.XDsLibraryClient"
+      "dev.xdpxi.xdlib.Client"
     ]
   },
   "depends": {

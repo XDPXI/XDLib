@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XDsLibrary implements ModInitializer {
+public class Main implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
     public static final String MOD_ID = "xdlib";
     public static int duration = -1;

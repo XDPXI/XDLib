@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib.api;
 
-import dev.xdpxi.xdlib.XDsLibraryClient;
+import dev.xdpxi.xdlib.Client;
 
 import java.io.*;
 import java.nio.file.*;
@@ -32,7 +32,7 @@ public class files {
                 try {
                     Files.delete(file);
                 } catch (IOException e) {
-                    XDsLibraryClient.LOGGER.error("ERROR DELETING FILE: {}", String.valueOf(e));
+                    Client.LOGGER.error("ERROR DELETING FILE: {}", String.valueOf(e));
                 }
             }
             if (Files.exists(file)) {

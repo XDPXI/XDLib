@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class XDsLibraryClient implements ClientModInitializer {
+public class Client implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
     private static final float ADDITIONAL_CLOUD_HEIGHT = 3.0F;
     private static final float GRADIENT_HEIGHT = 6.0F;
@@ -54,7 +54,7 @@ public class XDsLibraryClient implements ClientModInitializer {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.cameraEntity != null) {
             double playerY = client.cameraEntity.getPos().y;
-            float cloudY = XDsLibraryClient.getCloudHeight(world) + ADDITIONAL_CLOUD_HEIGHT;
+            float cloudY = Client.getCloudHeight(world) + ADDITIONAL_CLOUD_HEIGHT;
 
             if (playerY < cloudY - GRADIENT_HEIGHT) {
                 // normal

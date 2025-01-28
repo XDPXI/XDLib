@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
-import static dev.xdpxi.xdlib.XDsLibrary.LOGGER;
+import static dev.xdpxi.xdlib.Main.LOGGER;
 
 public class updateChecker {
     private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer("xdlib").orElse(null);
