@@ -27,7 +27,7 @@ public class Register {
     public static RegistryEntry<ArmorMaterial> test_material;
 
     public static void init() {
-        Log.info("[XDLib/Register] - Test registerBlock...");
+        Log.info("[XDLib/Register] - Testing registerBlock...");
         try {
             test_block = Register.registerBlock(
                     new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE)),
@@ -38,7 +38,7 @@ public class Register {
             Log.error("[XDLib/Register] - An error occurred while testing registerBlock:", e);
         }
 
-        Log.info("[XDLib/Register] - Test registerItem...");
+        Log.info("[XDLib/Register] - Testing registerItem...");
         try {
             test_item = Register.registerItem(
                     new Item(new Item.Settings()),
@@ -49,7 +49,7 @@ public class Register {
             Log.error("[XDLib/Register] - An error occurred while testing registerItem:", e);
         }
 
-        Log.info("[XDLib/Register] - Test registerMaterial...");
+        Log.info("[XDLib/Register] - Testing registerMaterial...");
         try {
             test_material = Register.registerMaterial("test_material",
                     Map.of(

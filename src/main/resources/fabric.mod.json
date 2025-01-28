@@ -30,19 +30,18 @@
   },
   "depends": {
     "fabricloader": ">=0.16.0",
-    "minecraft": ">=1.20.5",
+    "minecraft": ">=1.21 <=1.21.1",
     "java": ">=21",
     "fabric-api": "*"
-  },
-  "breaks": {
-    "minecraft": ">1.21.1"
   },
   "custom": {
     "modmenu": {
       "links": {
         "modmenu.modrinth": "https://modrinth.com/plugin/xdlib"
       },
-      "badges": [ "library", "deprecated" ],
+      "badges": [
+        "library"
+      ],
       "update_checker": true
     }
   }

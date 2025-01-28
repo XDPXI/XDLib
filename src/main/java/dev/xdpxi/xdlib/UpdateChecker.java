@@ -15,8 +15,6 @@ import java.net.URL;
 
 public class UpdateChecker {
     private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer("xdlib").orElse(null);
-    private static boolean isUpdate = false;
-
     public static String textParser(String input) {
         return input.replaceAll("[-a-zA-Z]", "");
     }
@@ -38,27 +36,29 @@ public class UpdateChecker {
             in.close();
 
             String latestVersion = parseLatestVersion(response.toString());
+            assert latestVersion != null;
             latestVersion = textParser(latestVersion);
             String currentVersion = modContainer.getMetadata().getVersion().getFriendlyString();
             currentVersion = textParser(currentVersion);
 
             if (isVersionLower(currentVersion, latestVersion)) {
-                Log.warn("[XDLib] - An update is available!");
-                isUpdate = true;
+                Log.warn("[XDLib/Updater] - An update is available!");
             } else {
-                Log.info("[XDLib] - No update available!");
-                isUpdate = false;
+                Log.info("[XDLib/Updater] - No update available!");
             }
         } catch (Exception e) {
-            Log.error("[XDLib] - Failed to check for update: " + e.getMessage());
+            Log.error("[XDLib/Updater] - Failed to check for update: " + e.getMessage());
         }
     }
 
     private static String parseLatestVersion(String jsonResponse) {
         JsonArray versions = JsonParser.parseString(jsonResponse).getAsJsonArray();
-        if (!versions.isEmpty()) {
-            JsonObject latestVersionInfo = versions.get(0).getAsJsonObject();
-            return latestVersionInfo.get("version_number").getAsString();
+        for (int i = 0; i < versions.size(); i++) {
+            JsonObject versionInfo = versions.get(i).getAsJsonObject();
+            String versionNumber = versionInfo.get("version_number").getAsString();
+            if (versionNumber.startsWith("3.")) {
+                return versionNumber;
+            }
         }
         return null;
     }
@@ -78,9 +78,5 @@ public class UpdateChecker {
             }
         }
         return false;
-    }
-
-    public static boolean isUpdate() {
-        return isUpdate;
     }
 }
