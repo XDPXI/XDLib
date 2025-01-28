@@ -1,6 +1,6 @@
-package dev.xdpxi.xdlib.api.mod;
+package dev.xdpxi.xdlib.api.v3;
 
-import dev.xdpxi.xdlib.api.mod.customClass.*;
+import dev.xdpxi.xdlib.api.v3.customClass.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;

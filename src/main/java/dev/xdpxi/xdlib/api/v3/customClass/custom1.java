@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api.mod.customClass;
+package dev.xdpxi.xdlib.api.v3.customClass;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -15,11 +15,11 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public class custom2 {
+public class custom1 {
     public static void ItemGroup(String itemGroupID, String modID, Item itemIconID, List<Item> itemsToAdd) {
         itemGroupID = itemGroupID.toLowerCase();
         modID = modID.toLowerCase();
-        RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(modID, itemGroupID));
+        RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(modID, itemGroupID));
 
         ItemGroup ITEM_GROUP = FabricItemGroup.builder()
                 .displayName(Text.translatable("itemGroup." + modID + "." + itemGroupID))
@@ -45,7 +45,7 @@ public class custom2 {
         }
         itemID = itemID.toLowerCase();
         modID = modID.toLowerCase();
-        Identifier identifier = Identifier.of(modID, itemID);
+        Identifier identifier = new Identifier(modID, itemID);
 
         Item item = new Item(new Item.Settings());
         Registry.register(Registries.ITEM, identifier, item);
@@ -64,7 +64,7 @@ public class custom2 {
     public static BlockItem Block(String blockID, String modID, RegistryKey<ItemGroup> itemGroup) {
         blockID = blockID.toLowerCase();
         modID = modID.toLowerCase();
-        Identifier blockIdentifier = Identifier.of(modID, blockID);
+        Identifier blockIdentifier = new Identifier(modID, blockID);
 
         Block block = new Block(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(1.5F, 6.0F));
         Block registeredBlock = Registry.register(Registries.BLOCK, blockIdentifier, block);
@@ -86,7 +86,7 @@ public class custom2 {
     public static Item Weapon(String weaponID, String modID, ToolMaterial material, RegistryKey<ItemGroup> itemGroup) {
         weaponID = weaponID.toLowerCase();
         modID = modID.toLowerCase();
-        Identifier identifier = Identifier.of(modID, weaponID);
+        Identifier identifier = new Identifier(modID, weaponID);
 
         SwordItem weapon = new SwordItem(material, new Item.Settings().maxDamage(material.getDurability()));
         Registry.register(Registries.ITEM, identifier, weapon);
@@ -105,7 +105,7 @@ public class custom2 {
     public static Item Armor(String armorID, String modID, RegistryEntry<ArmorMaterial> armorType, ArmorItem.Type armorPart, RegistryKey<ItemGroup> itemGroup) {
         armorID = armorID.toLowerCase();
         modID = modID.toLowerCase();
-        Identifier identifier = Identifier.of(modID, armorID);
+        Identifier identifier = new Identifier(modID, armorID);
 
         ArmorItem armor = new ArmorItem(armorType, armorPart, new Item.Settings());
         Registry.register(Registries.ITEM, identifier, armor);
