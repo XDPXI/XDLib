@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.9.1'
+	id 'fabric-loom' version '1.10.0-alpha.18'
 }
 
 version = project.mod_version
@@ -26,10 +26,10 @@ loom {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:1.20.5")
-	mappings("net.fabricmc:yarn:1.20.5+build.1:v2")
-	modImplementation("net.fabricmc:fabric-loader:0.16.9")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:0.110.3+")
+	minecraft("com.mojang:minecraft:1.21")
+	mappings("net.fabricmc:yarn:1.21+build.9:v2")
+	modImplementation("net.fabricmc:fabric-loader:0.16.10")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21")
 
 	implementation("org.commonmark:commonmark:0.24.0")
 	implementation("org.projectlombok:lombok:1.18.36")
