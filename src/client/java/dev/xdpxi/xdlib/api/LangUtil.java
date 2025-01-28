@@ -5,7 +5,7 @@ import net.minecraft.client.resource.language.LanguageManager;
 
 import java.util.Objects;
 
-public class languageUtil {
+public class LangUtil {
     public static String getLang() {
         MinecraftClient client = MinecraftClient.getInstance();
         return client.getLanguageManager().getLanguage();

@@ -7,8 +7,8 @@ import net.minecraft.text.Text;
 
 import java.util.concurrent.CompletableFuture;
 
-public class popup {
-    public popup(String title, String description) {
+public class Popup {
+    public Popup(String title, String description) {
         CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(2000);

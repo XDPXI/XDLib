@@ -8,7 +8,7 @@ import org.commonmark.node.Paragraph;
 import org.commonmark.node.StrongEmphasis;
 import org.commonmark.parser.Parser;
 
-public class markdown {
+public class Markdown {
     private static final Parser parser = Parser.builder().build();
 
     public static Text parse(String markdown) {

@@ -3,6 +3,7 @@ package dev.xdpxi.xdlib;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dev.xdpxi.xdlib.util.Log;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 
@@ -12,9 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
-import static dev.xdpxi.xdlib.Main.LOGGER;
-
-public class updateChecker {
+public class UpdateChecker {
     private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer("xdlib").orElse(null);
     private static boolean isUpdate = false;
 
@@ -44,20 +43,20 @@ public class updateChecker {
             currentVersion = textParser(currentVersion);
 
             if (isVersionLower(currentVersion, latestVersion)) {
-                LOGGER.warn("[XDLib] - An update is available!");
+                Log.warn("[XDLib] - An update is available!");
                 isUpdate = true;
             } else {
-                LOGGER.info("[XDLib] - No update available!");
+                Log.info("[XDLib] - No update available!");
                 isUpdate = false;
             }
         } catch (Exception e) {
-            LOGGER.error("[XDLib] - Failed to check for update: " + e.getMessage());
+            Log.error("[XDLib] - Failed to check for update: " + e.getMessage());
         }
     }
 
     private static String parseLatestVersion(String jsonResponse) {
         JsonArray versions = JsonParser.parseString(jsonResponse).getAsJsonArray();
-        if (versions.size() > 0) {
+        if (!versions.isEmpty()) {
             JsonObject latestVersionInfo = versions.get(0).getAsJsonObject();
             return latestVersionInfo.get("version_number").getAsString();
         }
