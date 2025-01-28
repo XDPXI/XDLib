@@ -12,10 +12,6 @@ base {
 repositories {
 	mavenCentral()
 	flatDir { dirs "gradle\\deps" }
-	maven { url "https://maven.terraformersmc.com/releases/" }
-	maven { url "https://oss.sonatype.org/content/groups/public/" }
-	maven { url "https://repo.papermc.io/repository/maven-public/" }
-	maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
 }
 
 loom {
@@ -40,7 +36,7 @@ dependencies {
 }
 
 processResources {
-	filteringCharset 'UTF-8'
+	filteringCharset = 'UTF-8'
 
 	inputs.property "version", project.version
 	filesMatching("fabric.mod.json") {
