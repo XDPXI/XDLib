@@ -1,4 +1,4 @@
 plugins {
     id 'fabric-loom' version '1.10.0-alpha.18' apply false
-    id 'net.neoforged.moddev' version '2.0.76' apply false
+    id 'net.neoforged.moddev' version '2.0.77' apply false
 }
