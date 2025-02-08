@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api.render.popupClass;
+package dev.xdpxi.xdlib.api.v3.render;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -10,12 +10,12 @@ import net.minecraft.util.Formatting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class view extends Screen {
+public class PopupView extends Screen {
     private static final Logger LOGGER = LoggerFactory.getLogger("xdlib");
     private final Screen parent;
     private final MutableText changelogText;
 
-    public view(Text text, Screen parent, String title, String description) {
+    public PopupView(Text text, Screen parent, String title, String description) {
         super(text);
         this.parent = parent;
         this.changelogText = createChangelogText(title, description);
