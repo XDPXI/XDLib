@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "xdlib:block/test_block"
+        }
+    }
+}
