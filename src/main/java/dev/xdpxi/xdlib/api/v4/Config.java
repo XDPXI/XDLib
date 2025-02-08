@@ -2,7 +2,7 @@ package dev.xdpxi.xdlib.api.v4;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import dev.xdpxi.xdlib.util.Logger;
+import dev.xdpxi.xdlib.util.Log;
 
 import java.io.File;
 import java.io.FileReader;
@@ -78,7 +78,7 @@ public class Config {
 
             if (configFile.exists()) {
                 if ("json".equals(extension)) {
-                    Logger.info("[XDLib/Config] - Loading JSON config from " + configFile.getAbsolutePath());
+                    Log.info("[XDLib/Config] - Loading JSON config from " + configFile.getAbsolutePath());
                     try (FileReader reader = new FileReader(configFile)) {
                         Map<String, Object> configValues = GSON.fromJson(reader, new TypeToken<Map<String, Object>>() {
                         }.getType());
@@ -88,7 +88,7 @@ public class Config {
                     throw new IllegalArgumentException("[XDLib/Config] - Unsupported config file format: " + extension);
                 }
             } else {
-                Logger.warn("[XDLib/Config] - Config file not found, creating default config...");
+                Log.warn("[XDLib/Config] - Config file not found, creating default config...");
                 createDefaultConfig(configClass, configFile);
             }
         }
@@ -110,7 +110,7 @@ public class Config {
             Map<String, Object> defaultConfig = getDefaultConfigValues(configClass);
             try (FileWriter writer = new FileWriter(configFile)) {
                 GSON.toJson(defaultConfig, writer);
-                Logger.info("[XDLib/Config] - Default config created at " + configFile.getAbsolutePath());
+                Log.info("[XDLib/Config] - Default config created at " + configFile.getAbsolutePath());
             }
         }
 
@@ -197,7 +197,7 @@ public class Config {
                 Map<String, Object> configValues = getDefaultConfigValues(configClass);
                 try (FileWriter writer = new FileWriter(configFile)) {
                     GSON.toJson(configValues, writer);
-                    Logger.info("[XDLib/Config] - Config saved to " + configFilePath);
+                    Log.info("[XDLib/Config] - Config saved to " + configFilePath);
                 }
             } else {
                 throw new IllegalArgumentException("[XDLib/Config] - Unsupported config file format: " + extension);
