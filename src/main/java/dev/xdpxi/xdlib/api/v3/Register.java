@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.v3;
 
 import dev.xdpxi.xdlib.Main;
 import dev.xdpxi.xdlib.util.Log;

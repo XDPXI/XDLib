@@ -1,4 +1,4 @@
-package dev.xdpxi.xdlib.api;
+package dev.xdpxi.xdlib.api.v3;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.LanguageManager;
