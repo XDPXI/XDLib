@@ -80,8 +80,8 @@ public class Register {
     /**
      * Registers a block and its corresponding block item in the game.
      *
-     * @param block The block to register.
-     * @param name The name of the block.
+     * @param block  The block to register.
+     * @param name   The name of the block.
      * @param MOD_ID The mod ID.
      * @return The registered block.
      */
@@ -97,8 +97,8 @@ public class Register {
     /**
      * Registers an item in the game.
      *
-     * @param item The item to register.
-     * @param id The ID of the item.
+     * @param item   The item to register.
+     * @param id     The ID of the item.
      * @param MOD_ID The mod ID.
      * @return The registered item.
      */
@@ -110,15 +110,15 @@ public class Register {
     /**
      * Registers an armor material in the game.
      *
-     * @param id The ID of the armor material.
-     * @param defensePoints A map of armor types to their defense points.
-     * @param enchantability The enchantability of the armor material.
-     * @param equipSound The sound played when equipping the armor.
+     * @param id                       The ID of the armor material.
+     * @param defensePoints            A map of armor types to their defense points.
+     * @param enchantability           The enchantability of the armor material.
+     * @param equipSound               The sound played when equipping the armor.
      * @param repairIngredientSupplier A supplier for the repair ingredient.
-     * @param toughness The toughness of the armor material.
-     * @param knockbackResistance The knockback resistance of the armor material.
-     * @param dyeable Whether the armor material is dyeable.
-     * @param MOD_ID The mod ID.
+     * @param toughness                The toughness of the armor material.
+     * @param knockbackResistance      The knockback resistance of the armor material.
+     * @param dyeable                  Whether the armor material is dyeable.
+     * @param MOD_ID                   The mod ID.
      * @return A RegistryEntry containing the registered ArmorMaterial.
      */
     public static RegistryEntry<ArmorMaterial> registerMaterial(String id, Map<ArmorItem.Type, Integer> defensePoints, int enchantability, RegistryEntry<SoundEvent> equipSound, Supplier<Ingredient> repairIngredientSupplier, float toughness, float knockbackResistance, boolean dyeable, String MOD_ID) {

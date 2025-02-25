@@ -1,62 +1,62 @@
 plugins {
-	id 'fabric-loom' version '1.10.0-alpha.18'
+    id 'fabric-loom' version '1.10.0-alpha.18'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name
+    archivesName = project.archives_base_name
 }
 
 repositories {
-	mavenCentral()
-	flatDir { dirs "gradle\\deps" }
+    mavenCentral()
+    flatDir { dirs "gradle\\deps" }
 }
 
 loom {
-	splitEnvironmentSourceSets()
+    splitEnvironmentSourceSets()
 
-	mods {
-		"xdlib" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
+    mods {
+        "xdlib" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:1.21")
-	mappings("net.fabricmc:yarn:1.21+build.9:v2")
-	modImplementation("net.fabricmc:fabric-loader:0.16.10")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21")
+    minecraft("com.mojang:minecraft:1.21")
+    mappings("net.fabricmc:yarn:1.21+build.9:v2")
+    modImplementation("net.fabricmc:fabric-loader:0.16.10")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21")
 
-	implementation("org.commonmark:commonmark:0.24.0")
-	implementation("org.projectlombok:lombok:1.18.36")
+    implementation("org.commonmark:commonmark:0.24.0")
+    implementation("org.projectlombok:lombok:1.18.36")
 }
 
 processResources {
-	filteringCharset = 'UTF-8'
+    filteringCharset = 'UTF-8'
 
-	inputs.property "version", project.version
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+    it.options.release = 21
 }
 
 java {
-	withSourcesJar()
+    withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
-	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
-	}
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
 }

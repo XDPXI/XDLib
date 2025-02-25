@@ -12,7 +12,8 @@
 
 ▶️ Download the [latest version ](https://modrinth.com/plugin/ztrolixlibs/versions) that you want.
 
-▶️ Download [Fabric API](https://modrinth.com/mod/fabric-api/versions?g=1.21&g=1.21.1) and [Cloth Config](https://modrinth.com/mod/cloth-config/versions?l=fabric&g=1.21&g=1.21.1)
+▶️ Download [Fabric API](https://modrinth.com/mod/fabric-api/versions?g=1.21&g=1.21.1)
+and [Cloth Config](https://modrinth.com/mod/cloth-config/versions?l=fabric&g=1.21&g=1.21.1)
 
 ▶️ Move the `.jar` files into the `mods` folder of your Minecraft installation
 

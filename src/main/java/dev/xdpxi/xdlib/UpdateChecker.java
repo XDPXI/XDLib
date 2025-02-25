@@ -15,6 +15,7 @@ import java.net.URL;
 
 public class UpdateChecker {
     private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer("xdlib").orElse(null);
+
     public static String textParser(String input) {
         return input.replaceAll("[-a-zA-Z]", "");
     }

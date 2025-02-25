@@ -14,7 +14,7 @@ public class Popup {
      * Shows a popup message with the given title and description.
      * The popup is displayed after a 2-second delay and is executed on the main Minecraft thread.
      *
-     * @param title The title of the popup message.
+     * @param title       The title of the popup message.
      * @param description The description or content of the popup message.
      */
     public static void show(String title, String description) {
