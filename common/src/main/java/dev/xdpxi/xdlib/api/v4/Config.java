@@ -28,6 +28,7 @@ public class Config {
     @Target(ElementType.TYPE)
     public @interface Setup {
         String name();
+
         String file();
     }
 
@@ -98,7 +99,7 @@ public class Config {
          *
          * @param configClass The configuration class.
          * @param configFile  The file to save the default configuration to.
-         * @throws IOException If an error occurs during file creation.
+         * @throws IOException            If an error occurs during file creation.
          * @throws IllegalAccessException If a field cannot be accessed.
          */
         private static void createDefaultConfig(Class<? extends Configuration> configClass, File configFile) throws IOException, IllegalAccessException {
@@ -186,7 +187,7 @@ public class Config {
          *
          * @param configClass    The configuration class.
          * @param configFilePath The file path to save the configuration to.
-         * @throws IOException If an error occurs during saving.
+         * @throws IOException            If an error occurs during saving.
          * @throws IllegalAccessException If a field cannot be accessed.
          */
         public static void saveConfig(Class<? extends Configuration> configClass, String configFilePath) throws IOException, IllegalAccessException {
