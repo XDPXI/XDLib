@@ -1,7 +1,7 @@
 package dev.xdpxi.xdlib;
 
+import dev.xdpxi.xdlib.api.v4.Server;
 import dev.xdpxi.xdlib.util.Logger;
-import org.bukkit.plugin.Plugin;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,16 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 
 public class UpdateCheckerBukkit implements Runnable {
-    private final Plugin plugin;
-
-    public UpdateCheckerBukkit(Plugin plugin) {
-        this.plugin = plugin;
-    }
-
-    private String getModVersion() {
-        return plugin.getDescription().getVersion();
-    }
-
     public void checkForUpdate() {
         Logger.info("[XDLib/UpdateChecker] - Checking for updates...");
         try {
@@ -36,7 +26,7 @@ public class UpdateCheckerBukkit implements Runnable {
                 }
 
                 String latestVersion = UpdateChecker.parseLatestVersion(response.toString());
-                String version = getModVersion();
+                String version = Server.getModVersion();
 
                 Logger.info("[XDLib/UpdateChecker] - Latest Version: " + latestVersion);
                 Logger.info("[XDLib/UpdateChecker] - Current Version: " + version);
