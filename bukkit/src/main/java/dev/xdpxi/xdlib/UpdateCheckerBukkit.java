@@ -1,6 +1,5 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.api.v4.Server;
 import dev.xdpxi.xdlib.util.Logger;
 
 import java.io.BufferedReader;
@@ -26,7 +25,7 @@ public class UpdateCheckerBukkit implements Runnable {
                 }
 
                 String latestVersion = UpdateChecker.parseLatestVersion(response.toString());
-                String version = Server.getModVersion();
+                String version = Main.plugin.getDescription().getVersion();
 
                 Logger.info("[XDLib/UpdateChecker] - Latest Version: " + latestVersion);
                 Logger.info("[XDLib/UpdateChecker] - Current Version: " + version);
