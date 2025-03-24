@@ -15,7 +15,7 @@
 
 | Version | Fabric             | Quilt              | Forge                    | NeoForge                 | Bukkit                   | BungeeCord               | Velocity                 |
 |---------|--------------------|--------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-| 5.X.X   | :construction:     | :construction:     | :heavy_multiplication_x: | :construction:           | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: |
+| 5.X.X   | :construction:     | :construction:     | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: |
 | 4.X.X   | :x:                | :x:                | :x:                      | :x:                      | :x:                      | :heavy_multiplication_x: | :heavy_multiplication_x: |
 | 3.X.X   | :white_check_mark: | :white_check_mark: | :heavy_multiplication_x: | :white_check_mark:       | :x:                      | :x:                      | :x:                      |
 | 2.X.X   | :x:                | :x:                | :heavy_multiplication_x: | :x:                      | :x:                      | :x:                      | :x:                      |
