@@ -29,9 +29,6 @@ dependencies {
     mappings("net.fabricmc:yarn:1.21.4+build.8:v2")
     modImplementation("net.fabricmc:fabric-loader:0.16.10")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.119.2+1.21.4")
-
-    implementation("org.commonmark:commonmark:0.24.0")
-    implementation("org.projectlombok:lombok:1.18.36")
 }
 
 processResources {
