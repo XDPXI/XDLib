@@ -1,23 +1,33 @@
-XD's Minecraft License
+XD's MC License
 
-1. Revenue Sharing:
-   If you fork or modify this mod, or reuse its code, and upload it to CurseForge, Modrinth, or any similar site with monetization, 50% of the revenue generated from the fork must go to the original author.
+This license governs your use of XDPXI's Minecraft Mods (the "Mods"). By using the Mods, you agree to be bound by the terms of this license. This is a legal agreement between you and XDPXI's Servers.
 
-2. Reuploads:
-   You may not reupload this mod to other mod hosting sites that do not pay authors, such as PlanetMinecraft.
+You are permitted to use these Mods in modpacks, and you are allowed to edit and fork these Mods, subject to the conditions outlined below. Your use of the Mods constitutes your full acceptance of these terms and conditions.
 
-3. Integrity of Distribution:
-   You may not directly override the JAR file for this mod in a modpack. The mod must be downloaded from official sources, such as CurseForge or Modrinth.
+1. Revenue Sharing
 
-4. License and Attribution:
-   If you modify this software, you must retain the original copyright notice for your modified code. You may not relicense the software; it must retain "XD's MC License."
+If you fork, modify, or reuse substantial code from these Mods and upload it to CurseForge, Modrinth, or similar sites with monetization features, 50% of the revenue generated from the fork must be shared with the original author (XDPXI). This ensures fair compensation for the original work.
 
-5. Code Reuse:
-   Reuse of small portions of the code (e.g., individual functions) in projects with different purposes is permitted, provided they do not constitute a substantial portion of the original mod.
-   This permission does not extend to projects that directly compete with this mod or its functionalities.
+2. Distribution Restrictions
 
-6. Exceptions:
-   Exceptions or changes to these terms may be granted upon request. For example, if you need to use minor portions of code for unrelated projects, and this does not conflict with the spirit of this license, such use is likely to be approved.
+To protect the Mods' integrity and support legitimate distribution channels, you are prohibited from reuploading these Mods to mod hosting sites that do not offer author compensation or exercise adequate control over modification and redistribution, such as PlanetMinecraft.
 
-7. Disclaimer:
-   All rights reserved. The software is provided "as-is," without any guarantees. The author is not liable for any issues or damages caused by using this software.
+3. Modpack Integrity
+
+To ensure the Mods remain up-to-date and secure, you must not directly override the JAR files of these Mods within a modpack. The Mods must be obtained from Modrinth. This helps prevent the distribution of outdated or maliciously modified versions.
+
+4. Attribution and License Retention
+
+If you modify these Mods, you must retain the original copyright notice within your modified code. You are not permitted to relicense the software under a different license. The license must remain "XD's MC License." This ensures proper attribution and consistent licensing terms.
+
+5. Code Reuse Guidelines
+
+Reuse of small portions of the Mods' code (e.g., individual functions) in projects with distinct and non-competing purposes is permitted. However, this permission does not extend to projects that directly compete with these Mods or replicate its core functionalities. This is to protect the unique value and innovation of the original Mods.
+
+6. License Exceptions
+
+Exceptions to these terms may be granted on a case-by-case basis. If you require clarification or wish to request an exception (e.g., for using minor portions of code in unrelated projects), please contact the author for approval.
+
+7. Disclaimer of Warranty
+
+These Mods are provided "as-is" without any warranties, express or implied. The author is not responsible for any issues, damages, or losses arising from the use of these Mods. Use at your own risk.
