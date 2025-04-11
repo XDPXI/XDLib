@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import dev.xdpxi.xdlib.util.Log;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.Version;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,70 +15,60 @@ import java.net.URI;
 import java.net.URL;
 
 public class UpdateChecker {
-    private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer("xdlib").orElse(null);
-
-    public static String textParser(String input) {
-        return input.replaceAll("[-a-zA-Z]", "");
-    }
+    private static final String MOD_ID = "xdlib";
+    private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer(MOD_ID).orElse(null);
+    private static final String MODRINTH_API_URL = "https://api.modrinth.com/v2/project/%s/version";
+    private static final String PROJECT_SLUG = "xdlib";
 
     public static void checkForUpdate() {
+        if (modContainer == null) {
+            Log.error("[XDLib/Updater] - Mod container not found for ID: " + MOD_ID);
+            return;
+        }
+
         try {
-            URL url = URI.create("https://api.modrinth.com/v2/project/xdlib/version").toURL();
+            String apiUrl = String.format(MODRINTH_API_URL, PROJECT_SLUG);
+            URL url = URI.create(apiUrl).toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String inputLine;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                String response = in.lines().reduce("", (a, b) -> a + b);
+                Version latestVersion = parseLatestVersion(response);
+                Version currentVersion = modContainer.getMetadata().getVersion();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
+                if (latestVersion != null && currentVersion.compareTo(latestVersion) < 0) {
+                    Log.warn("[XDLib/Updater] - An update is available! Current: {}, Latest: {}", currentVersion, latestVersion);
+                } else {
+                    Log.info("[XDLib/Updater] - No update available!");
+                }
             }
-            in.close();
 
-            String latestVersion = parseLatestVersion(response.toString());
-            assert latestVersion != null;
-            latestVersion = textParser(latestVersion);
-            String currentVersion = modContainer.getMetadata().getVersion().getFriendlyString();
-            currentVersion = textParser(currentVersion);
-
-            if (isVersionLower(currentVersion, latestVersion)) {
-                Log.warn("[XDLib/Updater] - An update is available!");
-            } else {
-                Log.info("[XDLib/Updater] - No update available!");
-            }
+            connection.disconnect();
         } catch (Exception e) {
-            Log.error("[XDLib/Updater] - Failed to check for update: " + e.getMessage());
+            Log.error("[XDLib/Updater] - Failed to check for update: " + e.getMessage(), e);
         }
     }
 
-    private static String parseLatestVersion(String jsonResponse) {
-        JsonArray versions = JsonParser.parseString(jsonResponse).getAsJsonArray();
-        for (int i = 0; i < versions.size(); i++) {
-            JsonObject versionInfo = versions.get(i).getAsJsonObject();
-            String versionNumber = versionInfo.get("version_number").getAsString();
-            if (versionNumber.startsWith("3.")) {
-                return versionNumber;
+    private static Version parseLatestVersion(String jsonResponse) {
+        try {
+            JsonArray versions = JsonParser.parseString(jsonResponse).getAsJsonArray();
+            for (int i = 0; i < versions.size(); i++) {
+                JsonObject versionInfo = versions.get(i).getAsJsonObject();
+                boolean stable = versionInfo.get("version_type").getAsString().equals("release");
+                if (stable) {
+                    String versionNumber = versionInfo.get("version_number").getAsString();
+                    return Version.parse(versionNumber);
+                }
             }
+        } catch (Exception e) {
+            Log.error("Failed to parse latest version: " + e.getMessage(), e);
         }
         return null;
     }
 
-    private static boolean isVersionLower(String currentVersion, String latestVersion) {
-        String[] currentParts = currentVersion.split("\\.");
-        String[] latestParts = latestVersion.split("\\.");
-
-        for (int i = 0; i < Math.max(currentParts.length, latestParts.length); i++) {
-            int currentPart = i < currentParts.length ? Integer.parseInt(currentParts[i]) : 0;
-            int latestPart = i < latestParts.length ? Integer.parseInt(latestParts[i]) : 0;
-
-            if (currentPart < latestPart) {
-                return true;
-            } else if (currentPart > latestPart) {
-                return false;
-            }
-        }
-        return false;
+    public static void main(String[] args) {
+        checkForUpdate();
     }
 }
