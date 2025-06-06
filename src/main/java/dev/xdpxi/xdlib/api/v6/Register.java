@@ -19,6 +19,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -37,7 +38,8 @@ public class Register {
         Log.info("[XDLib/Register] - Testing registerBlock...");
         try {
             test_block = Register.registerBlock(
-                    new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE)),
+                    Block::new,
+                    AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE),
                     "test_block",
                     Main.MOD_ID
             );
@@ -48,7 +50,8 @@ public class Register {
         Log.info("[XDLib/Register] - Testing registerItem...");
         try {
             test_item = Register.registerItem(
-                    new Item(new Item.Settings()),
+                    Item::new,
+                    new Item.Settings(),
                     "test_item",
                     Main.MOD_ID
             );
@@ -80,31 +83,36 @@ public class Register {
     /**
      * Registers a block and its corresponding block item in the game.
      *
-     * @param block  The block to register.
-     * @param name   The name of the block.
-     * @param MOD_ID The mod ID.
+     * @param blockFactory A factory function to create a block.
+     * @param settings     The settings for the block.
+     * @param blockId      The unique block ID.
+     * @param modId        The mod ID.
      * @return The registered block.
      */
-    public static Block registerBlock(Block block, String name, String MOD_ID) {
-        Identifier id = Identifier.of(MOD_ID, name);
+    public static Block registerBlock(Function<AbstractBlock.Settings, Block> blockFactory, AbstractBlock.Settings settings, String blockId, String modId) {
+        Identifier id = Identifier.of(modId, blockId);
+        Block block = blockFactory.apply(settings);
+        Registry.register(Registries.BLOCK, id, block);
 
         BlockItem blockItem = new BlockItem(block, new Item.Settings());
         Registry.register(Registries.ITEM, id, blockItem);
 
-        return Registry.register(Registries.BLOCK, id, block);
+        return block;
     }
 
     /**
      * Registers an item in the game.
      *
-     * @param item   The item to register.
-     * @param id     The ID of the item.
-     * @param MOD_ID The mod ID.
+     * @param itemFactory A factory function to create an item.
+     * @param settings    The settings for the item.
+     * @param itemId      The unique item ID.
+     * @param modId       The mod ID.
      * @return The registered item.
      */
-    public static Item registerItem(Item item, String id, String MOD_ID) {
-        Identifier itemID = Identifier.of(MOD_ID, id);
-        return Registry.register(Registries.ITEM, itemID, item);
+    public static Item registerItem(Function<Item.Settings, Item> itemFactory, Item.Settings settings, String itemId, String modId) {
+        Identifier itemIdentifier = Identifier.of(modId, itemId);
+        Item item = itemFactory.apply(settings);
+        return Registry.register(Registries.ITEM, itemIdentifier, item);
     }
 
     /**
