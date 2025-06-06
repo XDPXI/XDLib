@@ -14,8 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
+import static dev.xdpxi.xdlib.Main.MOD_ID;
+
 public class UpdateChecker {
-    private static final String MOD_ID = "xdlib";
     private static final ModContainer modContainer = FabricLoader.getInstance().getModContainer(MOD_ID).orElse(null);
     private static final String MODRINTH_API_URL = "https://api.modrinth.com/v2/project/%s/version";
     private static final String PROJECT_SLUG = "xdlib";
@@ -66,9 +67,5 @@ public class UpdateChecker {
             Log.error("Failed to parse latest version: " + e.getMessage(), e);
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        checkForUpdate();
     }
 }
