@@ -1,9 +1,9 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.util.Logger;
+import dev.xdpxi.xdlib.util.Log;
 
 public class CommonClass {
     public static void init() {
-        Logger.info("[XDLib/Common/Main] - Loading...");
+        Log.info("[XDLib/Common/Main] - Loading...");
     }
 }

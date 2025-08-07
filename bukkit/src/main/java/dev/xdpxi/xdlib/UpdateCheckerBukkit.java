@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.util.Logger;
+import dev.xdpxi.xdlib.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,7 +9,7 @@ import java.net.URI;
 
 public class UpdateCheckerBukkit implements Runnable {
     public void checkForUpdate() {
-        Logger.info("[XDLib/UpdateChecker] - Checking for updates...");
+        Log.info("[XDLib/UpdateChecker] - Checking for updates...");
         try {
             HttpURLConnection connection = (HttpURLConnection) URI.create("https://api.modrinth.com/v2/project/xdlib/version")
                     .toURL().openConnection();
@@ -27,17 +27,17 @@ public class UpdateCheckerBukkit implements Runnable {
                 String latestVersion = UpdateChecker.parseLatestVersion(response.toString());
                 String version = Main.plugin.getDescription().getVersion();
 
-                Logger.info("[XDLib/UpdateChecker] - Latest Version: " + latestVersion);
-                Logger.info("[XDLib/UpdateChecker] - Current Version: " + version);
+                Log.info("[XDLib/UpdateChecker] - Latest Version: " + latestVersion);
+                Log.info("[XDLib/UpdateChecker] - Current Version: " + version);
 
                 if (latestVersion != null && UpdateChecker.compareVersions(version, latestVersion) < 0) {
-                    Logger.warn("[XDLib/UpdateChecker] - An update is available! Latest version: " + latestVersion);
+                    Log.warn("[XDLib/UpdateChecker] - An update is available! Latest version: " + latestVersion);
                 } else {
-                    Logger.info("[XDLib/UpdateChecker] - No update available.");
+                    Log.info("[XDLib/UpdateChecker] - No update available.");
                 }
             }
         } catch (Exception e) {
-            Logger.error("[XDLib/UpdateChecker] - Error checking for updates: " + e.getMessage());
+            Log.error("[XDLib/UpdateChecker] - Error checking for updates: " + e.getMessage());
             e.printStackTrace();
         }
     }

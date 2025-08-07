@@ -3,7 +3,7 @@ package dev.xdpxi.xdlib;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dev.xdpxi.xdlib.util.Logger;
+import dev.xdpxi.xdlib.util.Log;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +23,7 @@ public class UpdateChecker {
 
     public static boolean isVersionLower(String currentVersion, String latestVersion) {
         if (currentVersion.isEmpty() || latestVersion.isEmpty()) {
-            Logger.error("[XDLib/UpdateChecker] - Version strings cannot be empty.");
+            Log.error("[XDLib/UpdateChecker] - Version strings cannot be empty.");
             return false;
         }
 

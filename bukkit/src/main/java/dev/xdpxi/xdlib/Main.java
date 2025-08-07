@@ -2,6 +2,7 @@ package dev.xdpxi.xdlib;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import dev.xdpxi.xdlib.util.Log;
 
 public final class Main extends JavaPlugin {
     public static Plugin plugin;
@@ -15,11 +16,11 @@ public final class Main extends JavaPlugin {
         updateThread.setDaemon(true);
         updateThread.start();
 
-        Logger.info("[XDLib/Main] - Loaded!");
+        Log.info("[XDLib/Main] - Loaded!");
     }
 
     @Override
     public void onDisable() {
-        Logger.info("[XDLib/Main] - Disabling...");
+        Log.info("[XDLib/Main] - Disabling...");
     }
 }
