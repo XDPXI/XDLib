@@ -1,8 +1,8 @@
 package dev.xdpxi.xdlib;
 
+import dev.xdpxi.xdlib.util.Log;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import dev.xdpxi.xdlib.util.Log;
 
 public final class Main extends JavaPlugin {
     public static Plugin plugin;
