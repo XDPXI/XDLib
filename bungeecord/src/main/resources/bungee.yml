@@ -1,0 +1,5 @@
+name: XDLib
+version: '4.0.0-beta.8'
+main: dev.xdpxi.xdlib.Main
+author: XDPXI
+description: This is a library for many uses and is included as an player counter for XDPXI mods and modpacks!

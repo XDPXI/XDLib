@@ -22,4 +22,8 @@ plugins {
 
 rootProject.name = 'XDLib'
 include('common')
-include('bukkit')
+include('paper')
+include('spigot')
+include('sponge')
+include('bungeecord')
+include('velocity')

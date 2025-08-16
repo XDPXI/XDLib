@@ -1,0 +1,45 @@
+import org.spongepowered.gradle.plugin.config.PluginLoaders
+import org.spongepowered.plugin.metadata.model.PluginDependency
+
+plugins {
+    id 'multiloader-loader'
+    id("org.spongepowered.gradle.plugin") version "2.2.0"
+}
+
+repositories {
+    maven {
+        name = "spongepowered-repo"
+        url = "https://repo.spongepowered.org/maven/"
+    }
+}
+
+dependencies {
+    implementation("com.google.code.gson:gson:2.13.1")
+    implementation("org.slf4j:slf4j-api:2.0.17")
+}
+
+sponge {
+    apiVersion("${sponge_version}")
+    license("XDs-MC-License")
+    loader {
+        name(PluginLoaders.JAVA_PLAIN)
+        version("${version}")
+    }
+    plugin("xdlib") {
+        displayName("XD's Library")
+        entrypoint("dev.xdpxi.xdlib.Main")
+        description("This is a library for many uses and is included as an player counter for XDPXI mods and modpacks!")
+        links {
+            homepage("https://modrinth.com/plugin/xdlib")
+            source("https://github.com/XDPXI/XDLib/tree/ver/4.X.X")
+            issues("https://github.com/XDPXI/XDLib/issues")
+        }
+        contributor("XDPXI") {
+            description("Author")
+        }
+        dependency("spongeapi") {
+            loadOrder(PluginDependency.LoadOrder.AFTER)
+            optional(false)
+        }
+    }
+}

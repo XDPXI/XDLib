@@ -1,0 +1,14 @@
+plugins {
+    id 'multiloader-loader'
+}
+repositories {
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+}
+dependencies {
+    compileOnly("org.spigotmc:spigot-api:${spigot_version}")
+    implementation("com.google.code.gson:gson:2.13.1")
+    implementation("org.slf4j:slf4j-api:2.0.17")
+}

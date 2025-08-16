@@ -1,10 +1,9 @@
 package dev.xdpxi.xdlib;
 
 import dev.xdpxi.xdlib.util.Log;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
+import net.md_5.bungee.api.plugin.Plugin;
 
-public final class Main extends JavaPlugin {
+public final class Main extends Plugin {
     public static Plugin plugin;
 
     @Override
@@ -12,7 +11,7 @@ public final class Main extends JavaPlugin {
         plugin = this;
         CommonClass.init();
 
-        Thread updateThread = new Thread(new UpdateCheckerBukkit(), "Update thread");
+        Thread updateThread = new Thread(new UpdateCheckerBungee(), "Update thread");
         updateThread.setDaemon(true);
         updateThread.start();
 

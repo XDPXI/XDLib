@@ -47,7 +47,7 @@ if %errorlevel% neq 0 (
 )
 
 :: Define platforms and file types
-set "platforms=bukkit"
+set "platforms=paper spigot sponge bungeecord velocity"
 set "fileTypes=.jar -javadoc.jar -sources.jar"
 
 :: Move and rename files

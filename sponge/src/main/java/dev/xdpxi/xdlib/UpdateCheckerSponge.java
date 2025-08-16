@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 
-public class UpdateCheckerBukkit implements Runnable {
+public class UpdateCheckerSponge implements Runnable {
     public void checkForUpdate() {
         Log.info("[XDLib/UpdateChecker] - Checking for updates...");
         try {
@@ -25,7 +25,7 @@ public class UpdateCheckerBukkit implements Runnable {
                 }
 
                 String latestVersion = UpdateChecker.parseLatestVersion(response.toString());
-                String version = Main.plugin.getDescription().getVersion();
+                String version = Main.version;
 
                 Log.info("[XDLib/UpdateChecker] - Latest Version: " + latestVersion);
                 Log.info("[XDLib/UpdateChecker] - Current Version: " + version);
