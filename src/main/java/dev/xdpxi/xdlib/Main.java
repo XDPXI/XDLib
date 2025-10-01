@@ -11,7 +11,10 @@ public class Main implements ModInitializer {
     public void onInitialize() {
         Log.info("[XDLib/Main] - Loading...");
 
+        Log.info("[XDLib/Main] - Checking for Updates...");
         UpdateChecker.checkForUpdate();
+
+        Log.info("[XDLib/Main] - Initializing Register API...");
         Register.init();
 
         Log.info("[XDLib/Main] - Loaded!");
