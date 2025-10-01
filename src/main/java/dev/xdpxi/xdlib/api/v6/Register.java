@@ -4,7 +4,6 @@ import dev.xdpxi.xdlib.Main;
 import dev.xdpxi.xdlib.util.Log;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
@@ -118,24 +117,6 @@ public final class Register {
         RegistryKey<Item> itemKey = createItemKey(modId, itemId);
         Item item = itemFactory.apply(settings.registryKey(itemKey));
         return Registry.register(Registries.ITEM, itemKey, item);
-    }
-
-    /**
-     * Registers an armor item.
-     *
-     * @param equipmentType The type of armor (e.g., helmet, chestplate, etc.).
-     * @param material      The material of the armor.
-     * @param itemId        The unique item ID.
-     * @param modId         The mod ID.
-     * @return The registered armor item.
-     */
-    public static Item registerArmorItem(EquipmentType equipmentType, ArmorMaterial material, String itemId, String modId) {
-        return registerItem(
-                settings -> new ArmorItem(material, equipmentType, settings),
-                new Item.Settings().maxDamage(equipmentType.getMaxDamage(material.durability())),
-                itemId,
-                modId
-        );
     }
 
     private static RegistryKey<Block> createBlockKey(String modId, String itemId) {
