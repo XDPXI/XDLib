@@ -25,10 +25,10 @@ loom {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:1.21.4")
-    mappings("net.fabricmc:yarn:1.21.4+build.8:v2")
+    minecraft("com.mojang:minecraft:1.21.8")
+    mappings("net.fabricmc:yarn:1.21.8+build.1:v2")
     modImplementation("net.fabricmc:fabric-loader:0.17.0")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.119.3+1.21.4")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.133.4+1.21.8")
 }
 
 processResources {
