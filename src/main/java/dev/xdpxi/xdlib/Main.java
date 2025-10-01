@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib;
 
-import dev.xdpxi.xdlib.api.v5.Register;
+import dev.xdpxi.xdlib.api.v6.Register;
 import dev.xdpxi.xdlib.util.Log;
 import net.fabricmc.api.ModInitializer;
 
