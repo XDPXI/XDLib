@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.11-SNAPSHOT'
+    id 'fabric-loom' version '1.13-SNAPSHOT'
 }
 
 version = project.mod_version
@@ -27,8 +27,8 @@ loom {
 dependencies {
     minecraft("com.mojang:minecraft:1.21.8")
     mappings("net.fabricmc:yarn:1.21.8+build.1:v2")
-    modImplementation("net.fabricmc:fabric-loader:0.17.0")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.133.4+1.21.8")
+    modImplementation("net.fabricmc:fabric-loader:0.17.3")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.136.0+1.21.8")
 }
 
 processResources {
