@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "XDs-MC-License"
+
+[[mods]]
+modId = "xdlib"
+version = "7.0.0-SNAPSHOT"
+displayName = "XD's Library"
+displayURL = "https://modrinth.com/plugin/xdlib/"
+logoFile = "assets/xdlib/icon.png"
+authors = "XDPXI"
+description = '''XDPXI's library for numerous tasks.'''
+
+[[mixins]]
+config = "realevents.mixins.json"
+
+[[dependencies."xdlib"]]
+modId = "neoforge"
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."xdlib"]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

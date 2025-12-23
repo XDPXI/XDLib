@@ -1,59 +1,20 @@
 plugins {
-    id 'fabric-loom' version '1.13-SNAPSHOT'
+    id "java"
 }
 
-version = project.mod_version
-group = project.maven_group
+allprojects {
+    apply plugin: "java"
 
-base {
-    archivesName = project.archives_base_name
-}
+    group = "dev.xdpxi.realevents"
+    version = project.property("version")
 
-repositories {
-    mavenCentral()
-}
-
-loom {
-    splitEnvironmentSourceSets()
-
-    mods {
-        "xdlib" {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
-        }
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(21)
     }
-}
 
-dependencies {
-    minecraft("com.mojang:minecraft:1.21.10")
-    mappings("net.fabricmc:yarn:1.21.10+build.3:v2")
-    modImplementation("net.fabricmc:fabric-loader:0.18.1")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.138.3+1.21.10")
-}
-
-processResources {
-    filteringCharset = 'UTF-8'
-
-    inputs.property "version", project.version
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
-}
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-}
-
-jar {
-    from("LICENSE") {
-        rename { "${it}_${project.base.archivesName.get()}" }
+    repositories {
+        mavenCentral()
+        maven { url = "https://maven.fabricmc.net/" }
+        maven { url = "https://maven.neoforged.net/releases" }
     }
 }

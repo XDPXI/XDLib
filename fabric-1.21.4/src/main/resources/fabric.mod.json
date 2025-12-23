@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "realevents",
+  "version": "1.5.6-fabric-1.21.4",
+  "name": "Real Events",
+  "description": "Real Events bring national holidays to life in the game, featuring exciting celebrations like a Christmas event, New Year's event, Easter event, and Halloween event!",
+  "authors": [
+    "XDPXI"
+  ],
+  "license": "XDs-MC-License",
+  "icon": "assets/realevents/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.xdpxi.realevents.Main"
+    ],
+    "client": [
+      "dev.xdpxi.realevents.Client"
+    ]
+  },
+  "mixins": [
+    "xdlib.mixins.json",
+    {
+      "config": "xdlib.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "1.21.4",
+    "java": ">=21",
+    "fabric-api": "*",
+    "xdlib": ">=6.2.0"
+  }
+}

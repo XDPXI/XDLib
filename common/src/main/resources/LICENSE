@@ -1,0 +1,73 @@
+XD's MC License
+
+This license governs your use of XDPXI's Minecraft Mods (the "Mods"). By using these Mods, you agree to follow the terms outlined here. This is a legal agreement between you and XDPXI. You are free to use these Mods in modpacks and to edit or fork them, but only under the conditions set out below. Using the Mods means you accept these terms in full.
+
+Definitions
+    - "Mods": The Minecraft mods created and maintained by XDPXI.
+    - "Fork": Any derivative or modified version of the Mods, including clones, edits, or substantial reuse.
+    - "You": Any person or entity using the Mods.
+
+1. Revenue Sharing
+If you fork, modify, or reuse significant portions of these Mods (entire classes, files, or large code blocks) and upload them to platforms like CurseForge, Modrinth, or similar sites that allow monetization, you must share 50% of the revenue with the original author (XDPXI).
+
+To ensure fairness:
+    - Contact the original author before monetizing your fork.
+    - If asked, provide proof of revenue sharing. Failure to do so will be considered a breach of this license.
+
+	1. You must share 50% of all revenue with the Author.
+	2. You must contact the Author prior to monetization to arrange revenue sharing.
+	3. Upon request, you must provide verifiable records of revenue.
+	4. Failure to comply constitutes a breach of this license and may result in legal action.
+
+2. Distribution Restrictions
+You may not reupload these Mods to hosting sites that do not offer compensation to authors or maintain adequate control over redistribution, such as PlanetMinecraft. Unauthorized uploads may be treated as copyright infringement.
+
+3. Modpack Integrity
+Do not override the JAR files of these Mods directly in modpacks. The Mods should always be downloaded from official sources, such as CurseForge or Modrinth. This ensures users receive up-to-date and safe versions.
+
+4. Attribution and License Retention
+If you modify the Mods, you must keep the original copyright notice intact.
+You may not change the license to something else; the Mods must remain under **"XD's MC License."**
+
+5. Code Reuse Guidelines
+Using small parts of the Mods’ code (like functions or build scripts) in other projects with different purposes is allowed.
+You may not use this permission for projects that directly compete with these Mods or copy their core features.
+
+6. License Exceptions
+Exceptions may be granted on a case-by-case basis. Contact the author directly if you need one.
+
+7. Disclaimer of Warranty
+The Mods are provided “as-is.” The author makes no guarantees or warranties, and is not responsible for any issues, damages, or losses that may arise from using them. Use at your own risk.
+
+8. Termination
+If you break this license, your rights to use the Mods end immediately.
+After termination, you must stop distributing, modifying, or monetizing the Mods.
+
+9. Governing Law and Jurisdiction
+This license is governed by the laws of New South Wales, Australia.
+Any disputes will be handled exclusively in the courts of New South Wales.
+
+10. DMCA & Global Enforcement
+The author can enforce this license worldwide by:
+    - Sending DMCA or equivalent takedown notices on hosting platforms,
+    - Seeking recovery of revenue, or
+    - Taking legal action under copyright law.
+
+This ensures that users everywhere are bound by the license, and hosting platforms must comply even outside Australia.
+
+Quick Reference Table
+	Allowed:
+	    - Use in modpacks from CurseForge or Modrinth
+	    - Forking or modifying with 50% revenue share
+	    - Using as a library or dependency
+	    - Reusing small snippets of code
+	Forbidden:
+	    - Reuploading to unauthorized sites
+	    - Changing the license
+	    - Overriding JARs in modpacks
+	    - Copying large sections or making competing Mods
+
+Metadata
+Last Updated: 2025-08-23
+Version: 2.1.0
+Copyright: © 2024–2025 XDPXI. All rights reserved.
