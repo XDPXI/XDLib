@@ -1,32 +1,26 @@
-<h1 id="readme" align="center"></h1>
 
-<img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
+---
 
-<h1 align="center">XD's Library</h1>
+### XD's Library
 
-<img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
+#### XDPXI's library for numerous tasks.
 
-<img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/installation.png">
+---
 
-### How to Install
+### Features
 
-▶️ Download the [latest version ](https://modrinth.com/plugin/ztrolixlibs/versions) that you want.
+> Please view the [Documentation](https://xdlib.xdpxi.dev/) for the correct features for your version
 
-▶️ Download [Fabric API](https://modrinth.com/mod/fabric-api/versions?g=1.21&g=1.21.1)
-and [Cloth Config](https://modrinth.com/mod/cloth-config/versions?l=fabric&g=1.21&g=1.21.1)
+---
 
-▶️ Move the `.jar` files into the `mods` folder of your Minecraft installation
+### Building from Source
 
-▶️ Run your Minecraft and you are ready!
+#### To build the mod from source follow the steps below:
 
-<img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
+- Clone the [Git repository](https://github.com/XDPXI/XDLib)
 
-<img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/building.png">
+- Run `gradlew build` or `build.ps1` in your terminal in the cloned repository
 
-▶️ Clone the [Git Repo](https://github.com/Ztrolix/ZtrolixLibs/tree/main)
+#### The compiled mod will be in `build/libs`
 
-▶️ Either run `build.bat` or in the terminal run `gradlew build`
-
-▶️ The mod will be made in `build\libs`
-
-<img src="https://raw.githubusercontent.com/Ztrolix/ZtrolixLibs/main/assets/strip.png">
+---
