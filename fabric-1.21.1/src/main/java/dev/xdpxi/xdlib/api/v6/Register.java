@@ -1,6 +1,6 @@
 package dev.xdpxi.xdlib.api.v6;
 
-import dev.xdpxi.xdlib.Main;
+import dev.xdpxi.xdlib.Constants;
 import dev.xdpxi.xdlib.util.Log;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -41,7 +41,7 @@ public class Register {
                     Block::new,
                     AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE),
                     "test_block",
-                    Main.MOD_ID
+                    Constants.MOD_ID
             );
         } catch (Exception e) {
             Log.error("[XDLib/Register] - An error occurred while testing registerBlock:", e);
@@ -53,7 +53,7 @@ public class Register {
                     Item::new,
                     new Item.Settings(),
                     "test_item",
-                    Main.MOD_ID
+                    Constants.MOD_ID
             );
         } catch (Exception e) {
             Log.error("[XDLib/Register] - An error occurred while testing registerItem:", e);
@@ -74,7 +74,7 @@ public class Register {
                     0.0F,
                     0.0F,
                     false,
-                    Main.MOD_ID);
+                    Constants.MOD_ID);
         } catch (Exception e) {
             Log.error("[XDLib/Register] - An error occurred while testing registerMaterial:", e);
         }
