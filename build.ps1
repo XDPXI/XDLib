@@ -98,7 +98,7 @@ foreach ($mod in $mods)
     }
 
     Push-Location $modTmpDir
-    cmd /c "jar cf `"$tempJar`" -C `"$modTmpDir`" ."
+    & jar cf "$tempJar" -C "$modTmpDir" .
     Pop-Location
 
     Move-Item $tempJar $finalJar -Force
