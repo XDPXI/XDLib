@@ -16,6 +16,8 @@
 > :construction: : Under Development
 >
 > :x: : Not Supported
+>
+> `-` : Wasn't ever supported
 
 ## Version Compatibility
 
