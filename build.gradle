@@ -6,7 +6,7 @@ allprojects {
     apply plugin: "java"
 
     group = "dev.xdpxi.realevents"
-    version = project.property("version")
+    version = rootProject.property("version")
 
     java {
         toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -17,4 +17,53 @@ allprojects {
         maven { url = "https://maven.fabricmc.net/" }
         maven { url = "https://maven.neoforged.net/releases" }
     }
+}
+
+tasks.register('updateFabricVersions') {
+    doLast {
+        String projectVersion = project.version.toString()
+
+        fileTree(rootDir) {
+            include '**/fabric.mod.json'
+        }.each { file ->
+            String content = file.text
+
+            String relativePath = file.absolutePath - rootDir.absolutePath
+            def matcher = relativePath =~ /fabric-(\d+\.\d+\.\d+)/
+            String minecraftVersion = matcher ? matcher[0][1] : "1.21"
+
+            content = content.replaceAll(
+                    /"version"\s*:\s*"[^"]*"/,
+                    "\"version\": \"${projectVersion}-fabric-${minecraftVersion}\""
+            )
+
+            file.text = content
+        }
+    }
+}
+
+tasks.register('updateNeoForgeVersions') {
+    doLast {
+        String projectVersion = project.version.toString()
+
+        fileTree(rootDir) {
+            include '**/neoforge.mods.toml'
+        }.each { file ->
+            file.text = file.text.replaceAll(
+                    /version\s*=\s*"[^"]*"/,
+                    "version = \"${projectVersion}-neoforge\""
+            )
+        }
+    }
+}
+
+tasks.register('updateAllVersions') {
+    dependsOn(
+            'updateFabricVersions',
+            'updateNeoForgeVersions'
+    )
+}
+
+tasks.named('build') {
+    dependsOn('updateAllVersions')
 }

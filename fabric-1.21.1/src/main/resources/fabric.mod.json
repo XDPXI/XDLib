@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "xdlib",
-  "version": "7.0.0-SNAPSHOT",
+  "version": "7.0.0-SNAPSHOT-fabric-1.21.1",
   "name": "XD's Library",
   "description": "XDPXI's library for numerous tasks.",
   "authors": [
