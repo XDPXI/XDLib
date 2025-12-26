@@ -1,140 +1,105 @@
-# Set the version variable
+# Configuration
 $version = "7.0.0-SNAPSHOT"
+$mods = @(
+    "fabric-1.21.1",
+    "fabric-1.21.4",
+    "fabric-1.21.8",
+    "fabric-1.21.10",
+    "neoforge-1.21.1"
+)
 
-# List of mods
-$mods = @("fabric-1.21.1", "fabric-1.21.4", "fabric-1.21.8", "fabric-1.21.10", "neoforge-1.21.1")
+$rootDir   = Get-Location
+$buildDir  = Join-Path $rootDir "build"
+$tmpRoot   = Join-Path $buildDir "tmp"
+$finalLibs = Join-Path $buildDir "libs"
+$commonJar = Join-Path $rootDir "common/build/libs/common-$version.jar"
 
-# Run gradle clean build
-Write-Host "Running 'gradle clean build'..."
-gradle clean build
+Add-Type -AssemblyName System.IO.Compression.FileSystem
 
-# Root temporary build folder
-$rootTmp = Join-Path -Path (Get-Location) -ChildPath "build/tmp"
+# Gradle Build
+./gradlew clean build
 
-# Ensure root temp directory exists
-if (-Not (Test-Path $rootTmp))
-{
-    New-Item -ItemType Directory -Path $rootTmp | Out-Null
-}
+# Prepare directories
+New-Item -ItemType Directory -Force -Path $tmpRoot, $finalLibs | Out-Null
 
-# Ensure root build/libs folder exists
-$finalLibs = Join-Path -Path (Get-Location) -ChildPath "build/libs"
-if (-Not (Test-Path $finalLibs))
-{
-    New-Item -ItemType Directory -Path $finalLibs | Out-Null
-}
-else
-{
-    # Delete everything inside build/libs
-    Get-ChildItem -Path $finalLibs -Recurse | Remove-Item -Force -Recurse
-    Write-Host "Cleared existing contents of build/libs"
-}
+Get-ChildItem $finalLibs -Recurse -Force -ErrorAction SilentlyContinue |
+        Remove-Item -Recurse -Force
 
-# Path to common jar
-$commonJar = "common/build/libs/common-$version.jar"
-
-# Process each mod folder
+# Process mods
 foreach ($mod in $mods)
 {
-    $modLibPath = Join-Path -Path $mod -ChildPath "build/libs"
-    $modTmpPath = Join-Path -Path $rootTmp -ChildPath $mod
+    $modLibDir = Join-Path $rootDir "$mod/build/libs"
+    $modTmpDir = Join-Path $tmpRoot $mod
+    $jarName   = "$mod-$version.jar"
+    $modJar    = Join-Path $modLibDir $jarName
 
-    # Create temp folder for this mod
-    if (-Not (Test-Path $modTmpPath))
+    if (Test-Path $modTmpDir)
     {
-        New-Item -ItemType Directory -Path $modTmpPath | Out-Null
+        Remove-Item $modTmpDir -Recurse -Force
+    }
+    New-Item -ItemType Directory -Path $modTmpDir | Out-Null
+
+    if (-not (Test-Path $modJar))
+    {
+        continue
     }
 
-    # Move and extract the mod jar
-    $jarPattern = "$mod-$version.jar"
-    $jarFile = Join-Path -Path $modLibPath -ChildPath $jarPattern
-    $tmpFile = Join-Path -Path $modTmpPath -ChildPath $jarPattern
+    [System.IO.Compression.ZipFile]::ExtractToDirectory($modJar, $modTmpDir)
 
-    if (Test-Path $jarFile)
-    {
-        Write-Host "Extracting $jarFile to $modTmpPath..."
-        Copy-Item -Path $jarFile -Destination $modTmpPath -Force
-        Add-Type -AssemblyName System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::ExtractToDirectory($jarFile, $modTmpPath)
-
-        # Delete the original jar after extraction
-        Remove-Item -Path $tmpFile -Force
-        Write-Host "Deleted original jar $jarFile after extraction."
-    }
-    else
-    {
-        Write-Warning "Jar $jarFile not found."
-    }
-
-    # Extract common jar contents to this mod folder, skip duplicates
     if (Test-Path $commonJar)
     {
-        Write-Host "Merging common jar into $modTmpPath..."
-        $commonTemp = Join-Path -Path $env:TEMP -ChildPath "common_extraction"
-        if (Test-Path $commonTemp)
+        $commonTmp = Join-Path $tmpRoot "common_$mod"
+
+        if (Test-Path $commonTmp)
         {
-            Remove-Item $commonTemp -Recurse -Force
+            Remove-Item $commonTmp -Recurse -Force
         }
+        New-Item -ItemType Directory -Path $commonTmp | Out-Null
 
-        New-Item -ItemType Directory -Path $commonTemp | Out-Null
-        [System.IO.Compression.ZipFile]::ExtractToDirectory($commonJar, $commonTemp)
+        [System.IO.Compression.ZipFile]::ExtractToDirectory($commonJar, $commonTmp)
 
-        # Copy files from common temp to mod tmp, skip duplicates
-        Get-ChildItem -Path $commonTemp -Recurse | ForEach-Object {
-            $relativePath = $_.FullName.Substring($commonTemp.Length + 1)
-            $destPath = Join-Path -Path $modTmpPath -ChildPath $relativePath
-            if (-Not (Test-Path $destPath))
+        Get-ChildItem $commonTmp -Recurse | ForEach-Object {
+            $relative = $_.FullName.Substring($commonTmp.Length + 1)
+            $dest     = Join-Path $modTmpDir $relative
+
+            if (-not (Test-Path $dest))
             {
                 if ($_.PSIsContainer)
                 {
-                    New-Item -ItemType Directory -Path $destPath | Out-Null
+                    New-Item -ItemType Directory -Path $dest | Out-Null
                 }
                 else
                 {
-                    Copy-Item -Path $_.FullName -Destination $destPath
+                    Copy-Item $_.FullName $dest
                 }
             }
         }
 
-        Remove-Item $commonTemp -Recurse -Force
+        Remove-Item $commonTmp -Recurse -Force
     }
     else
     {
-        Write-Warning "Common jar $commonJar not found."
+        Write-Warning "Common jar not found: $commonJar"
     }
 
-    # Repack the folder into a jar in tmp
-    $tempJar = Join-Path -Path $rootTmp -ChildPath "$mod-$version.jar"
+    $manifest = Join-Path $modTmpDir "META-INF/MANIFEST.MF"
+    if (-not (Test-Path $manifest))
+    {
+        New-Item -ItemType Directory -Force -Path (Split-Path $manifest) | Out-Null
+        Set-Content $manifest "Manifest-Version: 1.0`r`n"
+    }
+
+    $tempJar  = Join-Path $tmpRoot "$mod-$version.jar"
+    $finalJar = Join-Path $finalLibs "xdlib-$mod-$version.jar"
+
     if (Test-Path $tempJar)
     {
         Remove-Item $tempJar -Force
     }
 
-    Write-Host "Creating final jar $tempJar using Java jar command..."
-
-    # Change to the mod temp directory
-    Push-Location $modTmpPath
-
-    # Ensure META-INF/MANIFEST.MF exists or create a minimal one
-    $manifestPath = Join-Path -Path $modTmpPath -ChildPath "META-INF\MANIFEST.MF"
-    if (-Not (Test-Path $manifestPath))
-    {
-        New-Item -ItemType Directory -Path (Split-Path $manifestPath) -Force | Out-Null
-        Set-Content -Path $manifestPath -Value "Manifest-Version: 1.0`r`n"
-    }
-
-    # Run jar command to create the jar
-    $jarCmd = "jar cf `"$tempJar`" -C `"$modTmpPath`" ."
-    Write-Host "Running: $jarCmd"
-    cmd /c $jarCmd
-
-    # Return to original location
+    Push-Location $modTmpDir
+    cmd /c "jar cf `"$tempJar`" -C `"$modTmpDir`" ."
     Pop-Location
 
-    # Move final jar to build/libs with prefix 'realevents-'
-    $finalJar = Join-Path -Path $finalLibs -ChildPath "realevents-$mod-$version.jar"
-    Move-Item -Path $tempJar -Destination $finalJar -Force
-    Write-Host "Moved $mod-$version.jar as realevents-$mod-$version.jar to build/libs"
+    Move-Item $tempJar $finalJar -Force
 }
-
-Write-Host "All mods processed. Final jars are in build/libs."
