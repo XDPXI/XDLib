@@ -3,13 +3,10 @@
 ## Important Notices
 
 > [!WARNING]
-> If you are still using versions 3.X.X or 5.X.X please migrate to 6.X.X.
-
-> [!WARNING]
-> 4.X.X (Bukkit, BungeeCord, WaterFall, Velocity, Sponge) are still in development and may have critical bugs!
+> If you are still using versions v3, v5 or v6 please migrate to v7.
 
 > [!CAUTION]
-> Versions 1.X.X, 2.X.X, 3.X.X, 4.X.X (Fabric, Forge, NeoForge) and 5.X.X are no longer supported.
+> Versions v1, v2, v3, v4 and v5 are no longer supported.
 
 ## Support Key
 
@@ -18,23 +15,19 @@
 >
 > :construction: : Under Development
 >
-> :warning: : Final Major Release (Maintenance Mode)
->
 > :x: : Not Supported
->
-> :heavy_multiplication_x: : Never Supported
 
 ## Version Compatibility
 
-| Version                                                      | Fabric             | Quilt              | Forge                    | NeoForge                 | Bukkit                   | BungeeCord               | Velocity                 | Sponge                   |
-|--------------------------------------------------------------|--------------------|--------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-| [**v7**](https://github.com/XDPXI/XDLib/tree/dev/v7-dev)     | :construction:     | :construction:     | :heavy_multiplication_x: | :construction:           | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: |
-| [**v6**](https://github.com/XDPXI/XDLib/tree/dev/v6-1.21.10) | :white_check_mark: | :white_check_mark: | :heavy_multiplication_x: | :x:                      | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: |
-| [**v5**](https://github.com/XDPXI/XDLib/tree/version/v5)     | :x:                | :x:                | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: |
-| [**v4**](https://github.com/XDPXI/XDLib/tree/version/v4)     | :x:                | :x:                | :x:                      | :x:                      | :construction:           | :construction:           | :construction:           | :construction:           |
-| [**v3**](https://github.com/XDPXI/XDLib/tree/version/v3)     | :x:                | :x:                | :heavy_multiplication_x: | :x:                      | :x:                      | :x:                      | :x:                      | :heavy_multiplication_x: |
-| **v2**                                                       | :x:                | :x:                | :heavy_multiplication_x: | :x:                      | :x:                      | :x:                      | :x:                      | :heavy_multiplication_x: |
-| **v1**                                                       | :x:                | :x:                | :x:                      | :heavy_multiplication_x: | :x:                      | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: |
+| Version                                                      | Fabric             | Quilt              | Forge | NeoForge       | Bukkit | BungeeCord | Velocity | Sponge |
+|--------------------------------------------------------------|--------------------|--------------------|-------|----------------|--------|------------|----------|--------|
+| [**v7**](https://github.com/XDPXI/XDLib/tree/dev/v7-dev)     | :construction:     | :construction:     | -     | :construction: | -      | -          | -        | -      |
+| [**v6**](https://github.com/XDPXI/XDLib/tree/dev/v6-1.21.10) | :white_check_mark: | :white_check_mark: | -     | :x:            | -      | -          | -        | -      |
+| [**v5**](https://github.com/XDPXI/XDLib/tree/version/v5)     | :x:                | :x:                | -     | -              | -      | -          | -        | -      |
+| [**v4**](https://github.com/XDPXI/XDLib/tree/version/v4)     | :x:                | :x:                | :x:   | :x:            | :x:    | :x:        | :x:      | :x:    |
+| [**v3**](https://github.com/XDPXI/XDLib/tree/version/v3)     | :x:                | :x:                | -     | :x:            | :x:    | :x:        | :x:      | -      |
+| **v2**                                                       | :x:                | :x:                | -     | :x:            | :x:    | :x:        | :x:      | -      |
+| **v1**                                                       | :x:                | :x:                | :x:   | -              | :x:    | -          | -        | -      |
 
 ## Reporting a Vulnerability
 
