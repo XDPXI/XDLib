@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build
 
 on:
   push:
@@ -27,8 +27,9 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Build and Test
-        run: ./gradlew build test --parallel --no-daemon --build-cache
+      - name: Build
+        shell: pwsh
+        run: ./build.ps1
         env:
           GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.caching=true"
 
