@@ -51,7 +51,7 @@ tasks.register('updateNeoForgeVersions') {
         }.each { file ->
             file.text = file.text.replaceAll(
                     /version\s*=\s*"[^"]*"/,
-                    "version = \"${projectVersion}-neoforge\""
+                    "version = \"${projectVersion}-neoforge-${minecraftVersion}\""
             )
         }
     }
