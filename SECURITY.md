@@ -21,15 +21,15 @@
 
 ## Version Compatibility
 
-| Version                                                      | Fabric             | Quilt              | Forge | NeoForge       | Bukkit | BungeeCord | Velocity | Sponge |
-|--------------------------------------------------------------|--------------------|--------------------|-------|----------------|--------|------------|----------|--------|
-| [**v7**](https://github.com/XDPXI/XDLib/tree/dev/v7-dev)     | :construction:     | :construction:     | -     | :construction: | -      | -          | -        | -      |
-| [**v6**](https://github.com/XDPXI/XDLib/tree/dev/v6-1.21.10) | :white_check_mark: | :white_check_mark: | -     | :x:            | -      | -          | -        | -      |
-| [**v5**](https://github.com/XDPXI/XDLib/tree/version/v5)     | :x:                | :x:                | -     | -              | -      | -          | -        | -      |
-| [**v4**](https://github.com/XDPXI/XDLib/tree/version/v4)     | :x:                | :x:                | :x:   | :x:            | :x:    | :x:        | :x:      | :x:    |
-| [**v3**](https://github.com/XDPXI/XDLib/tree/version/v3)     | :x:                | :x:                | -     | :x:            | :x:    | :x:        | :x:      | -      |
-| **v2**                                                       | :x:                | :x:                | -     | :x:            | :x:    | :x:        | :x:      | -      |
-| **v1**                                                       | :x:                | :x:                | :x:   | -              | :x:    | -          | -        | -      |
+| Version                                                  | Fabric             | Quilt              | Forge | NeoForge       | Bukkit | BungeeCord | Velocity | Sponge |
+|----------------------------------------------------------|--------------------|--------------------|-------|----------------|--------|------------|----------|--------|
+| [**v7**](https://github.com/XDPXI/XDLib/tree/v7-dev)     | :construction:     | :construction:     | -     | :construction: | -      | -          | -        | -      |
+| [**v6**](https://github.com/XDPXI/XDLib/tree/v6-1.21.10) | :white_check_mark: | :white_check_mark: | -     | :x:            | -      | -          | -        | -      |
+| [**v5**](https://github.com/XDPXI/XDLib/tree/v5)         | :x:                | :x:                | -     | -              | -      | -          | -        | -      |
+| [**v4**](https://github.com/XDPXI/XDLib/tree/v4)         | :x:                | :x:                | :x:   | :x:            | :x:    | :x:        | :x:      | :x:    |
+| [**v3**](https://github.com/XDPXI/XDLib/tree/v3)         | :x:                | :x:                | -     | :x:            | :x:    | :x:        | :x:      | -      |
+| **v2**                                                   | :x:                | :x:                | -     | :x:            | :x:    | :x:        | :x:      | -      |
+| **v1**                                                   | :x:                | :x:                | :x:   | -              | :x:    | -          | -        | -      |
 
 ## Reporting a Vulnerability
 
