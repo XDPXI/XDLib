@@ -4,7 +4,7 @@ license = "XDs-MC-License"
 
 [[mods]]
 modId = "xdlib"
-version = "7.0.0-SNAPSHOT-neoforge"
+version = "7.0.0-SNAPSHOT-neoforge-1.21.1"
 displayName = "XD's Library"
 displayURL = "https://modrinth.com/plugin/xdlib/"
 logoFile = "assets/xdlib/icon.png"

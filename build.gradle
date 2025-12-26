@@ -28,7 +28,7 @@ tasks.register('updateFabricVersions') {
         }.each { file ->
             String content = file.text
 
-            String relativePath = file.absolutePath - rootDir.absolutePath
+            String relativePath = file.absolutePath
             def matcher = relativePath =~ /fabric-(\d+\.\d+\.\d+)/
             String minecraftVersion = matcher ? matcher[0][1] : "1.21"
 
@@ -49,6 +49,10 @@ tasks.register('updateNeoForgeVersions') {
         fileTree(rootDir) {
             include '**/neoforge.mods.toml'
         }.each { file ->
+            String relativePath = file.absolutePath
+            def matcher = relativePath =~ /neoforge-(\d+\.\d+\.\d+)/
+            String minecraftVersion = matcher ? matcher[0][1] : "1.21"
+
             file.text = file.text.replaceAll(
                     /version\s*=\s*"[^"]*"/,
                     "version = \"${projectVersion}-neoforge-${minecraftVersion}\""
