@@ -1,21 +1,26 @@
 {
   "schemaVersion": 1,
-  "id": "realevents",
-  "version": "1.5.6-fabric-1.21.8",
-  "name": "Real Events",
-  "description": "Real Events bring national holidays to life in the game, featuring exciting celebrations like a Christmas event, New Year's event, Easter event, and Halloween event!",
+  "id": "xdlib",
+  "version": "7.0.0-SNAPSHOT",
+  "name": "XD's Library",
+  "description": "XDPXI's library for numerous tasks.",
   "authors": [
     "XDPXI"
   ],
+  "contact": {
+    "homepage": "https://xdpxi.vercel.app/xdlib",
+    "sources": "https://github.com/XDPXI/XDLib",
+    "issues": "https://github.com/XDPXI/XDLib/issues"
+  },
   "license": "XDs-MC-License",
-  "icon": "assets/realevents/icon.png",
+  "icon": "assets/xdlib/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.xdpxi.realevents.Main"
+      "dev.xdpxi.xdlib.Main"
     ],
     "client": [
-      "dev.xdpxi.realevents.Client"
+      "dev.xdpxi.xdlib.Client"
     ]
   },
   "mixins": [
@@ -29,7 +34,17 @@
     "fabricloader": ">=0.18.0",
     "minecraft": ">=1.21.6 <=1.21.8",
     "java": ">=21",
-    "fabric-api": "*",
-    "xdlib": ">=6.2.0"
+    "fabric-api": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.modrinth": "https://modrinth.com/plugin/xdlib"
+      },
+      "badges": [
+        "library"
+      ],
+      "update_checker": true
+    }
   }
 }
