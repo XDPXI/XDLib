@@ -35,7 +35,6 @@ public final class Register {
      */
     public static void init() {
         try {
-            Log.info("[XDLib] - Registering test block...");
             Block testBlock = registerBlock(
                     Block::new,
                     AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE),
@@ -47,7 +46,6 @@ public final class Register {
         }
 
         try {
-            Log.info("[XDLib] - Registering test item...");
             Item testItem = registerItem(
                     Item::new,
                     new Item.Settings(),
@@ -59,7 +57,6 @@ public final class Register {
         }
 
         try {
-            Log.info("[XDLib] - Registering test armor material...");
             RegistryKey<EquipmentAsset> ARMOR_MATERIAL_KEY = RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, Identifier.of(Constants.MOD_ID, "test_armor_material"));
             ArmorMaterial INSTANCE = new ArmorMaterial(
                     1000,

@@ -35,7 +35,6 @@ public class Register {
      * This method is used for testing purposes and logs the results of each registration attempt.
      */
     public static void init() {
-        Log.info("[XDLib/Register] - Testing registerBlock...");
         try {
             test_block = Register.registerBlock(
                     Block::new,
@@ -44,10 +43,9 @@ public class Register {
                     Constants.MOD_ID
             );
         } catch (Exception e) {
-            Log.error("[XDLib/Register] - An error occurred while testing registerBlock:", e);
+            Log.error("[XDLib] - An error occurred while testing registerBlock:", e);
         }
 
-        Log.info("[XDLib/Register] - Testing registerItem...");
         try {
             test_item = Register.registerItem(
                     Item::new,
@@ -56,10 +54,9 @@ public class Register {
                     Constants.MOD_ID
             );
         } catch (Exception e) {
-            Log.error("[XDLib/Register] - An error occurred while testing registerItem:", e);
+            Log.error("[XDLib] - An error occurred while testing registerItem:", e);
         }
 
-        Log.info("[XDLib/Register] - Testing registerMaterial...");
         try {
             test_material = Register.registerMaterial("test_material",
                     Map.of(
@@ -76,7 +73,7 @@ public class Register {
                     false,
                     Constants.MOD_ID);
         } catch (Exception e) {
-            Log.error("[XDLib/Register] - An error occurred while testing registerMaterial:", e);
+            Log.error("[XDLib] - An error occurred while testing registerMaterial:", e);
         }
     }
 
