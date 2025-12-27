@@ -12,7 +12,7 @@ authors = "XDPXI"
 description = '''XDPXI's library for numerous tasks.'''
 
 [[mixins]]
-config = "realevents.mixins.json"
+config = "xdlib.mixins.json"
 
 [[dependencies."xdlib"]]
 modId = "neoforge"
