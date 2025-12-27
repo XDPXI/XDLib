@@ -4,13 +4,13 @@ import dev.xdpxi.xdlib.util.Log;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
-@Mod("realevents")
+@Mod(Constants.MOD_ID)
 public class Main {
     public Main(IEventBus modEventBus) {
-        Log.info("[RealEvents/Main] - Initializing...");
+        Log.info("[XDLib] - Initializing...");
 
         Common.init();
 
-        Log.info("[RealEvents/Main] - Initialized successfully!");
+        Log.info("[XDLib] - Initialized successfully!");
     }
 }
