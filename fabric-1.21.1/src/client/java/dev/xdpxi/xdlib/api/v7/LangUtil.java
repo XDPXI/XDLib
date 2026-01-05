@@ -1,15 +1,15 @@
 package dev.xdpxi.xdlib.api.v7;
 
+import java.util.Objects;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.LanguageManager;
-
-import java.util.Objects;
 
 /**
  * Utility class for managing Minecraft's language settings.
  * Provides methods to get and set the current language.
  */
 public class LangUtil {
+
     /**
      * Retrieves the current language code set in Minecraft.
      *

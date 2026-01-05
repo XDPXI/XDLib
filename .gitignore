@@ -16,3 +16,13 @@
 /fabric-1.21.1/.settings
 /fabric-1.21.10/.gradle
 /fabric-1.21.10/.settings
+/bin
+/common/bin
+/fabric-1.21.1/bin
+/fabric-1.21.10/bin
+/fabric-1.21.4/bin
+/fabric-1.21.8/bin
+*.project
+*.classpath
+/.settings
+/common/.settings

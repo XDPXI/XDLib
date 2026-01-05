@@ -9,8 +9,11 @@ import net.fabricmc.loader.api.metadata.ModMetadata;
  * Provides methods to check if a mod is loaded and retrieve its version.
  */
 public final class Loader {
+
     private Loader() {
-        throw new UnsupportedOperationException("Loader is a utility class and cannot be instantiated.");
+        throw new UnsupportedOperationException(
+            "Loader is a utility class and cannot be instantiated."
+        );
     }
 
     /**

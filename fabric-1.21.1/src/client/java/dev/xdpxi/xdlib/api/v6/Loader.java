@@ -9,6 +9,7 @@ import net.fabricmc.loader.api.metadata.ModMetadata;
  * Provides methods to check mod loading status and retrieve mod versions.
  */
 public class Loader {
+
     /**
      * Checks if a mod with the given ID is loaded.
      *
