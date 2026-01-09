@@ -11,9 +11,6 @@ public class Main implements ModInitializer {
 
         Common.init();
 
-        Log.info("[XDLib] - Testing register API (v6)...");
-        dev.xdpxi.xdlib.api.v6.Register.init();
-
         Log.info("[XDLib] - Testing register API (v7)...");
         dev.xdpxi.xdlib.api.v7.Register.init();
 
