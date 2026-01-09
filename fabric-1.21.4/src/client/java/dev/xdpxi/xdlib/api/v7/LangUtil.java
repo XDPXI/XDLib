@@ -1,8 +1,9 @@
 package dev.xdpxi.xdlib.api.v7;
 
-import java.util.Objects;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.LanguageManager;
+
+import java.util.Objects;
 
 /**
  * Utility class for managing Minecraft's language settings.
@@ -12,7 +13,7 @@ public final class LangUtil {
 
     private LangUtil() {
         throw new UnsupportedOperationException(
-            "LangUtil is a utility class and cannot be instantiated."
+                "LangUtil is a utility class and cannot be instantiated."
         );
     }
 
@@ -24,8 +25,8 @@ public final class LangUtil {
     public static String getLang() {
         MinecraftClient client = MinecraftClient.getInstance();
         return (client != null)
-            ? client.getLanguageManager().getLanguage()
-            : "en_us";
+                ? client.getLanguageManager().getLanguage()
+                : "en_us";
     }
 
     /**

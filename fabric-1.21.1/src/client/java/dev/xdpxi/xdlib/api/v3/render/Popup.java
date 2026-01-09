@@ -1,9 +1,10 @@
 package dev.xdpxi.xdlib.api.v3.render;
 
-import java.util.concurrent.CompletableFuture;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Utility class for displaying popup messages in Minecraft.
@@ -26,21 +27,21 @@ public class Popup {
             }
             return 0;
         }).thenAcceptAsync(
-            result -> {
-                MinecraftClient client = MinecraftClient.getInstance();
-                Screen currentScreen = client.currentScreen;
-                client.execute(() ->
-                    client.setScreen(
-                        new PopupView(
-                            Text.empty(),
-                            currentScreen,
-                            title,
-                            description
-                        )
-                    )
-                );
-            },
-            MinecraftClient.getInstance()
+                result -> {
+                    MinecraftClient client = MinecraftClient.getInstance();
+                    Screen currentScreen = client.currentScreen;
+                    client.execute(() ->
+                            client.setScreen(
+                                    new PopupView(
+                                            Text.empty(),
+                                            currentScreen,
+                                            title,
+                                            description
+                                    )
+                            )
+                    );
+                },
+                MinecraftClient.getInstance()
         );
     }
 }

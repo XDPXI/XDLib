@@ -12,7 +12,7 @@ public final class Loader {
 
     private Loader() {
         throw new UnsupportedOperationException(
-            "Loader is a utility class and cannot be instantiated."
+                "Loader is a utility class and cannot be instantiated."
         );
     }
 

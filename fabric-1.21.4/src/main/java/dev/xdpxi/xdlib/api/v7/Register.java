@@ -2,8 +2,6 @@ package dev.xdpxi.xdlib.api.v7;
 
 import dev.xdpxi.xdlib.Constants;
 import dev.xdpxi.xdlib.util.Log;
-import java.util.Map;
-import java.util.function.Function;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ArmorItem;
@@ -21,6 +19,9 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
+import java.util.Map;
+import java.util.function.Function;
+
 /**
  * Utility class for registering blocks, items, and armor materials in Minecraft.
  */
@@ -28,7 +29,7 @@ public final class Register {
 
     private Register() {
         throw new UnsupportedOperationException(
-            "Register is a utility class and cannot be instantiated."
+                "Register is a utility class and cannot be instantiated."
         );
     }
 
@@ -39,10 +40,10 @@ public final class Register {
     public static void init() {
         try {
             Block testBlock = registerBlock(
-                Block::new,
-                AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE),
-                "test_block",
-                Constants.MOD_ID
+                    Block::new,
+                    AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE),
+                    "test_block",
+                    Constants.MOD_ID
             );
         } catch (Exception e) {
             Log.error("[XDLib] - Failed to register test block:", e);
@@ -50,10 +51,10 @@ public final class Register {
 
         try {
             Item testItem = registerItem(
-                Item::new,
-                new Item.Settings(),
-                "test_item",
-                Constants.MOD_ID
+                    Item::new,
+                    new Item.Settings(),
+                    "test_item",
+                    Constants.MOD_ID
             );
         } catch (Exception e) {
             Log.error("[XDLib] - Failed to register test armor material:", e);
@@ -61,27 +62,27 @@ public final class Register {
 
         try {
             RegistryKey<EquipmentAsset> ARMOR_MATERIAL_KEY = RegistryKey.of(
-                EquipmentAssetKeys.REGISTRY_KEY,
-                Identifier.of(Constants.MOD_ID, "test_armor_material")
+                    EquipmentAssetKeys.REGISTRY_KEY,
+                    Identifier.of(Constants.MOD_ID, "test_armor_material")
             );
             ArmorMaterial INSTANCE = new ArmorMaterial(
-                1000,
-                Map.of(
-                    EquipmentType.HELMET,
-                    3,
-                    EquipmentType.CHESTPLATE,
-                    8,
-                    EquipmentType.LEGGINGS,
-                    6,
-                    EquipmentType.BOOTS,
-                    3
-                ),
-                5,
-                SoundEvents.ITEM_ARMOR_EQUIP_IRON,
-                0.0F,
-                0.0F,
-                null,
-                ARMOR_MATERIAL_KEY
+                    1000,
+                    Map.of(
+                            EquipmentType.HELMET,
+                            3,
+                            EquipmentType.CHESTPLATE,
+                            8,
+                            EquipmentType.LEGGINGS,
+                            6,
+                            EquipmentType.BOOTS,
+                            3
+                    ),
+                    5,
+                    SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+                    0.0F,
+                    0.0F,
+                    null,
+                    ARMOR_MATERIAL_KEY
             );
         } catch (Exception e) {
             Log.error("[XDLib] - Failed to register test armor material:", e);
@@ -98,10 +99,10 @@ public final class Register {
      * @return The registered block.
      */
     public static Block registerBlock(
-        Function<AbstractBlock.Settings, Block> blockFactory,
-        AbstractBlock.Settings settings,
-        String itemId,
-        String modId
+            Function<AbstractBlock.Settings, Block> blockFactory,
+            AbstractBlock.Settings settings,
+            String itemId,
+            String modId
     ) {
         RegistryKey<Block> blockKey = createBlockKey(modId, itemId);
         Block block = blockFactory.apply(settings.registryKey(blockKey));
@@ -109,8 +110,8 @@ public final class Register {
 
         RegistryKey<Item> itemKey = createItemKey(modId, itemId);
         BlockItem blockItem = new BlockItem(
-            block,
-            new Item.Settings().registryKey(itemKey)
+                block,
+                new Item.Settings().registryKey(itemKey)
         );
         Registry.register(Registries.ITEM, itemKey, blockItem);
 
@@ -127,10 +128,10 @@ public final class Register {
      * @return The registered item.
      */
     public static Item registerItem(
-        Function<Item.Settings, Item> itemFactory,
-        Item.Settings settings,
-        String itemId,
-        String modId
+            Function<Item.Settings, Item> itemFactory,
+            Item.Settings settings,
+            String itemId,
+            String modId
     ) {
         RegistryKey<Item> itemKey = createItemKey(modId, itemId);
         Item item = itemFactory.apply(settings.registryKey(itemKey));
@@ -147,31 +148,31 @@ public final class Register {
      * @return The registered armor item.
      */
     public static Item registerArmorItem(
-        EquipmentType equipmentType,
-        ArmorMaterial material,
-        String itemId,
-        String modId
+            EquipmentType equipmentType,
+            ArmorMaterial material,
+            String itemId,
+            String modId
     ) {
         return registerItem(
-            settings -> new ArmorItem(material, equipmentType, settings),
-            new Item.Settings().maxDamage(
-                equipmentType.getMaxDamage(material.durability())
-            ),
-            itemId,
-            modId
+                settings -> new ArmorItem(material, equipmentType, settings),
+                new Item.Settings().maxDamage(
+                        equipmentType.getMaxDamage(material.durability())
+                ),
+                itemId,
+                modId
         );
     }
 
     private static RegistryKey<Block> createBlockKey(
-        String modId,
-        String itemId
+            String modId,
+            String itemId
     ) {
         return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(modId, itemId));
     }
 
     private static RegistryKey<Item> createItemKey(
-        String modId,
-        String itemId
+            String modId,
+            String itemId
     ) {
         return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(modId, itemId));
     }

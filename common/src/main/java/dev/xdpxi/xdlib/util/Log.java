@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class Log {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-        Constants.MOD_ID
+            Constants.MOD_ID
     );
 
     public static void trace(String message, Object... args) {

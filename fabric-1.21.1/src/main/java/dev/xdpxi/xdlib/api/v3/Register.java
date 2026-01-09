@@ -2,9 +2,6 @@ package dev.xdpxi.xdlib.api.v3;
 
 import dev.xdpxi.xdlib.Constants;
 import dev.xdpxi.xdlib.util.Log;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ArmorItem;
@@ -19,6 +16,10 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Utility class for registering blocks, items, and armor materials in Minecraft.
@@ -36,59 +37,59 @@ public class Register {
     public static void init() {
         try {
             test_block = Register.registerBlock(
-                new Block(
-                    AbstractBlock.Settings.create().sounds(
-                        BlockSoundGroup.STONE
-                    )
-                ),
-                "test_block",
-                Constants.MOD_ID
+                    new Block(
+                            AbstractBlock.Settings.create().sounds(
+                                    BlockSoundGroup.STONE
+                            )
+                    ),
+                    "test_block",
+                    Constants.MOD_ID
             );
         } catch (Exception e) {
             Log.error(
-                "[XDLib] - An error occurred while testing registerBlock:",
-                e
+                    "[XDLib] - An error occurred while testing registerBlock:",
+                    e
             );
         }
 
         try {
             test_item = Register.registerItem(
-                new Item(new Item.Settings()),
-                "test_item",
-                Constants.MOD_ID
+                    new Item(new Item.Settings()),
+                    "test_item",
+                    Constants.MOD_ID
             );
         } catch (Exception e) {
             Log.error(
-                "[XDLib] - An error occurred while testing registerItem:",
-                e
+                    "[XDLib] - An error occurred while testing registerItem:",
+                    e
             );
         }
 
         try {
             test_material = Register.registerMaterial(
-                "test_material",
-                Map.of(
-                    ArmorItem.Type.HELMET,
-                    3,
-                    ArmorItem.Type.CHESTPLATE,
-                    8,
-                    ArmorItem.Type.LEGGINGS,
-                    6,
-                    ArmorItem.Type.BOOTS,
-                    3
-                ),
-                5,
-                SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
-                () -> Ingredient.ofItems(test_item),
-                0.0F,
-                0.0F,
-                false,
-                Constants.MOD_ID
+                    "test_material",
+                    Map.of(
+                            ArmorItem.Type.HELMET,
+                            3,
+                            ArmorItem.Type.CHESTPLATE,
+                            8,
+                            ArmorItem.Type.LEGGINGS,
+                            6,
+                            ArmorItem.Type.BOOTS,
+                            3
+                    ),
+                    5,
+                    SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
+                    () -> Ingredient.ofItems(test_item),
+                    0.0F,
+                    0.0F,
+                    false,
+                    Constants.MOD_ID
             );
         } catch (Exception e) {
             Log.error(
-                "[XDLib] - An error occurred while testing registerMaterial:",
-                e
+                    "[XDLib] - An error occurred while testing registerMaterial:",
+                    e
             );
         }
     }
@@ -138,34 +139,34 @@ public class Register {
      * @return A RegistryEntry containing the registered ArmorMaterial.
      */
     public static RegistryEntry<ArmorMaterial> registerMaterial(
-        String id,
-        Map<ArmorItem.Type, Integer> defensePoints,
-        int enchantability,
-        RegistryEntry<SoundEvent> equipSound,
-        Supplier<Ingredient> repairIngredientSupplier,
-        float toughness,
-        float knockbackResistance,
-        boolean dyeable,
-        String MOD_ID
+            String id,
+            Map<ArmorItem.Type, Integer> defensePoints,
+            int enchantability,
+            RegistryEntry<SoundEvent> equipSound,
+            Supplier<Ingredient> repairIngredientSupplier,
+            float toughness,
+            float knockbackResistance,
+            boolean dyeable,
+            String MOD_ID
     ) {
         List<ArmorMaterial.Layer> layers = List.of(
-            new ArmorMaterial.Layer(Identifier.of(MOD_ID, id), "", dyeable)
+                new ArmorMaterial.Layer(Identifier.of(MOD_ID, id), "", dyeable)
         );
 
         ArmorMaterial material = new ArmorMaterial(
-            defensePoints,
-            enchantability,
-            equipSound,
-            repairIngredientSupplier,
-            layers,
-            toughness,
-            knockbackResistance
+                defensePoints,
+                enchantability,
+                equipSound,
+                repairIngredientSupplier,
+                layers,
+                toughness,
+                knockbackResistance
         );
 
         material = Registry.register(
-            Registries.ARMOR_MATERIAL,
-            Identifier.of(MOD_ID, id),
-            material
+                Registries.ARMOR_MATERIAL,
+                Identifier.of(MOD_ID, id),
+                material
         );
 
         return RegistryEntry.of(material);

@@ -8,9 +8,9 @@ $mods = @(
     "fabric-1.21.11"
 )
 
-$rootDir   = Get-Location
-$buildDir  = Join-Path $rootDir "build"
-$tmpRoot   = Join-Path $buildDir "tmp"
+$rootDir = Get-Location
+$buildDir = Join-Path $rootDir "build"
+$tmpRoot = Join-Path $buildDir "tmp"
 $finalLibs = Join-Path $buildDir "libs"
 $commonJar = Join-Path $rootDir "common/build/libs/common-$version.jar"
 
@@ -30,8 +30,8 @@ foreach ($mod in $mods)
 {
     $modLibDir = Join-Path $rootDir "$mod/build/libs"
     $modTmpDir = Join-Path $tmpRoot $mod
-    $jarName   = "$mod-$version.jar"
-    $modJar    = Join-Path $modLibDir $jarName
+    $jarName = "$mod-$version.jar"
+    $modJar = Join-Path $modLibDir $jarName
 
     if (Test-Path $modTmpDir)
     {
@@ -60,7 +60,7 @@ foreach ($mod in $mods)
 
         Get-ChildItem $commonTmp -Recurse | ForEach-Object {
             $relative = $_.FullName.Substring($commonTmp.Length + 1)
-            $dest     = Join-Path $modTmpDir $relative
+            $dest = Join-Path $modTmpDir $relative
 
             if (-not (Test-Path $dest))
             {
@@ -89,7 +89,7 @@ foreach ($mod in $mods)
         Set-Content $manifest "Manifest-Version: 1.0`r`n"
     }
 
-    $tempJar  = Join-Path $tmpRoot "$mod-$version.jar"
+    $tempJar = Join-Path $tmpRoot "$mod-$version.jar"
     $finalJar = Join-Path $finalLibs "xdlib-$mod-$version.jar"
 
     if (Test-Path $tempJar)
