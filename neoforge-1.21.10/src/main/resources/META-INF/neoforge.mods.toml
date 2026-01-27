@@ -1,0 +1,29 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "XDs-MC-License"
+issueTrackerURL = "https://github.com/XDPXI/XDLib/issues"
+showAsResourcePack = false
+
+[[mods]]
+modId = "xdlib"
+namespace = "xdlib"
+version = "7.0.0-SNAPSHOT-neoforge-1.21.10"
+displayName = "XD's Library"
+description = "XDPXI's library for numerous tasks."
+logoFile = "assets/xdlib/icon.png"
+authors = "XDPXI"
+displayURL = "https://xdpxi.vercel.app/xdlib"
+
+[[dependencies.xdlib]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21.9,1.21.10]"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.xdlib]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
