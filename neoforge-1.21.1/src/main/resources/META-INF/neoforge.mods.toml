@@ -17,13 +17,13 @@ displayURL = "https://xdpxi.vercel.app/xdlib"
 [[dependencies.xdlib]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.21.1,)"
+versionRange = "[1.21,1.21.1]"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.xdlib]]
 modId = "neoforge"
 mandatory = true
-versionRange = "[21.1.0,)"
+versionRange = "[21,)"
 ordering = "NONE"
 side = "BOTH"
