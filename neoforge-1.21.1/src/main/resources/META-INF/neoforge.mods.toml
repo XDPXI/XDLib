@@ -7,7 +7,7 @@ showAsResourcePack = false
 [[mods]]
 modId = "xdlib"
 namespace = "xdlib"
-version = "${version}"
+version = "7.0.0-SNAPSHOT-neoforge-1.21.1"
 displayName = "XD's Library"
 description = "XDPXI's library for numerous tasks."
 logoFile = "assets/xdlib/icon.png"
