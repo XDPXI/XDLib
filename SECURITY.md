@@ -2,9 +2,6 @@
 
 ## Important Notices
 
-> [!WARNING]
-> If you are still using versions v3, v5 or v6 please migrate to v7.
-
 > [!CAUTION]
 > Versions v1, v2, v3, v4, v5 and v6 are no longer supported.
 
