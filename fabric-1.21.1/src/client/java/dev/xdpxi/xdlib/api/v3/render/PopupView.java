@@ -17,10 +17,10 @@ public class PopupView extends Screen {
     private final MutableText changelogText;
 
     public PopupView(
-            Text text,
-            Screen parent,
-            String title,
-            String description
+        Text text,
+        Screen parent,
+        String title,
+        String description
     ) {
         super(text);
         this.parent = parent;
@@ -33,21 +33,21 @@ public class PopupView extends Screen {
         int centerY = this.height / 2 - 20;
 
         ButtonWidget buttonWidget = ButtonWidget.builder(
-                        Text.of("Dismiss"),
-                        btn -> {
-                            close();
-                        }
-                )
-                .dimensions(centerX - 60, centerY + 80, 120, 20)
-                .build();
+            Text.of("Dismiss"),
+            btn -> {
+                close();
+            }
+        )
+            .dimensions(centerX - 60, centerY + 80, 120, 20)
+            .build();
         this.addDrawableChild(buttonWidget);
     }
 
     public void render(
-            DrawContext context,
-            int mouseX,
-            int mouseY,
-            float delta
+        DrawContext context,
+        int mouseX,
+        int mouseY,
+        float delta
     ) {
         super.render(context, mouseX, mouseY, delta);
 
@@ -63,7 +63,7 @@ public class PopupView extends Screen {
             renderChangelogBox(context, boxX, boxY);
         } else {
             LOGGER.error(
-                    "Changelog text is null. Skipping changelog rendering."
+                "Changelog text is null. Skipping changelog rendering."
             );
         }
     }
@@ -77,25 +77,25 @@ public class PopupView extends Screen {
 
         if (this.textRenderer != null && this.changelogText != null) {
             context.drawTextWrapped(
-                    this.textRenderer,
-                    this.changelogText,
-                    x + 5,
-                    y + 5,
-                    boxWidth - 10,
-                    0xFFFFFFFF
+                this.textRenderer,
+                this.changelogText,
+                x + 5,
+                y + 5,
+                boxWidth - 10,
+                0xFFFFFFFF
             );
         }
     }
 
     private MutableText createChangelogText(String title, String description) {
         MutableText text = Text.literal(title + "\n\n").setStyle(
-                Style.EMPTY.withColor(Formatting.WHITE).withBold(true)
+            Style.EMPTY.withColor(Formatting.WHITE).withBold(true)
         );
 
         text.append(
-                Text.literal(description).setStyle(
-                        Style.EMPTY.withColor(Formatting.GRAY).withBold(false)
-                )
+            Text.literal(description).setStyle(
+                Style.EMPTY.withColor(Formatting.GRAY).withBold(false)
+            )
         );
 
         return text;

@@ -1,9 +1,8 @@
 package dev.xdpxi.xdlib.api.v3;
 
+import java.util.Objects;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.LanguageManager;
-
-import java.util.Objects;
 
 /**
  * Utility class for managing Minecraft's language settings.

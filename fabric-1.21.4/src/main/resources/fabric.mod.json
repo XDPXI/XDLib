@@ -4,9 +4,7 @@
   "version": "7.0.0-SNAPSHOT-fabric-1.21.4",
   "name": "XD's Library",
   "description": "XDPXI's library for numerous tasks.",
-  "authors": [
-    "XDPXI"
-  ],
+  "authors": ["XDPXI"],
   "contact": {
     "homepage": "https://xdpxi.vercel.app/xdlib",
     "sources": "https://github.com/XDPXI/XDLib",
@@ -16,12 +14,8 @@
   "icon": "assets/xdlib/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "dev.xdpxi.xdlib.Main"
-    ],
-    "client": [
-      "dev.xdpxi.xdlib.Client"
-    ]
+    "main": ["dev.xdpxi.xdlib.Main"],
+    "client": ["dev.xdpxi.xdlib.Client"]
   },
   "mixins": [
     "xdlib.mixins.json",
@@ -41,9 +35,7 @@
       "links": {
         "modmenu.modrinth": "https://modrinth.com/plugin/xdlib"
       },
-      "badges": [
-        "library"
-      ],
+      "badges": ["library"],
       "update_checker": true
     }
   }
