@@ -65,13 +65,9 @@ tasks.register('updateNeoForgeVersions') {
     }
 }
 
-tasks.register('updateAllVersions') {
+tasks.named('build') {
     dependsOn(
             'updateFabricVersions',
             'updateNeoForgeVersions'
     )
-}
-
-tasks.named('build') {
-    dependsOn('updateAllVersions')
 }
