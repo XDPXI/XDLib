@@ -10,11 +10,6 @@ buildscript {
 
 apply plugin: "fabric-loom"
 
-repositories {
-    mavenCentral()
-    maven { url = "https://maven.fabricmc.net/" }
-}
-
 dependencies {
     minecraft "com.mojang:minecraft:1.21.10"
     mappings "net.fabricmc:yarn:1.21.10+build.3:v2"

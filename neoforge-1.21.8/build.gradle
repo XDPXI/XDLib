@@ -2,11 +2,6 @@ plugins {
     id "net.neoforged.moddev" version "2.0.140"
 }
 
-repositories {
-    mavenCentral()
-    maven { url = "https://maven.neoforged.net/releases" }
-}
-
 dependencies {
     implementation project(":common")
 }

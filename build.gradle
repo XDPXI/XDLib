@@ -14,7 +14,12 @@ allprojects {
 
     repositories {
         mavenCentral()
+        maven { url = "https://maven.neoforged.net/releases" }
         maven { url = "https://maven.fabricmc.net/" }
+    }
+
+    dependencies {
+        implementation 'org.slf4j:slf4j-api:2.0.9'
     }
 }
 
