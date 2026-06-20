@@ -5,7 +5,7 @@ import dev.xdpxi.xdlib.util.Log;
 import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -71,7 +71,7 @@ public final class Register {
         String itemId,
         String modId
     ) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
+        Identifier id = Identifier.fromNamespaceAndPath(
             modId,
             itemId
         );
@@ -100,7 +100,7 @@ public final class Register {
         String itemId,
         String modId
     ) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
+        Identifier id = Identifier.fromNamespaceAndPath(
             modId,
             itemId
         );
