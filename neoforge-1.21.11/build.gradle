@@ -7,7 +7,7 @@ dependencies {
 }
 
 neoForge {
-    version = "21.11.38-beta"
+    version = "21.11.42"
     validateAccessTransformers = true
 
     mods {
