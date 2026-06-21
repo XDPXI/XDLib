@@ -43,7 +43,7 @@ public class ConfigManager {
                 new InputStreamReader(new FileInputStream(configFile), StandardCharsets.UTF_8))) {
             data = new Yaml(new LoaderOptions()).load(reader);
         } catch (IOException e) {
-            log.error("Failed to read config '{}', using defaults", modId);
+            log.error("[XDLib] - Failed to read config '{}', using defaults", modId);
             return instance;
         }
 
@@ -57,11 +57,11 @@ public class ConfigManager {
             try {
                 applyField(instance, field, raw);
             } catch (Exception e) {
-                log.warn("Config '{}': could not load field '{}', keeping default", modId, field.getName());
+                log.warn("[XDLib] - Config '{}': could not load field '{}', keeping default", modId, field.getName());
             }
         }
 
-        log.debug("Loaded config '{}'", modId);
+        log.debug("[XDLib] - Loaded config '{}'", modId);
         return instance;
     }
 
@@ -111,7 +111,7 @@ public class ConfigManager {
             throw new IOException("Failed to save config '" + modId + "'", e);
         }
 
-        log.debug("Saved config '{}'", modId);
+        log.debug("[XDLib] - Saved config '{}'", modId);
     }
 
     // -------------------------------------------------------------------------
