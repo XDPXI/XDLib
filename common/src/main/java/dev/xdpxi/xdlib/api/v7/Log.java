@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Per-modid logger. Create one instance per mod (typically in your init method)
- * and reuse it: {@code private static final Log LOG = Log.create("mymodid");}
+ * and reuse it: {@code public static final Log LOG = Log.create("mymodid");}
  */
 public class Log {
     private final Logger logger;
