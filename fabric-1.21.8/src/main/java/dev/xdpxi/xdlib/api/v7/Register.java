@@ -1,7 +1,6 @@
 package dev.xdpxi.xdlib.api.v7;
 
 import dev.xdpxi.xdlib.Constants;
-import dev.xdpxi.xdlib.util.Log;
 import java.util.Map;
 import java.util.function.Function;
 import net.minecraft.block.AbstractBlock;
@@ -19,6 +18,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+
+import static dev.xdpxi.xdlib.Common.log;
 
 /**
  * Utility class for registering blocks, items, and armor materials in Minecraft.
@@ -44,7 +45,7 @@ public final class Register {
                 Constants.MOD_ID
             );
         } catch (Exception e) {
-            Log.error("[XDLib] - Failed to register test block:", e);
+            log.error("[XDLib] - Failed to register test block:", e);
         }
 
         try {
@@ -55,7 +56,7 @@ public final class Register {
                 Constants.MOD_ID
             );
         } catch (Exception e) {
-            Log.error("[XDLib] - Failed to register test armor material:", e);
+            log.error("[XDLib] - Failed to register test armor material:", e);
         }
 
         try {
@@ -83,7 +84,7 @@ public final class Register {
                 ARMOR_MATERIAL_KEY
             );
         } catch (Exception e) {
-            Log.error("[XDLib] - Failed to register test armor material:", e);
+            log.error("[XDLib] - Failed to register test armor material:", e);
         }
     }
 

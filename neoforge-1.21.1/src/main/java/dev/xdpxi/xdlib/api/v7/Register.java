@@ -1,7 +1,6 @@
 package dev.xdpxi.xdlib.api.v7;
 
 import dev.xdpxi.xdlib.Constants;
-import dev.xdpxi.xdlib.util.Log;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -20,6 +19,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+
+import static dev.xdpxi.xdlib.Common.log;
 
 /**
  * Utility class for registering blocks, items, and armor materials in Minecraft.
@@ -48,9 +49,9 @@ public final class Register {
                 "test_block",
                 Constants.MOD_ID
             );
-            Log.info("Test block registered");
+            log.info("Test block registered");
         } catch (Exception e) {
-            Log.error("Failed block register", e);
+            log.error("Failed block register", e);
         }
 
         try {
@@ -60,9 +61,9 @@ public final class Register {
                 "test_item",
                 Constants.MOD_ID
             );
-            Log.info("Test item registered");
+            log.info("Test item registered");
         } catch (Exception e) {
-            Log.error("Failed item register", e);
+            log.error("Failed item register", e);
         }
 
         try {
@@ -86,9 +87,9 @@ public final class Register {
                 false,
                 Constants.MOD_ID
             );
-            Log.info("Armor material registered");
+            log.info("Armor material registered");
         } catch (Exception e) {
-            Log.error("Failed armor material register", e);
+            log.error("Failed armor material register", e);
         }
     }
 

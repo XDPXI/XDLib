@@ -1,6 +1,5 @@
 package dev.xdpxi.xdlib.api.v7.config;
 
-import dev.xdpxi.xdlib.util.Log;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -13,6 +12,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static dev.xdpxi.xdlib.Common.log;
 
 public class ConfigManager {
 
@@ -42,7 +43,7 @@ public class ConfigManager {
                 new InputStreamReader(new FileInputStream(configFile), StandardCharsets.UTF_8))) {
             data = new Yaml(new LoaderOptions()).load(reader);
         } catch (IOException e) {
-            Log.error("Failed to read config '{}', using defaults", modId);
+            log.error("Failed to read config '{}', using defaults", modId);
             return instance;
         }
 
@@ -56,11 +57,11 @@ public class ConfigManager {
             try {
                 applyField(instance, field, raw);
             } catch (Exception e) {
-                Log.warn("Config '{}': could not load field '{}', keeping default", modId, field.getName());
+                log.warn("Config '{}': could not load field '{}', keeping default", modId, field.getName());
             }
         }
 
-        Log.debug("Loaded config '{}'", modId);
+        log.debug("Loaded config '{}'", modId);
         return instance;
     }
 
@@ -110,7 +111,7 @@ public class ConfigManager {
             throw new IOException("Failed to save config '" + modId + "'", e);
         }
 
-        Log.debug("Saved config '{}'", modId);
+        log.debug("Saved config '{}'", modId);
     }
 
     // -------------------------------------------------------------------------
