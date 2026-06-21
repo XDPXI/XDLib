@@ -1,7 +1,6 @@
 package dev.xdpxi.xdlib.api.v7;
 
 import dev.xdpxi.xdlib.Constants;
-import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -10,6 +9,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+
+import java.util.function.Function;
 
 import static dev.xdpxi.xdlib.Common.log;
 
@@ -23,7 +24,7 @@ public final class Register {
 
     private Register() {
         throw new UnsupportedOperationException(
-            "Register is a utility class and cannot be instantiated."
+                "Register is a utility class and cannot be instantiated."
         );
     }
 
@@ -34,10 +35,10 @@ public final class Register {
     public static void init() {
         try {
             test_block = registerBlock(
-                Block::new,
-                BlockBehaviour.Properties.of().sound(SoundType.STONE),
-                "test_block",
-                Constants.MOD_ID
+                    Block::new,
+                    BlockBehaviour.Properties.of().sound(SoundType.STONE),
+                    "test_block",
+                    Constants.MOD_ID
             );
             log.info("Test block registered");
         } catch (Exception e) {
@@ -46,10 +47,10 @@ public final class Register {
 
         try {
             test_item = registerItem(
-                Item::new,
-                new Item.Properties(),
-                "test_item",
-                Constants.MOD_ID
+                    Item::new,
+                    new Item.Properties(),
+                    "test_item",
+                    Constants.MOD_ID
             );
             log.info("Test item registered");
         } catch (Exception e) {
@@ -67,14 +68,14 @@ public final class Register {
      * @return The registered block.
      */
     public static Block registerBlock(
-        Function<BlockBehaviour.Properties, Block> blockFactory,
-        BlockBehaviour.Properties properties,
-        String itemId,
-        String modId
+            Function<BlockBehaviour.Properties, Block> blockFactory,
+            BlockBehaviour.Properties properties,
+            String itemId,
+            String modId
     ) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
-            modId,
-            itemId
+                modId,
+                itemId
         );
 
         Block block = blockFactory.apply(properties);
@@ -96,14 +97,14 @@ public final class Register {
      * @return The registered item.
      */
     public static Item registerItem(
-        Function<Item.Properties, Item> itemFactory,
-        Item.Properties properties,
-        String itemId,
-        String modId
+            Function<Item.Properties, Item> itemFactory,
+            Item.Properties properties,
+            String itemId,
+            String modId
     ) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
-            modId,
-            itemId
+                modId,
+                itemId
         );
         Item item = itemFactory.apply(properties);
 

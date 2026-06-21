@@ -10,7 +10,7 @@ public final class Loader {
 
     private Loader() {
         throw new UnsupportedOperationException(
-            "Loader is a utility class and cannot be instantiated."
+                "Loader is a utility class and cannot be instantiated."
         );
     }
 
@@ -32,8 +32,8 @@ public final class Loader {
      */
     public static String getModVersion(String modID) {
         return ModList.get()
-            .getModContainerById(modID)
-            .map(container -> container.getModInfo().getVersion().toString())
-            .orElse(null);
+                .getModContainerById(modID)
+                .map(container -> container.getModInfo().getVersion().toString())
+                .orElse(null);
     }
 }

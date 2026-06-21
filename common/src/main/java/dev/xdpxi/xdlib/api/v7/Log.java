@@ -1,6 +1,5 @@
 package dev.xdpxi.xdlib.api.v7;
 
-import dev.xdpxi.xdlib.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
