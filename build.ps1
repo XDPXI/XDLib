@@ -10,7 +10,8 @@ $mods = @(
     "neoforge-1.21.4",
     "neoforge-1.21.8",
     "neoforge-1.21.10",
-    "neoforge-1.21.11"
+    "neoforge-1.21.11",
+    "bukkit"
 )
 
 $rootDir = Get-Location

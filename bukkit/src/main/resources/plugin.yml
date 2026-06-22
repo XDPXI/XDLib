@@ -1,0 +1,8 @@
+name: XDs-Library
+description: XDPXI's library for numerous tasks.
+website: https://modrinth.com/plugin/xdlib
+author: XDPXI
+version: 7.0.0-SNAPSHOT-bukkit
+main: dev.xdpxi.xdlib.Main
+api-version: '1.21.11'
+load: STARTUP
