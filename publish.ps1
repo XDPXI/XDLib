@@ -315,6 +315,7 @@ if ($publishToMaven)
             Write-Host "  Uploaded POM successfully" -ForegroundColor Green
 
             Remove-Item $pomPath -Force
+            Start-Sleep -Milliseconds 100
         } catch
         {
             Write-Host "  Failed to upload POM: $($_.Exception.Message)" -ForegroundColor Red
@@ -336,6 +337,7 @@ if ($publishToMaven)
             Write-Host "  Uploaded maven-metadata.xml successfully" -ForegroundColor Green
 
             Remove-Item $metadataPath -Force
+            Start-Sleep -Milliseconds 100
         } catch
         {
             Write-Host "  Failed to upload maven-metadata.xml: $($_.Exception.Message)" -ForegroundColor Red
