@@ -18,43 +18,53 @@ if (-not $mavenUsername -or -not $mavenPassword)
 }
 
 # Maps loader type to its loaders and game versions
-function Get-VersionMapping {
+function Get-VersionMapping
+{
     param([System.IO.FileInfo[]]$jars)
 
     $mapping = @{}
     $order = @()
 
-    foreach ($jar in $jars) {
+    foreach ($jar in $jars)
+    {
         $name = $jar.Name
 
         # Skip common JAR
-        if ($name -match "xdlib-common-") {
+        if ($name -match "xdlib-common-")
+        {
             continue
         }
 
         # Parse JAR name: xdlib-<loader>[-<mcversion>]-<version>.jar
-        if ($name -match "xdlib-bukkit-$version\.jar") {
+        if ($name -match "xdlib-bukkit-$version\.jar")
+        {
             $displayName = "$version-bukkit"
             $order += $displayName
             $mapping[$displayName] = @{
                 jar = $jar
-                loaders = @("paper", "folia", "spigot", "purpur")
+                loaders = @("paper", "folia", "spigot", "purpur", "bukkit")
                 gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
                 dependencies = @()
             }
-        }
-        elseif ($name -match "xdlib-neoforge-(\d+\.\d+\.\d+)-$version\.jar") {
+        } elseif ($name -match "xdlib-neoforge-(\d+\.\d+\.\d+)-$version\.jar")
+        {
             $mcVersion = $matches[1]
             $displayName = "$version-neo-$mcVersion"
             $order += $displayName
 
             # Map neoforge versions to supported game versions
             $gameVersions = @()
-            if ($mcVersion -eq "1.21.1") { $gameVersions = @("1.21", "1.21.1") }
-            elseif ($mcVersion -eq "1.21.4") { $gameVersions = @("1.21.4") }
-            elseif ($mcVersion -eq "1.21.8") { $gameVersions = @("1.21.6", "1.21.7", "1.21.8") }
-            elseif ($mcVersion -eq "1.21.10") { $gameVersions = @("1.21.9", "1.21.10") }
-            elseif ($mcVersion -eq "1.21.11") { $gameVersions = @("1.21.11") }
+            if ($mcVersion -eq "1.21.1")
+            { $gameVersions = @("1.21", "1.21.1") 
+            } elseif ($mcVersion -eq "1.21.4")
+            { $gameVersions = @("1.21.4") 
+            } elseif ($mcVersion -eq "1.21.8")
+            { $gameVersions = @("1.21.6", "1.21.7", "1.21.8") 
+            } elseif ($mcVersion -eq "1.21.10")
+            { $gameVersions = @("1.21.9", "1.21.10") 
+            } elseif ($mcVersion -eq "1.21.11")
+            { $gameVersions = @("1.21.11") 
+            }
 
             $mapping[$displayName] = @{
                 jar = $jar
@@ -62,19 +72,25 @@ function Get-VersionMapping {
                 gameVersions = $gameVersions
                 dependencies = @()
             }
-        }
-        elseif ($name -match "xdlib-fabric-(\d+\.\d+\.\d+)-$version\.jar") {
+        } elseif ($name -match "xdlib-fabric-(\d+\.\d+\.\d+)-$version\.jar")
+        {
             $mcVersion = $matches[1]
             $displayName = "$version-fabric-$mcVersion"
             $order += $displayName
 
             # Map fabric versions to supported game versions
             $gameVersions = @()
-            if ($mcVersion -eq "1.21.1") { $gameVersions = @("1.21", "1.21.1") }
-            elseif ($mcVersion -eq "1.21.4") { $gameVersions = @("1.21.4") }
-            elseif ($mcVersion -eq "1.21.8") { $gameVersions = @("1.21.6", "1.21.7", "1.21.8") }
-            elseif ($mcVersion -eq "1.21.10") { $gameVersions = @("1.21.9", "1.21.10") }
-            elseif ($mcVersion -eq "1.21.11") { $gameVersions = @("1.21.11") }
+            if ($mcVersion -eq "1.21.1")
+            { $gameVersions = @("1.21", "1.21.1") 
+            } elseif ($mcVersion -eq "1.21.4")
+            { $gameVersions = @("1.21.4") 
+            } elseif ($mcVersion -eq "1.21.8")
+            { $gameVersions = @("1.21.6", "1.21.7", "1.21.8") 
+            } elseif ($mcVersion -eq "1.21.10")
+            { $gameVersions = @("1.21.9", "1.21.10") 
+            } elseif ($mcVersion -eq "1.21.11")
+            { $gameVersions = @("1.21.11") 
+            }
 
             $fabricApiDep = @{
                 version_id = $null
@@ -98,22 +114,27 @@ function Get-VersionMapping {
     $fabricVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11")
 
     # Bukkit first
-    if ($mapping.Contains("$version-bukkit")) {
+    if ($mapping.Contains("$version-bukkit"))
+    {
         $sortedMapping["$version-bukkit"] = $mapping["$version-bukkit"]
     }
 
     # NeoForge versions in order
-    foreach ($mcVer in $neoVersions) {
+    foreach ($mcVer in $neoVersions)
+    {
         $key = "$version-neo-$mcVer"
-        if ($mapping.Contains($key)) {
+        if ($mapping.Contains($key))
+        {
             $sortedMapping[$key] = $mapping[$key]
         }
     }
 
     # Fabric versions in order
-    foreach ($mcVer in $fabricVersions) {
+    foreach ($mcVer in $fabricVersions)
+    {
         $key = "$version-fabric-$mcVer"
-        if ($mapping.Contains($key)) {
+        if ($mapping.Contains($key))
+        {
             $sortedMapping[$key] = $mapping[$key]
         }
     }
@@ -233,7 +254,8 @@ if (-not $modrinthToken)
             } | ConvertTo-Json -Compress
 
             # Helper function to write string to stream
-            function Write-ToStream {
+            function Write-ToStream
+            {
                 param([System.IO.MemoryStream]$stream, [string]$text)
                 $bytes = $encoding.GetBytes($text)
                 $stream.Write($bytes, 0, $bytes.Length)
@@ -279,12 +301,16 @@ if (-not $modrinthToken)
         } catch
         {
             Write-Host "  Failed to publish: $($_.Exception.Message)" -ForegroundColor Red
-            try {
+            try
+            {
                 $errorResponse = $_.ErrorDetails.Message
-                if ($errorResponse) {
+                if ($errorResponse)
+                {
                     Write-Host "    Error: $errorResponse" -ForegroundColor Gray
                 }
-            } catch { }
+            } catch
+            { 
+            }
             $modrinthFailCount++
         }
     }
