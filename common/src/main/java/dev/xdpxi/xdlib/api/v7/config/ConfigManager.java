@@ -41,7 +41,9 @@ public class ConfigManager {
         Map<String, Object> data;
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(configFile), StandardCharsets.UTF_8))) {
-            data = new Yaml(new LoaderOptions()).load(reader);
+            LoaderOptions options = new LoaderOptions();
+            options.setAllowArbitraryTypes(false);
+            data = new Yaml(options).load(reader);
         } catch (IOException e) {
             log.error("[XDLib] - Failed to read config '{}', using defaults", modId);
             return instance;
