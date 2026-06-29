@@ -2,6 +2,7 @@ package dev.xdpxi.xdlib.api.v7.config;
 
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.io.*;
 import java.lang.reflect.Field;
@@ -42,8 +43,8 @@ public class ConfigManager {
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(configFile), StandardCharsets.UTF_8))) {
             LoaderOptions options = new LoaderOptions();
-            options.setAllowArbitraryTypes(false);
-            data = new Yaml(options).load(reader);
+            Yaml yaml = new Yaml(new SafeConstructor(options));
+            data = yaml.load(reader);
         } catch (IOException e) {
             log.error("[XDLib] - Failed to read config '{}', using defaults", modId);
             return instance;
