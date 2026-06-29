@@ -64,3 +64,4 @@
 /bukkit/build
 /bukkit/.eclipse
 *.DS_STORE
+.env
