@@ -6,6 +6,10 @@ $modrinthProjectId = "yDe2kPBC"
 $modrinthApiUrl = "https://api.modrinth.com/v2"
 $buildLibsDir = Join-Path (Get-Location) "build/libs"
 
+# Publishing flags
+$publishToMaven = $true
+$publishToModrinth = $true
+
 # Credentials (use environment variables for security)
 $mavenUsername = $env:MAVEN_USERNAME
 $mavenPassword = $env:MAVEN_PASSWORD
@@ -55,15 +59,15 @@ function Get-VersionMapping
             # Map neoforge versions to supported game versions
             $gameVersions = @()
             if ($mcVersion -eq "1.21.1")
-            { $gameVersions = @("1.21", "1.21.1") 
+            { $gameVersions = @("1.21", "1.21.1")
             } elseif ($mcVersion -eq "1.21.4")
-            { $gameVersions = @("1.21.4") 
+            { $gameVersions = @("1.21.4")
             } elseif ($mcVersion -eq "1.21.8")
-            { $gameVersions = @("1.21.6", "1.21.7", "1.21.8") 
+            { $gameVersions = @("1.21.6", "1.21.7", "1.21.8")
             } elseif ($mcVersion -eq "1.21.10")
-            { $gameVersions = @("1.21.9", "1.21.10") 
+            { $gameVersions = @("1.21.9", "1.21.10")
             } elseif ($mcVersion -eq "1.21.11")
-            { $gameVersions = @("1.21.11") 
+            { $gameVersions = @("1.21.11")
             }
 
             $mapping[$displayName] = @{
@@ -81,15 +85,15 @@ function Get-VersionMapping
             # Map fabric versions to supported game versions
             $gameVersions = @()
             if ($mcVersion -eq "1.21.1")
-            { $gameVersions = @("1.21", "1.21.1") 
+            { $gameVersions = @("1.21", "1.21.1")
             } elseif ($mcVersion -eq "1.21.4")
-            { $gameVersions = @("1.21.4") 
+            { $gameVersions = @("1.21.4")
             } elseif ($mcVersion -eq "1.21.8")
-            { $gameVersions = @("1.21.6", "1.21.7", "1.21.8") 
+            { $gameVersions = @("1.21.6", "1.21.7", "1.21.8")
             } elseif ($mcVersion -eq "1.21.10")
-            { $gameVersions = @("1.21.9", "1.21.10") 
+            { $gameVersions = @("1.21.9", "1.21.10")
             } elseif ($mcVersion -eq "1.21.11")
-            { $gameVersions = @("1.21.11") 
+            { $gameVersions = @("1.21.11")
             }
 
             $fabricApiDep = @{
@@ -171,149 +175,297 @@ if ($jars.Count -eq 0)
 # Create Maven credentials
 $mavenCredential = New-Object System.Management.Automation.PSCredential($mavenUsername, (ConvertTo-SecureString $mavenPassword -AsPlainText -Force))
 
-# Publish to Maven
-Write-Host "`nPublishing to Maven" -ForegroundColor Cyan
-$mavenSuccessCount = 0
-$mavenFailCount = 0
-
-foreach ($jar in $jars)
+# Generate POM file content
+function Generate-PomContent
 {
-    $jarName = $jar.Name
-    $jarPath = $jar.FullName
+    param([string]$groupId, [string]$artifactId, [string]$versionStr)
 
-    # Extract artifact name from jar name
-    # xdlib-fabric-1.21.1-7.0.0-SNAPSHOT.jar -> fabric-1.21.1
-    $artifact = $jarName -replace "xdlib-", "" -replace "-$version.jar", ""
+    $pomContent = @"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>$groupId</groupId>
+  <artifactId>$artifactId</artifactId>
+  <version>$versionStr</version>
+</project>
+"@
+    return $pomContent
+}
 
-    # Convert group to path (dev.xdpxi -> dev/xdpxi)
-    $groupPath = $group -replace "\.", "/"
+# Fetch existing maven-metadata.xml from repository
+function Get-ExistingMetadata
+{
+    param([string]$metadataUrl)
 
-    # Build upload URL
-    $uploadUrl = "$mavenRepoUrl/$groupPath/xdlib-$artifact/$version/$jarName"
-
-    Write-Host "Publishing $jarName to Maven..."
     try
     {
-        Invoke-WebRequest -Uri $uploadUrl -InFile $jarPath -Method Put -Credential $mavenCredential -ErrorAction Stop | Out-Null
-        Write-Host "  Published successfully" -ForegroundColor Green
-        $mavenSuccessCount++
+        $response = Invoke-WebRequest -Uri $metadataUrl -Method Get -Credential $mavenCredential -ErrorAction Stop
+        return [xml]$response.Content
     } catch
     {
-        Write-Host "  Failed to publish: $($_.Exception.Message)" -ForegroundColor Red
-        $mavenFailCount++
+        return $null
     }
 }
 
-# Publish to Modrinth
-Write-Host "`nPublishing to Modrinth" -ForegroundColor Cyan
-
-if (-not $modrinthToken)
+# Generate maven-metadata.xml content with version history
+function Generate-MetadataContent
 {
-    Write-Warning "MODRINTH_TOKEN environment variable not set. Skipping Modrinth publishing."
-    $modrinthSuccessCount = 0
-    $modrinthFailCount = 0
+    param([string]$groupId, [string]$artifactId, [string]$versionStr, [string]$timestamp, [xml]$existingMetadata)
+
+    $versions = @()
+
+    # If we have existing metadata, preserve existing versions
+    if ($existingMetadata -and $existingMetadata.metadata.versioning.versions)
+    {
+        foreach ($v in $existingMetadata.metadata.versioning.versions.version)
+        {
+            if ($v -and $versions -notcontains $v)
+            {
+                $versions += $v
+            }
+        }
+    }
+
+    # Add new version if not already present
+    if ($versions -notcontains $versionStr)
+    {
+        $versions += $versionStr
+    }
+
+    # Sort versions (simple string sort, should work for semantic versioning)
+    $versions = $versions | Sort-Object
+
+    # Build version entries
+    $versionEntries = ""
+    foreach ($v in $versions)
+    {
+        $versionEntries += "        <version>$v</version>`n"
+    }
+
+    # Latest and release are the current version
+    $metadataContent = @"
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <groupId>$groupId</groupId>
+    <artifactId>$artifactId</artifactId>
+    <versioning>
+        <latest>$versionStr</latest>
+        <release>$versionStr</release>
+        <versions>
+$versionEntries    </versions>
+        <lastUpdated>$timestamp</lastUpdated>
+    </versioning>
+</metadata>
+"@
+    return $metadataContent
+}
+
+# Publish to Maven
+if ($publishToMaven)
+{
+    Write-Host "`nPublishing to Maven" -ForegroundColor Cyan
+    $mavenSuccessCount = 0
+    $mavenFailCount = 0
+    $timestamp = Get-Date -Format "yyyyMMddHHmmss"
+
+    foreach ($jar in $jars)
+    {
+        $jarName = $jar.Name
+        $jarPath = $jar.FullName
+
+        # Extract artifact name from jar name
+        # xdlib-fabric-1.21.1-7.0.0-SNAPSHOT.jar -> fabric-1.21.1
+        $artifact = $jarName -replace "xdlib-", "" -replace "-$version.jar", ""
+        $artifactId = "xdlib-$artifact"
+
+        # Convert group to path (dev.xdpxi -> dev/xdpxi)
+        $groupPath = $group -replace "\.", "/"
+
+        # Base URL for this artifact version
+        $baseUrl = "$mavenRepoUrl/$groupPath/$artifactId/$version"
+
+        Write-Host "Publishing $jarName to Maven..."
+
+        # Upload JAR file
+        try
+        {
+            $jarUrl = "$baseUrl/$jarName"
+            Invoke-WebRequest -Uri $jarUrl -InFile $jarPath -Method Put -Credential $mavenCredential -ErrorAction Stop | Out-Null
+            Write-Host "  Uploaded JAR successfully" -ForegroundColor Green
+            $mavenSuccessCount++
+        } catch
+        {
+            Write-Host "  Failed to upload JAR: $($_.Exception.Message)" -ForegroundColor Red
+            $mavenFailCount++
+            continue
+        }
+
+        # Generate and upload POM file
+        try
+        {
+            $pomContent = Generate-PomContent -groupId $group -artifactId $artifactId -versionStr $version
+            $pomFileName = "$artifactId-$version.pom"
+            $pomPath = Join-Path $env:TEMP $pomFileName
+
+            Set-Content -Path $pomPath -Value $pomContent -Encoding UTF8
+
+            $pomUrl = "$baseUrl/$pomFileName"
+            Invoke-WebRequest -Uri $pomUrl -InFile $pomPath -Method Put -Credential $mavenCredential -ErrorAction Stop | Out-Null
+            Write-Host "  Uploaded POM successfully" -ForegroundColor Green
+
+            Remove-Item $pomPath -Force
+        } catch
+        {
+            Write-Host "  Failed to upload POM: $($_.Exception.Message)" -ForegroundColor Red
+        }
+
+        # Generate and upload maven-metadata.xml
+        try
+        {
+            $metadataUrl = "$mavenRepoUrl/$groupPath/$artifactId/maven-metadata.xml"
+            $existingMetadata = Get-ExistingMetadata -metadataUrl $metadataUrl
+
+            $metadataContent = Generate-MetadataContent -groupId $group -artifactId $artifactId -versionStr $version -timestamp $timestamp -existingMetadata $existingMetadata
+            $metadataFileName = "maven-metadata.xml"
+            $metadataPath = Join-Path $env:TEMP $metadataFileName
+
+            Set-Content -Path $metadataPath -Value $metadataContent -Encoding UTF8
+
+            Invoke-WebRequest -Uri $metadataUrl -InFile $metadataPath -Method Put -Credential $mavenCredential -ErrorAction Stop | Out-Null
+            Write-Host "  Uploaded maven-metadata.xml successfully" -ForegroundColor Green
+
+            Remove-Item $metadataPath -Force
+        } catch
+        {
+            Write-Host "  Failed to upload maven-metadata.xml: $($_.Exception.Message)" -ForegroundColor Red
+        }
+    }
+} else
+{
+    $mavenSuccessCount = 0
+    $mavenFailCount = 0
+    Write-Host "`nSkipping Maven publishing" -ForegroundColor Yellow
+}
+
+# Publish to Modrinth
+if ($publishToModrinth)
+{
+    Write-Host "`nPublishing to Modrinth" -ForegroundColor Cyan
+
+    if (-not $modrinthToken)
+    {
+        Write-Warning "MODRINTH_TOKEN environment variable not set. Skipping Modrinth publishing."
+        $modrinthSuccessCount = 0
+        $modrinthFailCount = 0
+    } else
+    {
+        $modrinthSuccessCount = 0
+        $modrinthFailCount = 0
+
+        $versionMapping = Get-VersionMapping -jars $jars
+
+        foreach ($displayName in $versionMapping.Keys)
+        {
+            $mapping = $versionMapping[$displayName]
+            $jar = $mapping.jar
+            $loaders = $mapping.loaders
+            $gameVersions = $mapping.gameVersions
+            $dependencies = $mapping.dependencies
+
+            $jarPath = $jar.FullName
+            $jarName = $jar.Name
+
+            Write-Host "Publishing $jarName to Modrinth..."
+
+            try
+            {
+                # Prepare multipart form data for Modrinth API
+                $boundary = [guid]::NewGuid().ToString()
+                $encoding = [System.Text.Encoding]::UTF8
+                $memoryStream = [System.IO.MemoryStream]::new()
+
+                # Build JSON data object
+                $versionData = @{
+                    project_id = $modrinthProjectId
+                    name = $displayName
+                    version_number = $displayName
+                    changelog = "Automated release of $displayName"
+                    loaders = $loaders
+                    game_versions = $gameVersions
+                    dependencies = $dependencies
+                    version_type = "release"
+                    featured = $false
+                    file_parts = @("file")
+                } | ConvertTo-Json -Compress
+
+                # Helper function to write string to stream
+                function Write-ToStream
+                {
+                    param([System.IO.MemoryStream]$stream, [string]$text)
+                    $bytes = $encoding.GetBytes($text)
+                    $stream.Write($bytes, 0, $bytes.Length)
+                }
+
+                # Add data field
+                Write-ToStream $memoryStream "--$boundary`r`n"
+                Write-ToStream $memoryStream "Content-Disposition: form-data; name=`"data`"`r`n`r`n"
+                Write-ToStream $memoryStream $versionData
+                Write-ToStream $memoryStream "`r`n"
+
+                # Add file field
+                Write-ToStream $memoryStream "--$boundary`r`n"
+                Write-ToStream $memoryStream "Content-Disposition: form-data; name=`"file`"; filename=`"$jarName`"`r`n"
+                Write-ToStream $memoryStream "Content-Type: application/java-archive`r`n`r`n"
+
+                # Append binary file content
+                $fileBytes = [System.IO.File]::ReadAllBytes($jarPath)
+                $memoryStream.Write($fileBytes, 0, $fileBytes.Length)
+
+                # Add closing boundary
+                Write-ToStream $memoryStream "`r`n--$boundary--`r`n"
+
+                $bodyBytes = $memoryStream.ToArray()
+                $memoryStream.Close()
+
+                # Upload to Modrinth
+                $uploadUrl = "$modrinthApiUrl/version"
+
+                $headers = @{
+                    "Authorization" = $modrinthToken
+                }
+
+                $response = Invoke-WebRequest -Uri $uploadUrl `
+                    -Method Post `
+                    -Headers $headers `
+                    -ContentType "multipart/form-data; boundary=$boundary" `
+                    -Body $bodyBytes `
+                    -ErrorAction Stop
+
+                Write-Host "  Published successfully" -ForegroundColor Green
+                $modrinthSuccessCount++
+            } catch
+            {
+                Write-Host "  Failed to publish: $($_.Exception.Message)" -ForegroundColor Red
+                try
+                {
+                    $errorResponse = $_.ErrorDetails.Message
+                    if ($errorResponse)
+                    {
+                        Write-Host "    Error: $errorResponse" -ForegroundColor Gray
+                    }
+                } catch
+                {
+                }
+                $modrinthFailCount++
+            }
+        }
+    }
 } else
 {
     $modrinthSuccessCount = 0
     $modrinthFailCount = 0
-
-    $versionMapping = Get-VersionMapping -jars $jars
-
-    foreach ($displayName in $versionMapping.Keys)
-    {
-        $mapping = $versionMapping[$displayName]
-        $jar = $mapping.jar
-        $loaders = $mapping.loaders
-        $gameVersions = $mapping.gameVersions
-        $dependencies = $mapping.dependencies
-
-        $jarPath = $jar.FullName
-        $jarName = $jar.Name
-
-        Write-Host "Publishing $jarName to Modrinth..."
-
-        try
-        {
-            # Prepare multipart form data for Modrinth API
-            $boundary = [guid]::NewGuid().ToString()
-            $encoding = [System.Text.Encoding]::UTF8
-            $memoryStream = [System.IO.MemoryStream]::new()
-
-            # Build JSON data object
-            $versionData = @{
-                project_id = $modrinthProjectId
-                name = $displayName
-                version_number = $displayName
-                changelog = "Automated release of $displayName"
-                loaders = $loaders
-                game_versions = $gameVersions
-                dependencies = $dependencies
-                version_type = "release"
-                featured = $false
-                file_parts = @("file")
-            } | ConvertTo-Json -Compress
-
-            # Helper function to write string to stream
-            function Write-ToStream
-            {
-                param([System.IO.MemoryStream]$stream, [string]$text)
-                $bytes = $encoding.GetBytes($text)
-                $stream.Write($bytes, 0, $bytes.Length)
-            }
-
-            # Add data field
-            Write-ToStream $memoryStream "--$boundary`r`n"
-            Write-ToStream $memoryStream "Content-Disposition: form-data; name=`"data`"`r`n`r`n"
-            Write-ToStream $memoryStream $versionData
-            Write-ToStream $memoryStream "`r`n"
-
-            # Add file field
-            Write-ToStream $memoryStream "--$boundary`r`n"
-            Write-ToStream $memoryStream "Content-Disposition: form-data; name=`"file`"; filename=`"$jarName`"`r`n"
-            Write-ToStream $memoryStream "Content-Type: application/java-archive`r`n`r`n"
-
-            # Append binary file content
-            $fileBytes = [System.IO.File]::ReadAllBytes($jarPath)
-            $memoryStream.Write($fileBytes, 0, $fileBytes.Length)
-
-            # Add closing boundary
-            Write-ToStream $memoryStream "`r`n--$boundary--`r`n"
-
-            $bodyBytes = $memoryStream.ToArray()
-            $memoryStream.Close()
-
-            # Upload to Modrinth
-            $uploadUrl = "$modrinthApiUrl/version"
-
-            $headers = @{
-                "Authorization" = $modrinthToken
-            }
-
-            $response = Invoke-WebRequest -Uri $uploadUrl `
-                -Method Post `
-                -Headers $headers `
-                -ContentType "multipart/form-data; boundary=$boundary" `
-                -Body $bodyBytes `
-                -ErrorAction Stop
-
-            Write-Host "  Published successfully" -ForegroundColor Green
-            $modrinthSuccessCount++
-        } catch
-        {
-            Write-Host "  Failed to publish: $($_.Exception.Message)" -ForegroundColor Red
-            try
-            {
-                $errorResponse = $_.ErrorDetails.Message
-                if ($errorResponse)
-                {
-                    Write-Host "    Error: $errorResponse" -ForegroundColor Gray
-                }
-            } catch
-            { 
-            }
-            $modrinthFailCount++
-        }
-    }
+    Write-Host "`nSkipping Modrinth publishing" -ForegroundColor Yellow
 }
 
 Write-Host "`nPublish Summary" -ForegroundColor Cyan
