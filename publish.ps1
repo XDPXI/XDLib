@@ -137,7 +137,19 @@ function Get-VersionMapping
     $neoVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11")
     $fabricVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11")
 
-    # Bukkit first
+    # BungeeCord first
+    if ($mapping.Contains("$version-bungee"))
+    {
+        $sortedMapping["$version-bungee"] = $mapping["$version-bungee"]
+    }
+
+    # Velocity
+    if ($mapping.Contains("$version-velo"))
+    {
+        $sortedMapping["$version-velo"] = $mapping["$version-velo"]
+    }
+
+    # Bukkit
     if ($mapping.Contains("$version-bukkit"))
     {
         $sortedMapping["$version-bukkit"] = $mapping["$version-bukkit"]
