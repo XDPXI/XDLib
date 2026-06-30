@@ -84,10 +84,42 @@ tasks.register('updateBukkitVersion') {
     }
 }
 
+tasks.register('updateBungeeVersion') {
+    doLast {
+        String projectVersion = project.version.toString()
+
+        fileTree(rootDir) {
+            include '**/bungee.yml'
+        }.each { file ->
+            file.text = file.text.replaceAll(
+                    /(?m)^version\s*:\s*.*$/,
+                    "version: ${projectVersion}"
+            )
+        }
+    }
+}
+
+tasks.register('updateConstantsVersion') {
+    doLast {
+        String projectVersion = project.version.toString()
+
+        fileTree(rootDir) {
+            include '**/Constants.java'
+        }.each { file ->
+            file.text = file.text.replaceAll(
+                    /public\s+static\s+final\s+String\s+VERSION\s*=\s*"[^"]*";/,
+                    "public static final String VERSION = \"${projectVersion}\";"
+            )
+        }
+    }
+}
+
 tasks.named('build') {
     dependsOn(
             'updateFabricVersions',
             'updateNeoForgeVersions',
-            'updateBukkitVersion'
+            'updateBukkitVersion',
+            'updateBungeeVersion',
+            'updateConstantsVersion'
     )
 }
