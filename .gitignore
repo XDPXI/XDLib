@@ -63,5 +63,15 @@
 /bukkit/bin
 /bukkit/build
 /bukkit/.eclipse
+/bungeecord/.gradle
+/bungeecord/.settings
+/bungeecord/bin
+/bungeecord/build
+/bungeecord/.eclipse
+/velocity/.gradle
+/velocity/.settings
+/velocity/bin
+/velocity/build
+/velocity/.eclipse
 *.DS_STORE
 .env
