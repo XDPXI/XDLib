@@ -12,6 +12,8 @@ $mods = @(
     "neoforge-1.21.10",
     "neoforge-1.21.11",
     "bukkit",
+    "bungeecord",
+    "velocity",
     "common"
 )
 

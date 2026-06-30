@@ -1,0 +1,5 @@
+name: xdlib
+version: 7.0.0-SNAPSHOT-bungeecord
+main: dev.xdpxi.xdlib.Main
+author: XDPXI
+description: XDPXI's library for numerous tasks.

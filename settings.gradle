@@ -20,5 +20,7 @@ include(
         "neoforge-1.21.8",
         "neoforge-1.21.10",
         "neoforge-1.21.11",
-        "bukkit"
+        "bukkit",
+        "bungeecord",
+        "velocity"
 )
