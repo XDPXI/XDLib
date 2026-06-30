@@ -40,17 +40,7 @@ function Get-VersionMapping
         }
 
         # Parse JAR name: xdlib-<loader>[-<mcversion>]-<version>.jar
-        if ($name -match "xdlib-bukkit-$version\.jar")
-        {
-            $displayName = "$version-bukkit"
-            $order += $displayName
-            $mapping[$displayName] = @{
-                jar = $jar
-                loaders = @("paper", "folia", "spigot", "purpur", "bukkit")
-                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
-                dependencies = @()
-            }
-        } elseif ($name -match "xdlib-bungeecord-$version\.jar")
+        if ($name -match "xdlib-bungeecord-$version\.jar")
         {
             $displayName = "$version-bungee"
             $order += $displayName
@@ -67,6 +57,16 @@ function Get-VersionMapping
             $mapping[$displayName] = @{
                 jar = $jar
                 loaders = @("velocity")
+                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
+                dependencies = @()
+            }
+        } elseif ($name -match "xdlib-bukkit-$version\.jar")
+        {
+            $displayName = "$version-bukkit"
+            $order += $displayName
+            $mapping[$displayName] = @{
+                jar = $jar
+                loaders = @("paper", "folia", "spigot", "purpur", "bukkit")
                 gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
                 dependencies = @()
             }
