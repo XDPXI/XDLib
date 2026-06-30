@@ -78,7 +78,7 @@ tasks.register('updateBukkitVersion') {
         }.each { file ->
             file.text = file.text.replaceAll(
                     /(?m)^version\s*:\s*.*$/,
-                    "version: ${projectVersion}"
+                    "version: ${projectVersion}-bukkit"
             )
         }
     }
@@ -93,7 +93,7 @@ tasks.register('updateBungeeVersion') {
         }.each { file ->
             file.text = file.text.replaceAll(
                     /(?m)^version\s*:\s*.*$/,
-                    "version: ${projectVersion}"
+                    "version: ${projectVersion}-bungeecord"
             )
         }
     }
