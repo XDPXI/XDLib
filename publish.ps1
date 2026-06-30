@@ -218,7 +218,8 @@ function Generate-MetadataContent
     # If we have existing metadata, preserve existing versions
     if ($existingMetadata -and $existingMetadata.metadata.versioning.versions)
     {
-        foreach ($v in $existingMetadata.metadata.versioning.versions.version)
+        $versionList = @($existingMetadata.metadata.versioning.versions.version)
+        foreach ($v in $versionList)
         {
             if ($v -and $versions -notcontains $v)
             {
