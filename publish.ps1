@@ -50,6 +50,26 @@ function Get-VersionMapping
                 gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
                 dependencies = @()
             }
+        } elseif ($name -match "xdlib-bungeecord-$version\.jar")
+        {
+            $displayName = "$version-bungee"
+            $order += $displayName
+            $mapping[$displayName] = @{
+                jar = $jar
+                loaders = @("bungeecord", "waterfall")
+                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
+                dependencies = @()
+            }
+        } elseif ($name -match "xdlib-velocity-$version\.jar")
+        {
+            $displayName = "$version-velo"
+            $order += $displayName
+            $mapping[$displayName] = @{
+                jar = $jar
+                loaders = @("velocity")
+                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
+                dependencies = @()
+            }
         } elseif ($name -match "xdlib-neoforge-(\d+\.\d+\.\d+)-$version\.jar")
         {
             $mcVersion = $matches[1]
