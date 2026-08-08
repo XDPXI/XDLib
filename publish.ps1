@@ -78,7 +78,11 @@ function Get-VersionMapping
 
             # Map neoforge versions to supported game versions
             $gameVersions = @()
-            if ($mcVersion -eq "1.21.1")
+            if ($mcVersion -eq "1.20.4")
+            { $gameVersions = @("1.20.2", "1.20.3", "1.20.4")
+            } elseif ($mcVersion -eq "1.20.6")
+            { $gameVersions = @("1.20.5", "1.20.6")
+            } elseif ($mcVersion -eq "1.21.1")
             { $gameVersions = @("1.21", "1.21.1")
             } elseif ($mcVersion -eq "1.21.4")
             { $gameVersions = @("1.21.4")
@@ -108,7 +112,13 @@ function Get-VersionMapping
 
             # Map fabric versions to supported game versions
             $gameVersions = @()
-            if ($mcVersion -eq "1.21.1")
+            if ($mcVersion -eq "1.20.1")
+            { $gameVersions = @("1.20", "1.20.1")
+            } elseif ($mcVersion -eq "1.20.4")
+            { $gameVersions = @("1.20.2", "1.20.3", "1.20.4")
+            } elseif ($mcVersion -eq "1.20.6")
+            { $gameVersions = @("1.20.5", "1.20.6")
+            } elseif ($mcVersion -eq "1.21.1")
             { $gameVersions = @("1.21", "1.21.1")
             } elseif ($mcVersion -eq "1.21.4")
             { $gameVersions = @("1.21.4")
@@ -142,8 +152,8 @@ function Get-VersionMapping
 
     # Sort by desired order: bukkit, neo versions, fabric versions
     $sortedMapping = [ordered]@{}
-    $neoVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11", "26.1", "26.2")
-    $fabricVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11", "26.1", "26.2")
+    $neoVersions = @("1.20.4", "1.20.6", "1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11", "26.1", "26.2")
+    $fabricVersions = @("1.20.1", "1.20.4", "1.20.6", "1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11", "26.1", "26.2")
 
     # BungeeCord first
     if ($mapping.Contains("$version-bungee"))

@@ -1,0 +1,22 @@
+plugins {
+    id "net.neoforged.moddev" version "2.0.143"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
+dependencies {
+    implementation project(":common")
+}
+
+neoForge {
+    version = "20.4.251"
+    validateAccessTransformers = true
+
+    mods {
+        testproject {
+            sourceSet sourceSets.main
+        }
+    }
+}

@@ -58,6 +58,16 @@
 /fabric-26.2/.settings
 /fabric-26.2/bin
 /fabric-26.2/.eclipse
+/neoforge-1.20.4/build
+/neoforge-1.20.4/.gradle
+/neoforge-1.20.4/.settings
+/neoforge-1.20.4/bin
+/neoforge-1.20.4/.eclipse
+/neoforge-1.20.6/build
+/neoforge-1.20.6/.gradle
+/neoforge-1.20.6/.settings
+/neoforge-1.20.6/bin
+/neoforge-1.20.6/.eclipse
 /neoforge-1.21.1/build
 /neoforge-1.21.1/.gradle
 /neoforge-1.21.1/.settings
