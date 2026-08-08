@@ -79,7 +79,7 @@ function Get-VersionMapping
             # Map neoforge versions to supported game versions
             $gameVersions = @()
             if ($mcVersion -eq "1.20.4")
-            { $gameVersions = @("1.20.2", "1.20.3", "1.20.4")
+            { $gameVersions = @("1.20.4")
             } elseif ($mcVersion -eq "1.20.6")
             { $gameVersions = @("1.20.5", "1.20.6")
             } elseif ($mcVersion -eq "1.21.1")
@@ -115,7 +115,7 @@ function Get-VersionMapping
             if ($mcVersion -eq "1.20.1")
             { $gameVersions = @("1.20", "1.20.1")
             } elseif ($mcVersion -eq "1.20.4")
-            { $gameVersions = @("1.20.2", "1.20.3", "1.20.4")
+            { $gameVersions = @("1.20.4")
             } elseif ($mcVersion -eq "1.20.6")
             { $gameVersions = @("1.20.5", "1.20.6")
             } elseif ($mcVersion -eq "1.21.1")
