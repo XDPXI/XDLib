@@ -1,6 +1,9 @@
 # Configuration
 $version = "7.0.0-SNAPSHOT" # MUST BE SAME VERSION FROM GRADLE PROPERTIES
 $mods = @(
+    "fabric-1.20.1",
+    "fabric-1.20.4",
+    "fabric-1.20.6",
     "fabric-1.21.1",
     "fabric-1.21.4",
     "fabric-1.21.8",

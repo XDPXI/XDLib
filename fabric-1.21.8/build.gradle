@@ -10,6 +10,10 @@ buildscript {
 
 apply plugin: "fabric-loom"
 
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:1.21.8"
     mappings "net.fabricmc:yarn:1.21.8+build.1:v2"

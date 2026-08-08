@@ -9,7 +9,7 @@ allprojects {
     version = rootProject.property("version")
 
     java {
-        toolchain.languageVersion = JavaLanguageVersion.of(21)
+        toolchain.languageVersion = JavaLanguageVersion.of(17)
     }
 
     repositories {
