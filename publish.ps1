@@ -47,7 +47,7 @@ function Get-VersionMapping
             $mapping[$displayName] = @{
                 jar = $jar
                 loaders = @("bungeecord", "waterfall")
-                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
+                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11", "26.1", "26.1.1", "26.1.2")
                 dependencies = @()
             }
         } elseif ($name -match "xdlib-velocity-$version\.jar")
@@ -57,7 +57,7 @@ function Get-VersionMapping
             $mapping[$displayName] = @{
                 jar = $jar
                 loaders = @("velocity")
-                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
+                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11", "26.1", "26.1.1", "26.1.2")
                 dependencies = @()
             }
         } elseif ($name -match "xdlib-bukkit-$version\.jar")
@@ -67,10 +67,10 @@ function Get-VersionMapping
             $mapping[$displayName] = @{
                 jar = $jar
                 loaders = @("paper", "folia", "spigot", "purpur", "bukkit")
-                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
+                gameVersions = @("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11", "26.1", "26.1.1", "26.1.2")
                 dependencies = @()
             }
-        } elseif ($name -match "xdlib-neoforge-(\d+\.\d+\.\d+)-$version\.jar")
+        } elseif ($name -match "xdlib-neoforge-(\d+\.\d+(?:\.\d+)?)-$version\.jar")
         {
             $mcVersion = $matches[1]
             $displayName = "$version-neo-$mcVersion"
@@ -88,6 +88,8 @@ function Get-VersionMapping
             { $gameVersions = @("1.21.9", "1.21.10")
             } elseif ($mcVersion -eq "1.21.11")
             { $gameVersions = @("1.21.11")
+            } elseif ($mcVersion -eq "26.1")
+            { $gameVersions = @("26.1", "26.1.1", "26.1.2")
             }
 
             $mapping[$displayName] = @{
@@ -96,7 +98,7 @@ function Get-VersionMapping
                 gameVersions = $gameVersions
                 dependencies = @()
             }
-        } elseif ($name -match "xdlib-fabric-(\d+\.\d+\.\d+)-$version\.jar")
+        } elseif ($name -match "xdlib-fabric-(\d+\.\d+(?:\.\d+)?)-$version\.jar")
         {
             $mcVersion = $matches[1]
             $displayName = "$version-fabric-$mcVersion"
@@ -114,6 +116,8 @@ function Get-VersionMapping
             { $gameVersions = @("1.21.9", "1.21.10")
             } elseif ($mcVersion -eq "1.21.11")
             { $gameVersions = @("1.21.11")
+            } elseif ($mcVersion -eq "26.1")
+            { $gameVersions = @("26.1", "26.1.1", "26.1.2")
             }
 
             $fabricApiDep = @{
@@ -134,8 +138,8 @@ function Get-VersionMapping
 
     # Sort by desired order: bukkit, neo versions, fabric versions
     $sortedMapping = [ordered]@{}
-    $neoVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11")
-    $fabricVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11")
+    $neoVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11", "26.1")
+    $fabricVersions = @("1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11", "26.1")
 
     # BungeeCord first
     if ($mapping.Contains("$version-bungee"))
