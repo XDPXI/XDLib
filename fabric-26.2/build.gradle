@@ -1,0 +1,27 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url = "https://maven.fabricmc.net/" }
+    }
+    dependencies {
+        classpath "net.fabricmc:fabric-loom:1.17.19"
+    }
+}
+
+apply plugin: "net.fabricmc.fabric-loom"
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:26.2"
+    implementation "net.fabricmc:fabric-loader:0.19.3"
+    include(implementation "net.fabricmc.fabric-api:fabric-api:0.156.0+26.2")
+
+    implementation project(":common")
+}
+
+loom {
+    splitEnvironmentSourceSets()
+}

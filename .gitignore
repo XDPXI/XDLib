@@ -38,6 +38,11 @@
 /fabric-26.1/.settings
 /fabric-26.1/bin
 /fabric-26.1/.eclipse
+/fabric-26.2/build
+/fabric-26.2/.gradle
+/fabric-26.2/.settings
+/fabric-26.2/bin
+/fabric-26.2/.eclipse
 /neoforge-1.21.1/build
 /neoforge-1.21.1/.gradle
 /neoforge-1.21.1/.settings
@@ -68,6 +73,11 @@
 /neoforge-26.1/.settings
 /neoforge-26.1/bin
 /neoforge-26.1/.eclipse
+/neoforge-26.2/build
+/neoforge-26.2/.gradle
+/neoforge-26.2/.settings
+/neoforge-26.2/bin
+/neoforge-26.2/.eclipse
 /bukkit/.gradle
 /bukkit/.settings
 /bukkit/bin
