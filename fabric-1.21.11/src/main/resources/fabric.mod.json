@@ -12,7 +12,7 @@
     "sources": "https://github.com/XDPXI/XDLib",
     "issues": "https://github.com/XDPXI/XDLib/issues"
   },
-  "license": "XDs-MC-License",
+  "license": "XDs-Open-MC-License-v3",
   "icon": "assets/xdlib/icon.png",
   "environment": "*",
   "entrypoints": {
