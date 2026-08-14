@@ -8,6 +8,8 @@ java {
 
 dependencies {
     implementation project(":common")
+
+    jarJar("org.yaml:snakeyaml:2.6")
 }
 
 neoForge {
