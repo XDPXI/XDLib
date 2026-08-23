@@ -5,8 +5,8 @@ import net.fabricmc.api.ClientModInitializer;
 
 public class Client implements ClientModInitializer {
 
-    @Override
-    public void onInitializeClient() {
-        WindowProvider.init();
-    }
+  @Override
+  public void onInitializeClient() {
+    WindowProvider.init();
+  }
 }
