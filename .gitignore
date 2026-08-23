@@ -120,3 +120,4 @@
 /velocity/.eclipse
 *.DS_STORE
 .env
+*.exe
