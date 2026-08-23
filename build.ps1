@@ -41,7 +41,7 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 New-Item -ItemType Directory -Force -Path $tmpRoot, $finalLibs | Out-Null
 
 Get-ChildItem $finalLibs -Recurse -Force -ErrorAction SilentlyContinue |
-    Remove-Item -Recurse -Force
+        Remove-Item -Recurse -Force
 
 # Process mods
 foreach ($mod in $mods)
@@ -85,7 +85,8 @@ foreach ($mod in $mods)
                 if ($_.PSIsContainer)
                 {
                     New-Item -ItemType Directory -Path $dest | Out-Null
-                } else
+                }
+                else
                 {
                     Copy-Item $_.FullName $dest
                 }
@@ -93,7 +94,8 @@ foreach ($mod in $mods)
         }
 
         Remove-Item $commonTmp -Recurse -Force
-    } else
+    }
+    else
     {
         Write-Warning "Common jar not found: $commonJar"
     }

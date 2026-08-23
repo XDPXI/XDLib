@@ -26,7 +26,7 @@ function Get-VersionMapping
 {
     param([System.IO.FileInfo[]]$jars)
 
-    $mapping = @{}
+    $mapping = @{ }
     $order = @()
 
     foreach ($jar in $jars)
@@ -50,7 +50,8 @@ function Get-VersionMapping
                 gameVersions = @("1.20", "1.20.1", "1.20.2", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11", "26.1", "26.1.1", "26.1.2", "26.2")
                 dependencies = @()
             }
-        } elseif ($name -match "xdlib-velocity-$version\.jar")
+        }
+        elseif ($name -match "xdlib-velocity-$version\.jar")
         {
             $displayName = "$version-velo"
             $order += $displayName
@@ -60,7 +61,8 @@ function Get-VersionMapping
                 gameVersions = @("1.20", "1.20.1", "1.20.2", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11", "26.1", "26.1.1", "26.1.2", "26.2")
                 dependencies = @()
             }
-        } elseif ($name -match "xdlib-bukkit-$version\.jar")
+        }
+        elseif ($name -match "xdlib-bukkit-$version\.jar")
         {
             $displayName = "$version-bukkit"
             $order += $displayName
@@ -70,7 +72,8 @@ function Get-VersionMapping
                 gameVersions = @("1.20", "1.20.1", "1.20.2", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11", "26.1", "26.1.1", "26.1.2", "26.2")
                 dependencies = @()
             }
-        } elseif ($name -match "xdlib-neoforge-(\d+\.\d+(?:\.\d+)?)-$version\.jar")
+        }
+        elseif ($name -match "xdlib-neoforge-(\d+\.\d+(?:\.\d+)?)-$version\.jar")
         {
             $mcVersion = $matches[1]
             $displayName = "$version-neo-$mcVersion"
@@ -79,23 +82,40 @@ function Get-VersionMapping
             # Map neoforge versions to supported game versions
             $gameVersions = @()
             if ($mcVersion -eq "1.20.4")
-            { $gameVersions = @("1.20.4")
-            } elseif ($mcVersion -eq "1.20.6")
-            { $gameVersions = @("1.20.5", "1.20.6")
-            } elseif ($mcVersion -eq "1.21.1")
-            { $gameVersions = @("1.21", "1.21.1")
-            } elseif ($mcVersion -eq "1.21.4")
-            { $gameVersions = @("1.21.4")
-            } elseif ($mcVersion -eq "1.21.8")
-            { $gameVersions = @("1.21.6", "1.21.7", "1.21.8")
-            } elseif ($mcVersion -eq "1.21.10")
-            { $gameVersions = @("1.21.9", "1.21.10")
-            } elseif ($mcVersion -eq "1.21.11")
-            { $gameVersions = @("1.21.11")
-            } elseif ($mcVersion -eq "26.1")
-            { $gameVersions = @("26.1", "26.1.1", "26.1.2")
-            } elseif ($mcVersion -eq "26.2")
-            { $gameVersions = @("26.2")
+            {
+                $gameVersions = @("1.20.4")
+            }
+            elseif ($mcVersion -eq "1.20.6")
+            {
+                $gameVersions = @("1.20.5", "1.20.6")
+            }
+            elseif ($mcVersion -eq "1.21.1")
+            {
+                $gameVersions = @("1.21", "1.21.1")
+            }
+            elseif ($mcVersion -eq "1.21.4")
+            {
+                $gameVersions = @("1.21.4")
+            }
+            elseif ($mcVersion -eq "1.21.8")
+            {
+                $gameVersions = @("1.21.6", "1.21.7", "1.21.8")
+            }
+            elseif ($mcVersion -eq "1.21.10")
+            {
+                $gameVersions = @("1.21.9", "1.21.10")
+            }
+            elseif ($mcVersion -eq "1.21.11")
+            {
+                $gameVersions = @("1.21.11")
+            }
+            elseif ($mcVersion -eq "26.1")
+            {
+                $gameVersions = @("26.1", "26.1.1", "26.1.2")
+            }
+            elseif ($mcVersion -eq "26.2")
+            {
+                $gameVersions = @("26.2")
             }
 
             $mapping[$displayName] = @{
@@ -104,7 +124,8 @@ function Get-VersionMapping
                 gameVersions = $gameVersions
                 dependencies = @()
             }
-        } elseif ($name -match "xdlib-fabric-(\d+\.\d+(?:\.\d+)?)-$version\.jar")
+        }
+        elseif ($name -match "xdlib-fabric-(\d+\.\d+(?:\.\d+)?)-$version\.jar")
         {
             $mcVersion = $matches[1]
             $displayName = "$version-fabric-$mcVersion"
@@ -113,25 +134,44 @@ function Get-VersionMapping
             # Map fabric versions to supported game versions
             $gameVersions = @()
             if ($mcVersion -eq "1.20.1")
-            { $gameVersions = @("1.20", "1.20.1")
-            } elseif ($mcVersion -eq "1.20.4")
-            { $gameVersions = @("1.20.4")
-            } elseif ($mcVersion -eq "1.20.6")
-            { $gameVersions = @("1.20.5", "1.20.6")
-            } elseif ($mcVersion -eq "1.21.1")
-            { $gameVersions = @("1.21", "1.21.1")
-            } elseif ($mcVersion -eq "1.21.4")
-            { $gameVersions = @("1.21.4")
-            } elseif ($mcVersion -eq "1.21.8")
-            { $gameVersions = @("1.21.6", "1.21.7", "1.21.8")
-            } elseif ($mcVersion -eq "1.21.10")
-            { $gameVersions = @("1.21.9", "1.21.10")
-            } elseif ($mcVersion -eq "1.21.11")
-            { $gameVersions = @("1.21.11")
-            } elseif ($mcVersion -eq "26.1")
-            { $gameVersions = @("26.1", "26.1.1", "26.1.2")
-            } elseif ($mcVersion -eq "26.2")
-            { $gameVersions = @("26.2")
+            {
+                $gameVersions = @("1.20", "1.20.1")
+            }
+            elseif ($mcVersion -eq "1.20.4")
+            {
+                $gameVersions = @("1.20.4")
+            }
+            elseif ($mcVersion -eq "1.20.6")
+            {
+                $gameVersions = @("1.20.5", "1.20.6")
+            }
+            elseif ($mcVersion -eq "1.21.1")
+            {
+                $gameVersions = @("1.21", "1.21.1")
+            }
+            elseif ($mcVersion -eq "1.21.4")
+            {
+                $gameVersions = @("1.21.4")
+            }
+            elseif ($mcVersion -eq "1.21.8")
+            {
+                $gameVersions = @("1.21.6", "1.21.7", "1.21.8")
+            }
+            elseif ($mcVersion -eq "1.21.10")
+            {
+                $gameVersions = @("1.21.9", "1.21.10")
+            }
+            elseif ($mcVersion -eq "1.21.11")
+            {
+                $gameVersions = @("1.21.11")
+            }
+            elseif ($mcVersion -eq "26.1")
+            {
+                $gameVersions = @("26.1", "26.1.1", "26.1.2")
+            }
+            elseif ($mcVersion -eq "26.2")
+            {
+                $gameVersions = @("26.2")
             }
 
             $fabricApiDep = @{
@@ -151,24 +191,24 @@ function Get-VersionMapping
     }
 
     # Sort by desired order: bukkit, neo versions, fabric versions
-    $sortedMapping = [ordered]@{}
+    $sortedMapping = [ordered]@{ }
     $neoVersions = @("1.20.4", "1.20.6", "1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11", "26.1", "26.2")
     $fabricVersions = @("1.20.1", "1.20.4", "1.20.6", "1.21.1", "1.21.4", "1.21.8", "1.21.10", "1.21.11", "26.1", "26.2")
 
     # BungeeCord first
-    if ($mapping.Contains("$version-bungee"))
+    if ( $mapping.Contains("$version-bungee"))
     {
         $sortedMapping["$version-bungee"] = $mapping["$version-bungee"]
     }
 
     # Velocity
-    if ($mapping.Contains("$version-velo"))
+    if ( $mapping.Contains("$version-velo"))
     {
         $sortedMapping["$version-velo"] = $mapping["$version-velo"]
     }
 
     # Bukkit
-    if ($mapping.Contains("$version-bukkit"))
+    if ( $mapping.Contains("$version-bukkit"))
     {
         $sortedMapping["$version-bukkit"] = $mapping["$version-bukkit"]
     }
@@ -177,7 +217,7 @@ function Get-VersionMapping
     foreach ($mcVer in $neoVersions)
     {
         $key = "$version-neo-$mcVer"
-        if ($mapping.Contains($key))
+        if ( $mapping.Contains($key))
         {
             $sortedMapping[$key] = $mapping[$key]
         }
@@ -187,7 +227,7 @@ function Get-VersionMapping
     foreach ($mcVer in $fabricVersions)
     {
         $key = "$version-fabric-$mcVer"
-        if ($mapping.Contains($key))
+        if ( $mapping.Contains($key))
         {
             $sortedMapping[$key] = $mapping[$key]
         }
@@ -252,7 +292,8 @@ function Get-ExistingMetadata
     {
         $response = Invoke-WebRequest -Uri $metadataUrl -Method Get -Credential $mavenCredential -ErrorAction Stop
         return [xml]$response.Content
-    } catch
+    }
+    catch
     {
         return $null
     }
@@ -345,9 +386,10 @@ if ($publishToMaven)
             Invoke-WebRequest -Uri $jarUrl -InFile $jarPath -Method Put -Credential $mavenCredential -ErrorAction Stop | Out-Null
             Write-Host "  Uploaded JAR successfully" -ForegroundColor Green
             $mavenSuccessCount++
-        } catch
+        }
+        catch
         {
-            Write-Host "  Failed to upload JAR: $($_.Exception.Message)" -ForegroundColor Red
+            Write-Host "  Failed to upload JAR: $( $_.Exception.Message )" -ForegroundColor Red
             $mavenFailCount++
             continue
         }
@@ -367,9 +409,10 @@ if ($publishToMaven)
 
             Remove-Item $pomPath -Force
             Start-Sleep -Milliseconds 100
-        } catch
+        }
+        catch
         {
-            Write-Host "  Failed to upload POM: $($_.Exception.Message)" -ForegroundColor Red
+            Write-Host "  Failed to upload POM: $( $_.Exception.Message )" -ForegroundColor Red
         }
 
         # Generate and upload maven-metadata.xml
@@ -389,12 +432,14 @@ if ($publishToMaven)
 
             Remove-Item $metadataPath -Force
             Start-Sleep -Milliseconds 100
-        } catch
+        }
+        catch
         {
-            Write-Host "  Failed to upload maven-metadata.xml: $($_.Exception.Message)" -ForegroundColor Red
+            Write-Host "  Failed to upload maven-metadata.xml: $( $_.Exception.Message )" -ForegroundColor Red
         }
     }
-} else
+}
+else
 {
     $mavenSuccessCount = 0
     $mavenFailCount = 0
@@ -411,7 +456,8 @@ if ($publishToModrinth)
         Write-Warning "MODRINTH_TOKEN environment variable not set. Skipping Modrinth publishing."
         $modrinthSuccessCount = 0
         $modrinthFailCount = 0
-    } else
+    }
+    else
     {
         $modrinthSuccessCount = 0
         $modrinthFailCount = 0
@@ -497,9 +543,10 @@ if ($publishToModrinth)
 
                 Write-Host "  Published successfully" -ForegroundColor Green
                 $modrinthSuccessCount++
-            } catch
+            }
+            catch
             {
-                Write-Host "  Failed to publish: $($_.Exception.Message)" -ForegroundColor Red
+                Write-Host "  Failed to publish: $( $_.Exception.Message )" -ForegroundColor Red
                 try
                 {
                     $errorResponse = $_.ErrorDetails.Message
@@ -507,14 +554,16 @@ if ($publishToModrinth)
                     {
                         Write-Host "    Error: $errorResponse" -ForegroundColor Gray
                     }
-                } catch
+                }
+                catch
                 {
                 }
                 $modrinthFailCount++
             }
         }
     }
-} else
+}
+else
 {
     $modrinthSuccessCount = 0
     $modrinthFailCount = 0
