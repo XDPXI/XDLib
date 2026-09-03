@@ -9,7 +9,7 @@ java {
 dependencies {
     implementation project(":common")
 
-    jarJar("org.yaml:snakeyaml:2.6")
+    jarJar("org.yaml:snakeyaml:2.7")
 }
 
 neoForge {
