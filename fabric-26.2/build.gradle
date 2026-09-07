@@ -19,7 +19,7 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:0.19.5"
     include(implementation "net.fabricmc.fabric-api:fabric-api:0.156.0+26.2")
 
-    include "org.yaml:snakeyaml:2.6"
+    include "org.yaml:snakeyaml:2.7"
 
     implementation project(":common")
 }
